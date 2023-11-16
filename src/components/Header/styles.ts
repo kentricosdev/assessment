@@ -5,7 +5,7 @@ export const ContainerHeader = styled.header`
   background-color: ${({ theme }) => theme.colors.neutral100};
 
   @media (min-width: 992px) {
-    padding:  42px 0 0 76px;
+    padding:  42px 0 0 120px;
   }
 `;
 
