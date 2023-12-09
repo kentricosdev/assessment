@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   Actions,
   ContainerHeader,
@@ -12,18 +13,23 @@ import {
   StartAssessment,
   Text,
   Title,
-  Wrapper
+  Wrapper,
+  Leave
 } from "./styles";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  assessmentStarted: boolean;
+  onStartAssessment: () => void;
+  onExit: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ assessmentStarted, onStartAssessment, onExit }) => {
   return (
     <ContainerHeader>
       <Wrapper>
         <Menu>
-          <Logo>
-            <a href="#">
-              <img src="/images/logo.svg" alt="Logo Kentricos" />
-            </a>
+          <Logo href="#">
+            <img src="/images/logo.svg" alt="Logo Kentricos" />
           </Logo>
 
           <Navigation>
@@ -44,7 +50,15 @@ const Header: React.FC = () => {
             </NavigationItem>
           </Navigation>
 
-          <div style={{flex: 1}}></div>
+          <div style={{flex: 1, display: 'flex', justifyContent: 'flex-end'}}>
+            {assessmentStarted  && (
+              <Link to="/">
+                <Leave onClick={onExit}>
+                  Sair
+                </Leave>
+              </Link>
+            )}
+          </div>
         </Menu>
 
         <MainContentContainer>
@@ -56,18 +70,21 @@ const Header: React.FC = () => {
 
             <Text>Descubra o nível de maturidade de experiência do cliente da sua empresa em poucos cliques!</Text>
 
-            <Actions>
-              <StartAssessment>
-                <button>Iniciar Assessment</button>
-              </StartAssessment>
-              <SeeVideo>
-                <button>Confira o vídeo</button>
-              </SeeVideo>
-            </Actions>
+            {
+              !assessmentStarted && (
+                <Actions>
+                  <StartAssessment>
+                  <Link to="/personalForm">
+                    <button onClick={onStartAssessment}>Iniciar Assessment</button>
+                  </Link>
+                  </StartAssessment>
+                  <SeeVideo>
+                    <button>Confira o vídeo</button>
+                  </SeeVideo>
+                </Actions>
+              )
+            }
           </LeftSide>
-          <RightSide>
-            <img src="/images/conceito-de-negocios.png" alt="Homem olhando para um quadro de ideias" />
-          </RightSide>
         </MainContentContainer>
       </Wrapper>
     </ContainerHeader>

@@ -1,16 +1,14 @@
 import styled from 'styled-components';
 
 export const ContainerHeader = styled.header`
-  padding: 16px;
   background-color: ${({ theme }) => theme.colors.neutral100};
-
-  @media (min-width: 992px) {
-    padding:  42px 0 0 120px;
-  }
 `;
 
 export const Menu = styled.div`
-  margin-bottom: 40px;
+  margin-bottom: 100px;
+  padding-left: 80px;
+  padding-right: 80px;
+  height: 56px;
 
   @media (min-width: 992px) {
     display: flex;
@@ -20,11 +18,8 @@ export const Menu = styled.div`
 
 export const Logo = styled.a`
   flex: 1;
-
-  a {
-    display: block;
-    width: fit-content;
-  }
+  display: block;
+  width: fit-content;
 `;
 
 export const Navigation = styled.nav`
@@ -70,12 +65,14 @@ export const NavigationItem = styled.div`
 
 export const MainContentContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 `;
 
 export const LeftSide = styled.div`
   padding-right: 10px;
+  padding-top: 40px;
+  padding-left: 120px;
   width: 50%;
 `;
 
@@ -151,4 +148,42 @@ export const RightSide = styled.div`
 
 export const Wrapper = styled.div`
   margin: 0 auto;
+  background-color: ${({ theme }) => theme.colors.neutral100};
+  background-image: url('/images/hero-main-banner-bg.png');
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  max-width: 1440px;
+  min-height: 614.41px;
+
+  padding-bottom: 6%;
+
+  @media (min-width: 992px) {
+    padding:  42px 0 6% 0;
+  }
+
+  @media (min-width: 0) and (max-width: 1440px) {
+    background-size: 100%;
+  }
+`
+
+
+export const Leave = styled.button`
+  color: #FFF;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 25px;
+  letter-spacing: -0.32px;
+  display: flex;
+  width: 160px;
+  height: 56px;
+  padding: 14px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  background-color: transparent;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.50);
 `

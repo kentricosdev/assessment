@@ -1,17 +1,15 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
-import { HomeScreen } from './screens'
+import { HomeScreen, PersonalFormScreen } from './screens'
 
 
 const AppRoutes = () => {
-
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<Navigate to="/" />} />
-        <Route path="/" element={<HomeScreen />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/*" element={<Navigate to="/" />} />
+      <Route path="/" element={<HomeScreen />} />
+      <Route path="/personalForm" element={<PersonalFormScreen />} />
+    </Routes>
   )
 }
 
