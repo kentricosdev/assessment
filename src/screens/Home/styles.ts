@@ -15,16 +15,30 @@ export const Video = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 16px;
 
   img {
     border-radius: 10px;
+    width: 100%;
+    height: auto;
   }
 `
 
 export const BubblesLeft = styled.div`
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 `;
 
 export const BubblesRight = styled.div`
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
 `;
 
 export const TheAssessment = styled.div`
@@ -32,8 +46,8 @@ export const TheAssessment = styled.div`
   padding: 90px 120px;
 
   @media (min-width: 0) and (max-width: 920px) {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .assessment-title {
@@ -214,7 +228,7 @@ export const Newsletter = styled.div`
   background-image: url('/images/all-blue-rounded.png');
   background-position: center 35px;
   background-repeat: no-repeat;
-  padding: 89px 24px;
+  padding: 89px 16px;
 
   h2 {
     color: ${({ theme }) => theme.colors.neutral100};
@@ -257,6 +271,10 @@ export const InputContainer = styled.div`
   align-items: center;
   border-radius: 100px;
   background: #fff;
+
+  @media (min-width: 0) and (max-width: 768px) {
+    width: 100%;
+  }
 
   input {
     width: 399px;

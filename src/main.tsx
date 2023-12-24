@@ -7,37 +7,20 @@ import Header from './components/Header/index.tsx';
 import Footer from './components/Footer/index.tsx';
 import AppRoutes from './Routes.tsx';
 import { BrowserRouter } from 'react-router-dom';
+import ExitModal from './components/ExitModal/index.tsx';
+import { FormsProvider } from './context/forms.tsx';
 
 const Main: React.FC = () => {
-  const [assessmentStarted, setAssessmentStarted] = useState<boolean>(() => {
-    const storedValue = localStorage.getItem('assessmentStarted');
-    return storedValue ? JSON.parse(storedValue) : false;
-  });
-
-  const handleStartAssessment = () => {
-    setAssessmentStarted(true);
-  };
-
-  const handleExit = () => {
-    setAssessmentStarted(false);
-  };
-
-  useEffect(() => {
-    localStorage.setItem('assessmentStarted', JSON.stringify(assessmentStarted));
-  }, [assessmentStarted]);
-
   return (
     <BrowserRouter>
       <React.StrictMode>
         <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <Header
-            assessmentStarted={assessmentStarted}
-            onStartAssessment={handleStartAssessment}
-            onExit={handleExit}
-          />
-          <AppRoutes />
-          <Footer />
+          <FormsProvider>
+            <GlobalStyles />
+            <Header/>
+            <AppRoutes  />
+            <Footer />
+          </FormsProvider>
         </ThemeProvider>
       </React.StrictMode>
     </BrowserRouter>

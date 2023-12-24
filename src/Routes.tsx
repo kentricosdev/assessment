@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { HomeScreen, PersonalFormScreen } from './screens'
 
-
 const AppRoutes = () => {
   return (
     <Routes>

@@ -1,3 +1,4 @@
+import useAssessmentRedirect from "../../hooks/assessmentRedirect";
 import {
   Container,
   VideoContainer,
@@ -25,6 +26,8 @@ import {
 } from "./styles"
 
 const Home: React.FC = () => {
+  useAssessmentRedirect();
+
   return (
     <>
       <Container>

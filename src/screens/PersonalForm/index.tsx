@@ -1,8 +1,11 @@
-import { Formik, Form, Field, FieldProps, FieldAttributes, useField } from 'formik';
+import { Formik, Form, Field, FieldProps, FieldAttributes, useField, FormikProps } from 'formik';
 import { Container, Explanation, ExplanationText, ExplanationTitle, Title, Wrapper, FormActionsContainer, ClearButton, SubmitButton } from './styles';
 import styled from 'styled-components';
 import { useState } from 'react';
 import Switch from "react-switch";
+import ExitModal from '../../components/ExitModal';
+import { useForms } from '../../context/forms';
+import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 
 interface MyFormValues {
   fullName: string;
@@ -68,11 +71,12 @@ const OptionsContainer = styled.div`
   left: 0;
   width: 100%;
   z-index: 1;
+  box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, .2);
 `;
 
-const StyledOption = styled.div<{ isSelected: boolean }>`
+const StyledOption = styled.div<{ isselected: string }>`
   padding: 8px;
-  background-color: ${(props) => (props.isSelected ? '#ccc' : 'white')};
+  background-color: ${(props) => (props.isselected === "true" ? '#ccc' : 'white')};
   cursor: pointer;
 
   &:hover {
@@ -87,7 +91,6 @@ const StyledSelectWrapper = styled.div`
 const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props }) => {
   const [field, meta, helpers] = useField(props.name as string);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   const handleSelect = (value: string) => {
     helpers.setValue(value);
     setIsDropdownOpen(false);
@@ -101,8 +104,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props })
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onBlur={() => setIsDropdownOpen(false)}
         >
-          aaaa
-          {field.value}
+          {field.value || 'Selecionar'}
           <img src="/icons/arrow-down.svg" alt="icon" />
         </StyledSelect>
       {isDropdownOpen && (
@@ -110,7 +112,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props })
           {options.map((option) => (
             <StyledOption
               key={option.value}
-              isSelected={field.value === option.label}
+              isselected={field.value === option.label ? "true" : "false"}
               onClick={() => handleSelect(option.label)}
             >
               {option.label}
@@ -136,159 +138,171 @@ const PersonalForm: React.FC = () => {
     receiveContent: false,
     annualRevenue: '',
   };
+  const { handleExit } = useForms();
+  const handleCleanForm = (formikProps: FormikProps<MyFormValues>) => {
+    formikProps.resetForm();
+  };
 
-
-  const handleCleanForm = () => {
-    console.log('form resetado para estado natural!')
+  const handleExitForm = (formikProps: FormikProps<MyFormValues>) => {
+    formikProps.resetForm();
+    handleExit();
   }
 
+  useAssessmentRedirect();
+
   return (
-    <Container>
-      <Wrapper>
-        <Title>O assessment</Title>
+    <>
+      <Container>
+        <Wrapper>
+          <Title>O assessment</Title>
 
-        <Explanation>
-          <ExplanationTitle>
-            Vamos nos conhecer?
-          </ExplanationTitle>
-          <ExplanationText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</ExplanationText>
-        </Explanation>
+          <Explanation>
+            <ExplanationTitle>
+              Vamos nos conhecer?
+            </ExplanationTitle>
+            <ExplanationText>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</ExplanationText>
+          </Explanation>
 
-        <Formik
-          initialValues={initialValues}
-          onSubmit={(values, actions) => {
-            console.log({ values, actions });
-            alert(JSON.stringify(values, null, 2));
-            actions.setSubmitting(false);
-          }}
-        >
-          <Form>
-            <div className="input-wrapper">
-              <label htmlFor="fullName">Nome Completo:</label>
-              <Field id="fullName" name="fullName" placeholder="Nome Completo" />
-            </div>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={(values, actions) => {
+              console.log({ values, actions });
+              alert(JSON.stringify(values, null, 2));
+              actions.setSubmitting(false);
+            }}
+          >
+            {
+              (formikProps) => (
+                <>
+                  <ExitModal confirmClear={() => handleExitForm(formikProps)}/>
+                  <Form>
+                    <div className="input-wrapper">
+                      <label htmlFor="fullName">Nome Completo:</label>
+                      <Field id="fullName" name="fullName" placeholder="Nome Completo" />
+                    </div>
 
-            <div className="input-wrapper">
-              <label htmlFor="company">Empresa:</label>
-              <Field id="company" name="company" placeholder="Empresa" />
-            </div>
+                    <div className="input-wrapper">
+                      <label htmlFor="company">Empresa:</label>
+                      <Field id="company" name="company" placeholder="Empresa" />
+                    </div>
 
-            <div className="input-wrapper">
-              <label htmlFor="email">E-mail:</label>
-              <Field id="email" name="email" type="email" placeholder="E-mail" />
-            </div>
+                    <div className="input-wrapper">
+                      <label htmlFor="email">E-mail:</label>
+                      <Field id="email" name="email" type="email" placeholder="E-mail" />
+                    </div>
 
-            <div className="input-wrapper">
-              <label htmlFor="sector">Setor:</label>
-              <CustomSelect
-                label="Escolha uma opção"
-                id="sector"
-                name="sector"
-                options={[
-                  { value: 'option1', label: 'Opção 1' },
-                  { value: 'option2', label: 'Opção 2' },
-                ]}
-              />
-            </div>
+                    <div className="input-wrapper">
+                      <label htmlFor="sector">Setor:</label>
+                      <CustomSelect
+                        label="Escolha uma opção"
+                        id="sector"
+                        name="sector"
+                        options={[
+                          { value: 'option1', label: 'Opção 1' },
+                          { value: 'option2', label: 'Opção 2' },
+                        ]}
+                      />
+                    </div>
 
-            <div className="input-wrapper">
-              <label htmlFor="whatsapp">Whatsapp:</label>
-              <Field id="whatsapp" name="whatsapp" type="phone" placeholder="Whatsapp" />
-            </div>
+                    <div className="input-wrapper">
+                      <label htmlFor="whatsapp">Whatsapp:</label>
+                      <Field id="whatsapp" name="whatsapp" type="phone" placeholder="Whatsapp" />
+                    </div>
 
-            <div className="input-wrapper">
-              <label htmlFor="employeeQuantity">Quantidade de Funcionário:</label>
-              <CustomSelect
-                label="Escolha uma opção"
-                id="employeeQuantity"
-                name="employeeQuantity"
-                options={[
-                  { value: 'option1', label: 'Opção 1' },
-                  { value: 'option2', label: 'Opção 2' },
-                ]}
-              />
-            </div>
+                    <div className="input-wrapper">
+                      <label htmlFor="employeeQuantity">Quantidade de Funcionário:</label>
+                      <CustomSelect
+                        label="Escolha uma opção"
+                        id="employeeQuantity"
+                        name="employeeQuantity"
+                        options={[
+                          { value: 'option1', label: 'Opção 1' },
+                          { value: 'option2', label: 'Opção 2' },
+                        ]}
+                      />
+                    </div>
 
-            <div className="input-wrapper-policy">
-              <div className="policy-inner-wrapper">
-                <Field
-                  className="check-field"
-                  name="privacyPolicy"
-                  render={({ field }: FieldProps<MyFormValues>) => (
-                    <StyledSwitch
-                      offColor="#e4e5e7"
-                      onColor="#e4e5e7"
-                      height={13}
-                      width={33}
-                      handleDiameter={16}
-                      offHandleColor='#888788'
-                      onHandleColor='#184E77'
-                      uncheckedIcon={false}
-                      checkedIcon={false}
-                      onChange={(checked) => {
-                        field.onChange({ target: { name: field.name, value: checked } });
-                      }}
-                      checked={!!field.value}
-                    />
-                  )}
-                />
-                <div className="check-description">
-                  <label htmlFor="privacyPolicy">Politicas de privacidade:</label>
-                  <p>Eu li e aceito os termos de privacidade.</p>
-                </div>
-              </div>
+                    <div className="input-wrapper-policy">
+                      <div className="policy-inner-wrapper">
+                        <Field name="privacyPolicy">
+                          {({ field, form }: FieldProps<MyFormValues>) => (
+                            <StyledSwitch
+                              offColor="#e4e5e7"
+                              onColor="#e4e5e7"
+                              height={13}
+                              width={33}
+                              handleDiameter={16}
+                              offHandleColor="#888788"
+                              onHandleColor="#184E77"
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              onChange={(checked) => {
+                                form.setFieldValue(field.name, checked);
+                              }}
+                              checked={!!field.value}
+                            />
+                          )}
+                        </Field>
+                        <div className="check-description">
+                          <label htmlFor="privacyPolicy">Politicas de privacidade:</label>
+                          <p>Eu li e aceito os termos de privacidade.</p>
+                        </div>
+                      </div>
 
-              <div className="policy-inner-wrapper">
-                <Field
-                  className="check-field"
-                  name="receiveContent"
-                  render={({ field }: FieldProps<MyFormValues>) => (
-                    <StyledSwitch
-                      offColor="#e4e5e7"
-                      onColor="#e4e5e7"
-                      height={13}
-                      width={33}
-                      handleDiameter={16}
-                      offHandleColor='#888788'
-                      onHandleColor='#184E77'
-                      uncheckedIcon={false}
-                      checkedIcon={false}
-                      onChange={(checked) => {
-                        field.onChange({ target: { name: field.name, value: checked } });
-                      }}
-                      checked={!!field.value}
-                    />
-                  )}
-                />
-                <div className="check-description">
-                  <label htmlFor="receiveContent">Aceito Receber conteudos e noticias:</label>
-                  <p>Eu aceito receber os conteúdos e notícias desta empresa.</p>
-                </div>
-              </div>
-            </div>
+                      <div className="policy-inner-wrapper">
+                        <Field name="receiveContent">
+                          {({ field, form }: FieldProps<MyFormValues>) => (
+                            <StyledSwitch
+                              offColor="#e4e5e7"
+                              onColor="#e4e5e7"
+                              height={13}
+                              width={33}
+                              handleDiameter={16}
+                              offHandleColor="#888788"
+                              onHandleColor="#184E77"
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              onChange={(checked) => {
+                                form.setFieldValue(field.name, checked);
+                              }}
+                              checked={!!field.value}
+                            />
+                          )}
+                        </Field>
+                        <div className="check-description">
+                          <label htmlFor="receiveContent">Aceito Receber conteúdos e noticias:</label>
+                          <p>Eu aceito receber os conteúdos e notícias desta empresa.</p>
+                        </div>
+                      </div>
+
+                    </div>
 
 
-            <div className="input-wrapper">
-              <label htmlFor="annualRevenue">Faturamento Anual:</label>
-              <CustomSelect
-                label="Escolha uma opção"
-                id="annualRevenue"
-                name="annualRevenue"
-                options={[
-                  { value: 'option1', label: 'Opção 1' },
-                  { value: 'option2', label: 'Opção 2' },
-                ]}
-              />
-            </div>
+                    <div className="input-wrapper">
+                      <label htmlFor="annualRevenue">Faturamento Anual:</label>
+                      <CustomSelect
+                        label="Escolha uma opção"
+                        id="annualRevenue"
+                        name="annualRevenue"
+                        options={[
+                          { value: 'option1', label: 'Opção 1' },
+                          { value: 'option2', label: 'Opção 2' },
+                        ]}
+                      />
+                    </div>
 
-            <FormActionsContainer>
-              <ClearButton onClick={handleCleanForm}>Limpar</ClearButton>
-              <SubmitButton type="submit">Iniciar Assessment</SubmitButton>
-            </FormActionsContainer>
-          </Form>
-        </Formik>
-      </Wrapper>
-    </Container>
+                    <FormActionsContainer>
+                      <ClearButton type="button" onClick={() => handleCleanForm(formikProps)}>Limpar</ClearButton>
+                      <SubmitButton type="submit" >Iniciar Assessment</SubmitButton>
+                    </FormActionsContainer>
+                  </Form>
+                </>
+              )
+            }
+          </Formik>
+        </Wrapper>
+      </Container>
+    </>
   )
 }
 

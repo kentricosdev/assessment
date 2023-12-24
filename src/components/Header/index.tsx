@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { IoClose, IoMenu } from "react-icons/io5"
 import {
   Actions,
   ContainerHeader,
@@ -14,16 +15,23 @@ import {
   Text,
   Title,
   Wrapper,
-  Leave
+  Leave,
+  MobileNavigation,
+  MobileNavContent,
+  MobileNavHeader
 } from "./styles";
+import { useState } from "react";
+import { useForms } from "../../context/forms";
 
-interface HeaderProps {
-  assessmentStarted: boolean;
-  onStartAssessment: () => void;
-  onExit: () => void;
-}
 
-const Header: React.FC<HeaderProps> = ({ assessmentStarted, onStartAssessment, onExit }) => {
+const Header: React.FC = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const {isModalOpen, handleOpenModal, handleCloseModal, assessmentStarted, handleStartAssessment } = useForms();
+
+  const handleOpenMenuMobile = () => {
+    setMenuOpen(!menuOpen);
+  }
+
   return (
     <ContainerHeader>
       <Wrapper>
@@ -50,15 +58,47 @@ const Header: React.FC<HeaderProps> = ({ assessmentStarted, onStartAssessment, o
             </NavigationItem>
           </Navigation>
 
-          <div style={{flex: 1, display: 'flex', justifyContent: 'flex-end'}}>
+          <div className="leave-assessment--button">
             {assessmentStarted  && (
-              <Link to="/">
-                <Leave onClick={onExit}>
-                  Sair
-                </Leave>
-              </Link>
+              <Leave onClick={handleOpenModal}>
+                Sair
+              </Leave>
             )}
           </div>
+
+          <MobileNavigation>
+            <button onClick={handleOpenMenuMobile}>
+              <IoMenu color='#FFF' />
+            </button>
+            <MobileNavContent ishidden={!menuOpen}>
+              <MobileNavHeader>
+                <button onClick={handleOpenMenuMobile}>
+                  <IoClose color='#FFF' />
+                </button>
+              </MobileNavHeader>
+              <NavigationItem>
+                <a href="#">Início</a>
+              </NavigationItem>
+              <NavigationItem>
+                <a href="#">Consultoria</a>
+              </NavigationItem>
+              <NavigationItem>
+                <a href="#">Xcore</a>
+              </NavigationItem>
+              <NavigationItem>
+                <a href="#">Quem somos?</a>
+              </NavigationItem>
+              <NavigationItem>
+                <a href="#">Comunidade</a>
+              </NavigationItem>
+
+              {assessmentStarted  && (
+                <Leave onClick={handleOpenModal} style={{width: '100%'}}>
+                  Sair
+                </Leave>
+              )}
+            </MobileNavContent>
+          </MobileNavigation>
         </Menu>
 
         <MainContentContainer>
@@ -75,7 +115,7 @@ const Header: React.FC<HeaderProps> = ({ assessmentStarted, onStartAssessment, o
                 <Actions>
                   <StartAssessment>
                   <Link to="/personalForm">
-                    <button onClick={onStartAssessment}>Iniciar Assessment</button>
+                    <button onClick={handleStartAssessment}>Iniciar Assessment</button>
                   </Link>
                   </StartAssessment>
                   <SeeVideo>

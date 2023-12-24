@@ -1,13 +1,14 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
-:root {
-  font-size: 0.875rem;
+  :root {
+    font-size: 16px;
 
-  @media screen and (min-width: 1024px) {
-    font-size: 1rem;
+    @media (min-width: 0) and (max-width: 1180px) {
+      font-size: 14px;
+    }
   }
-}
+
 
  * {
     box-sizing: border-box;
@@ -21,6 +22,9 @@ const GlobalStyles = createGlobalStyle`
 
   button {
     cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
   }
 
   input, textarea, img, button, label,
@@ -30,7 +34,8 @@ const GlobalStyles = createGlobalStyle`
 
   p::selection,
   a::selection,
-  span::selection {
+  span::selection,
+  b::selection {
     background-color: ${({ theme }) => theme.colors.primary1};
     color: ${({ theme }) => theme.colors.neutral10};
     user-select: auto;

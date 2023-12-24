@@ -11,8 +11,8 @@ export const Wrapper = styled.div`
   padding: 90px 120px;
 
   @media (min-width: 0) and (max-width: 920px) {
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `;
 
@@ -34,7 +34,7 @@ export const ContainerLogo = styled.div`
   p {
     margin-top: 35px;
     color: ${({ theme }) => theme.colors.neutral60};
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 500;
     line-height: 25px;
     letter-spacing: -0.32px;
@@ -42,6 +42,16 @@ export const ContainerLogo = styled.div`
 
   @media (min-width: 0) and (max-width: 1024px) {
     width: 100%
+  }
+
+  @media (min-width: 0) and (max-width: 424px) {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    p {
+      text-align: center;
+    }
   }
 `
 
@@ -65,6 +75,14 @@ export const MenuGroup = styled.div`
 
   @media (min-width: 0) and (max-width: 424px) {
     width: 100%;
+
+    h3 {
+      text-align: center;
+    }
+
+    nav {
+      align-items: center;
+    }
   }
 `
 
@@ -111,6 +129,11 @@ export const Bottom = styled.div`
 
     p {
       order: 1;
+
+      @media (min-width: 0) and (max-width: 424px) {
+        text-align: center;
+        width: 100%;
+      }
     }
   }
 `;
@@ -125,6 +148,7 @@ export const BottomMenu = styled.nav`
 
   @media (min-width: 0px) and (max-width: 424px) {
     flex-direction: column;
+    align-items: center;
     gap: 12px;
   }
 `;
