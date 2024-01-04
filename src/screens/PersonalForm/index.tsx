@@ -1,4 +1,4 @@
-import { Formik, Form, Field, FieldProps, FieldAttributes, useField, FormikProps } from 'formik';
+import { Formik, Form, Field, FieldProps, FieldAttributes, useField, FormikProps, FormikHelpers } from 'formik';
 import { Container, Explanation, ExplanationText, ExplanationTitle, Title, Wrapper, FormActionsContainer, ClearButton, SubmitButton } from './styles';
 import styled from 'styled-components';
 import { useState } from 'react';
@@ -127,28 +127,54 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props })
 /** CUSTOM SELECT END **/
 
 const PersonalForm: React.FC = () => {
-  const initialValues: MyFormValues = {
-    fullName: '',
-    company: '',
-    email: '',
-    sector: '',
-    whatsapp: '',
-    employeeQuantity: '',
-    privacyPolicy: false,
-    receiveContent: false,
-    annualRevenue: '',
-  };
-  const { handleExit } = useForms();
+  const storedFormData = localStorage.getItem('personalForm');
+  const initialValues: MyFormValues = storedFormData
+    ? JSON.parse(storedFormData)
+    : {
+        fullName: '',
+        company: '',
+        email: '',
+        sector: '',
+        whatsapp: '',
+        employeeQuantity: '',
+        privacyPolicy: false,
+        receiveContent: false,
+        annualRevenue: '',
+      };
+  const { handleExit, handleAssessmentNextStep, assessmentStep } = useForms();
   const handleCleanForm = (formikProps: FormikProps<MyFormValues>) => {
+    localStorage.removeItem('personalForm')
     formikProps.resetForm();
   };
 
   const handleExitForm = (formikProps: FormikProps<MyFormValues>) => {
+    localStorage.removeItem('personalForm');
     formikProps.resetForm();
     handleExit();
   }
 
   useAssessmentRedirect();
+
+  const handleSubmit = async (
+    values: MyFormValues,
+    actions: FormikHelpers<MyFormValues>
+    ) => {
+    try {
+      //criar coleçao "Client" no banco de dados com o documento "personalForm" como um objeto com os dados.
+      console.log("values", values)
+      console.log("actions", actions)
+      localStorage.setItem('personalForm', JSON.stringify(values));
+      handleAssessmentNextStep();
+      console.log("assessmentStep",assessmentStep)
+
+
+      // finalizar enviando os dados para o service do personal form e assim criar e adicionar os dados a uma coleçao de users do firebase,
+      // para no futuro conectar o id desse user baseado no id/nome da coleção com as respostas submetidas ao fim do formulario.
+    } catch (error) {
+      actions.setSubmitting(false);
+      throw new Error("Erro ao enviar dados pessoais.")
+    }
+  };
 
   return (
     <>
@@ -165,11 +191,7 @@ const PersonalForm: React.FC = () => {
 
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => {
-              console.log({ values, actions });
-              alert(JSON.stringify(values, null, 2));
-              actions.setSubmitting(false);
-            }}
+            onSubmit={handleSubmit}
           >
             {
               (formikProps) => (
@@ -293,7 +315,7 @@ const PersonalForm: React.FC = () => {
 
                     <FormActionsContainer>
                       <ClearButton type="button" onClick={() => handleCleanForm(formikProps)}>Limpar</ClearButton>
-                      <SubmitButton type="submit" >Iniciar Assessment</SubmitButton>
+                      <SubmitButton type="submit">Iniciar Assessment</SubmitButton>
                     </FormActionsContainer>
                   </Form>
                 </>

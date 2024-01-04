@@ -84,6 +84,7 @@ export const MobileNavContent = styled.div<{ ishidden?: boolean }>`
   @media (min-width: 500px) {
     right: ${(props) => (props.ishidden ? '-40%' : '0')};
     width: 40%;
+    z-index: 999;
   }
 `
 

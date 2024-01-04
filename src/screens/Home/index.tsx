@@ -37,7 +37,7 @@ const Home: React.FC = () => {
           </BubblesLeft>
 
           <Video>
-            <img src="https://picsum.photos/980/520" alt="Video de apresentação Xcode - Kentricos" />
+            <img src="https://picsum.photos/980/520" alt="Video de apresentação Xcore - Kentricos" />
           </Video>
 
           <BubblesRight>

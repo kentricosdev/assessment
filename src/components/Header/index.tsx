@@ -114,7 +114,7 @@ const Header: React.FC = () => {
               !assessmentStarted && (
                 <Actions>
                   <StartAssessment>
-                  <Link to="/personalForm">
+                  <Link to="/assessment">
                     <button onClick={handleStartAssessment}>Iniciar Assessment</button>
                   </Link>
                   </StartAssessment>

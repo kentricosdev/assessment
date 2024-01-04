@@ -9,6 +9,10 @@ const GlobalStyles = createGlobalStyle`
     }
   }
 
+  html,
+  body {
+    overflow-x: hidden;
+  }
 
  * {
     box-sizing: border-box;
@@ -27,20 +31,17 @@ const GlobalStyles = createGlobalStyle`
     outline: none;
   }
 
-  input, textarea, img, button, label,
-  h1, h2, h3, h4, h5, h6 {
-    user-select: none;
-  }
-
-  p::selection,
-  a::selection,
-  span::selection,
-  b::selection {
+  *::selection {
     background-color: ${({ theme }) => theme.colors.primary1};
     color: ${({ theme }) => theme.colors.neutral10};
     user-select: auto;
   }
 
+  input, textarea, img, button, label,
+  h1, h2, h3, h4, h5, h6 {
+    user-select: none !important;
+  }
+  
   body {
     scroll-behavior: smooth;
   }
