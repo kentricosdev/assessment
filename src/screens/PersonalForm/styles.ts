@@ -58,7 +58,6 @@ export const Wrapper = styled.div`
 
       p {
         color: #888788;
-        font-family: Ubuntu;
         font-size: 0.875rem;
         font-style: normal;
         font-weight: 400;

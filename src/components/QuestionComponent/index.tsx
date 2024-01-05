@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, OptionsList, Option } from './styles';
 import NavigationButtons from '../../components/NavigationButtons';
 import { useForms } from '../../context/forms';
+import { useNavigate } from 'react-router-dom';
 
 interface Question {
   texto: string;
@@ -20,6 +21,8 @@ interface QuestionComponentProps {
 const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, currentPillar }) => {
   const [selectedOptions, setSelectedOptions] = useState<Record<string, number>>({});
   const { updateAnswers } = useForms();
+
+  const navigate = useNavigate();
 
   const handleOptionChange = (questionOrder: number, optionWeight: number) => {
     setSelectedOptions((prevSelectedOptions) => ({
@@ -46,6 +49,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
 
     const result = { respostasPessoa: answers };
     updateAnswers(result);
+    navigate('/assessment/agradecimento')
   };
   console.log("DFFFFFFFFFFFF", questions)
   return (

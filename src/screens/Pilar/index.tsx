@@ -7,6 +7,7 @@ import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { Wrapper } from './styles';
 import ExitModal from '../../components/ExitModal';
 import { PillarData } from '../../types/globalTypes';
+import Breadcrumb from '../../components/Breadcrumb';
 
 interface PillarScreenProps {
   pillarData: PillarData;
@@ -28,6 +29,9 @@ const Pilar: React.FC<PillarScreenProps> = ({ pillarData }) => {
   return (
     <Wrapper>
       <ExitModal confirmClear={handleExit} />
+
+      <Breadcrumb />
+
       <PillarComponent
         title={currentPillar.nome}
         description={currentPillar.texto}

@@ -4,7 +4,6 @@ export const Container = styled.div`
   padding: 40px 70px;
   border-radius: 28px;
   background: #EDEDED;
-  margin-bottom: 90px;
 
   h3{
     color: #686770;

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useForms } from './context/forms';
-import { HomeScreen, PersonalFormScreen, PilarScreen, ThanksScreen } from './screens'
+import { HomeScreen, PersonalFormScreen, PilarScreen, ThanksScreen, IndividualResultScreen } from './screens'
 
 const AppRoutes = () => {
   const { pillarsData } = useForms()
@@ -15,7 +15,9 @@ const AppRoutes = () => {
         <Route key={pillar.id} path={`/assessment/pilar-${pillar.ordem}`} element={<PilarScreen pillarData={pillar} />} />
       ))}
 
-      <Route path={`/assessment/resultado`} element={<ThanksScreen />} />
+      <Route path={`/assessment/agradecimento`} element={<ThanksScreen />} />
+
+      <Route path={`/assessment/resultado`} element={<IndividualResultScreen />} />
     </Routes>
   )
 }

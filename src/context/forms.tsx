@@ -3,7 +3,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { getPillarsData } from '../services/AssessmentServices';
 import { PillarData } from '../types/globalTypes';
-// import { useNavigate } from 'react-router-dom';
 
 interface FormsContextData {
   isModalOpen: boolean;
@@ -24,7 +23,6 @@ export const FormsContext = createContext<FormsContextData>(
 )
 
 const FormsProvider = ({ children }: { children: React.ReactNode }) => {
-  // const navigate = useNavigate();
   const [pillarsData, setPillarsData] = useState<PillarData[]>([]);
   console.log("pillarsData", pillarsData)
 
@@ -53,7 +51,6 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
-    console.log("aq")
     console.log(isModalOpen)
   }
 
@@ -75,7 +72,6 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   const updateAnswers = useCallback((answers: any) => {
     // Log the answers or perform any other desired actions
     console.log('Answers:', answers);
-    // navigate('/assessment/resultado')
   }, []);
 
   useEffect(() => {
