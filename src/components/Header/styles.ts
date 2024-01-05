@@ -7,6 +7,7 @@ export const ContainerHeader = styled.header`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  min-height: 640px;
 `;
 
 export const Menu = styled.div`
@@ -145,7 +146,7 @@ export const MainContentContainer = styled.div`
 
 export const LeftSide = styled.div`
   padding-right: 10px;
-  padding-top: 40px;
+  padding-top: 70px;
   padding-left: 120px;
   width: 50%;
 
@@ -155,11 +156,7 @@ export const LeftSide = styled.div`
   }
 
   @media (min-width: 0px) and (max-width: 768px) {
-    width: 60%;
-  }
-
-  @media (min-width: 0px) and (max-width: 500px) {
-    width: 90%;
+    width: 100%;
   }
 `;
 
@@ -175,6 +172,16 @@ export const Title = styled.div`
     font-size: 3.375rem;
     font-weight: 700;
     letter-spacing: -1.62px;
+
+    @media (min-width: 0) and (max-width: 375px) {
+      font-size: 2.375rem;
+    }
+  }
+
+  img {
+    @media (min-width: 0) and (max-width: 430px) {
+      max-width: 100px;
+    }
   }
 `;
 
@@ -197,9 +204,13 @@ export const Actions = styled.div`
   align-items: center;
   gap: 38px;
 
-  @media (min-width: 0px) and (max-width: 768px) {
+  @media (min-width: 0px) and (max-width: 420px) {
     flex-direction: column;
     align-items: flex-start;
+    gap: 20px;
+  }
+
+  @media (min-width: 375px) and (max-width: 465px) {
     gap: 20px;
   }
 `;
@@ -215,24 +226,27 @@ export const StartAssessment = styled.div`
     cursor: pointer;
     border-radius: 100px;
     background: ${({ theme }) => theme.colors.primary2};
-    padding: 14px 30px;
-    width: 217px;
+    padding: 14px 37px;
     height: 56px;
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.neutral100};
     font-weight: 700;
     letter-spacing: -0.32px;
 
-    @media (min-width: 0px) and (max-width: 768px) {
-      width: 80%;
+    @media (min-width: 420px) {
+      max-width: 217px;
     }
 
-    @media (min-width: 0px) and (max-width: 375px) {
+    @media (min-width: 0px) and (max-width: 420px) {
       width: 100%;
     }
   }
 
-  @media (min-width: 0px) and (max-width: 768px) {
+  @media (min-width: 420px) and (max-width: 465px) {
+    width: 55%;
+  }
+
+  @media (min-width: 0px) and (max-width: 420px) {
     width: 100%;
   }
 `;
@@ -254,17 +268,23 @@ export const SeeVideo = styled.div`
     border-radius: 100px;
     height: 56px;
     padding: 14px 30px;border: 1px solid rgba(255, 255, 255, 0.50);
-  }
 
-  @media (min-width: 0px) and (max-width: 768px) {
-    width: 100%;
+    @media (min-width: 420px) {
+      max-width: 180px;
+    }
 
-    button {
-      width: 80%;
+    @media (min-width: 0) and (max-width: 768px) {
+      width: 100%;
     }
   }
 
-  @media (min-width: 0px) and (max-width: 375px) {
+  @media (min-width: 420px) and (max-width: 465px) {
+    width: 45%;
+  }
+
+  @media (min-width: 0px) and (max-width: 420px) {
+    width: 100%;
+
     button {
       width: 100%;
     }

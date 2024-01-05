@@ -83,7 +83,92 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const data = await getPillarsData();
         console.log("cu", data)
-        setPillarsData(data);
+        setPillarsData(
+          [
+            {
+              id: '1',
+              ordem: 1,
+              texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum..',
+              nome: 'Cultura e EX',
+              peso: 0.22,
+              questoes: [
+                {
+                  id: '1',
+                  ordem: 1,
+                  texto: 'Lorem lorem?',
+                  opcoes: [
+                    {
+                      id: '1',
+                      peso: 0,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '2',
+                      peso: 25,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '3',
+                      peso: 50,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '4',
+                      peso: 75,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '5',
+                      peso: 100,
+                      texto: 'Lorem'
+                    }
+                  ]
+                },
+              ]
+            },
+            {
+              id: '2',
+              ordem: 2,
+              texto: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+              nome: 'Outro Aspecto',
+              peso: 0.22,
+              questoes: [
+                {
+                  id: '1',
+                  ordem: 1,
+                  texto: 'Lorem lorem?',
+                  opcoes: [
+                    {
+                      id: '1',
+                      peso: 0,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '2',
+                      peso: 25,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '3',
+                      peso: 50,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '4',
+                      peso: 75,
+                      texto: 'Lorem'
+                    },
+                    {
+                      id: '5',
+                      peso: 100,
+                      texto: 'Lorem'
+                    }
+                  ]
+                },
+              ]
+            },
+          ]
+        );
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -91,8 +176,7 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
 
     fetchData();
   }, []);
-
-  const FormsContextValues = useMemo(() => {
+   const FormsContextValues = useMemo(() => {
     return {
       isModalOpen,
       handleOpenModal,

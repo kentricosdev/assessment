@@ -49,6 +49,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
 
     const result = { respostasPessoa: answers };
     updateAnswers(result);
+    localStorage.removeItem('modalClosed');
     navigate('/assessment/agradecimento')
   };
   console.log("DFFFFFFFFFFFF", questions)

@@ -34,7 +34,7 @@ const Thanks: React.FC = () => {
           </SeeResult>
         </ButtonContainer>
       </Wrapper>
-      <ExitModal confirmClear={handleExit}/>
+      <ExitModal confirmClear={handleExit} />
     </Container>
   );
 };

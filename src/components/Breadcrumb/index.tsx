@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Container } from './styles';
 import { useForms } from '../../context/forms';
 
@@ -17,8 +17,10 @@ const Breadcrumb: React.FC = () => {
     <Container>
       {pathSegments.map((segment, index) => (
         <React.Fragment key={segment}>
-          {index > 0 && ' > '}
-          {segment.startsWith('pilar-') ? formatPilarName(parseInt(segment.split('-')[1], 10)) : segment}
+          <p>
+            {index > 0 && ' > '}
+            {segment.startsWith('pilar-') ? formatPilarName(parseInt(segment.split('-')[1], 10)) : segment}
+          </p>
         </React.Fragment>
       ))}
     </Container>

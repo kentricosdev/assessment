@@ -12,6 +12,7 @@ import {
 } from './styles'
 import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumb';
+import ResultModal from '../../components/ResultModal';
 
 const IndividualResult: React.FC = () => {
   const { handleExit, assessmentStep, pillarsData } = useForms();
@@ -19,6 +20,7 @@ const IndividualResult: React.FC = () => {
 
   return (
     <Container>
+      <ResultModal />
       <ExitModal confirmClear={handleExit}/>
       <Wrapper>
       <Breadcrumb />

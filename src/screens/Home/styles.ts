@@ -145,6 +145,11 @@ export const About = styled.div`
   background-color: ${({ theme }) => theme.colors.neutral30};
   padding: 89px 120px 89px 100px;
 
+  @media (min-width: 0) and (max-width: 920px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   > h2:first-child {
     margin-bottom: 10px;
     text-align: center;
@@ -159,10 +164,28 @@ export const AboutContent = styled.div`
   display: flex;
   gap: 100px;
   align-items: center;
+
+  @media (min-width: 0px) and (max-width: 860px) {
+    gap: 50px;
+  }
+
+  @media (min-width: 0px) and (max-width: 767px) {
+    flex-direction: column;
+    margin-top: 40px;
+  }
 `
 
 export const AboutDescription = styled.div`
   width: calc(50% - 50px);
+
+  @media (min-width: 768px) and (max-width: 860px) {
+    width: calc(55% - 50px);
+  }
+
+  @media (min-width: 0) and (max-width: 767px) {
+    max-width: 500px;
+    width: 100%;
+  }
 
   .title-description {
     color: ${({ theme }) => theme.colors.neutral100};
@@ -185,12 +208,40 @@ export const AboutDescription = styled.div`
 
 export const AboutImage = styled.div`
   width: calc(50% - 50px);
+
+  @media (min-width: 768px) and (max-width: 860px) {
+    width: calc(45%);
+    margin-left: 30px;
+  }
+
+  @media (min-width: 0) and (max-width: 767px) {
+    width: fit-content;
+  }
+
+  img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    object-fit: contain;
+
+    @media (min-width: 0) and (max-width: 767px) {
+      max-width: 400px;
+    }
+  }
 `
 
 export const AboutDatas = styled.div`
   display: flex;
   gap: 50px;
   margin-bottom: 20px;
+
+  @media (min-width: 375px) and (max-width: 767px) {
+    gap: 25px;
+  }
+
+  @media (min-width: 0px) and (max-width: 375px) {
+    gap: 15px;
+  }
 `
 
 export const DataItem = styled.div`
@@ -276,6 +327,12 @@ export const InputContainer = styled.div`
     width: 100%;
   }
 
+  @media (min-width: 0) and (max-width: 460px) {
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+  }
+
   input {
     width: 399px;
     color: ${({ theme }) => theme.colors.neutral100};
@@ -286,9 +343,20 @@ export const InputContainer = styled.div`
     letter-spacing: -0.32px;
     padding: 20px 10px 20px 30px;
     margin-right: 6px;
+    background-color: transparent;
 
     &::placeholder {
       opacity: 0.6;
+    }
+
+    @media (min-width: 0) and (max-width: 460px) {
+      width: 100%;
+      text-align: center;
+      margin: 0;
+      padding: 20px 30px;
+      background-color: #FFF;
+      border-radius: 100px;
+      margin-bottom: 20px;
     }
   }
 
@@ -308,6 +376,10 @@ export const InputContainer = styled.div`
     font-weight: 500;
     line-height: 160%;
     letter-spacing: -0.32px;
+
+    @media (min-width: 0) and (max-width: 460px) {
+      width: 100%;
+    }
   }
 
 `
