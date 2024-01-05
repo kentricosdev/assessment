@@ -7,7 +7,7 @@ interface ExitModalProps {
 }
 
 const ExitModal: React.FC<ExitModalProps> = ({ confirmClear }) => {
-  const { isModalOpen, handleOpenModal, handleCloseModal } = useForms();
+  const { isModalOpen, handleCloseModal } = useForms();
 
   if (!isModalOpen) return null;
 

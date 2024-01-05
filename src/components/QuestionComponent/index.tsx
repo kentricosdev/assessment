@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, OptionsList, Option } from './styles';
 import NavigationButtons from '../../components/NavigationButtons';
+import { useForms } from '../../context/forms';
 
 interface Question {
   texto: string;
@@ -18,12 +19,33 @@ interface QuestionComponentProps {
 
 const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, currentPillar }) => {
   const [selectedOptions, setSelectedOptions] = useState<Record<string, number>>({});
+  const { updateAnswers } = useForms();
 
   const handleOptionChange = (questionOrder: number, optionWeight: number) => {
     setSelectedOptions((prevSelectedOptions) => ({
       ...prevSelectedOptions,
       [`${questionOrder}-${currentPillar}`]: optionWeight,
     }));
+  };
+
+  const handleSeeResultClick = () => {
+    const answers = Object.keys(selectedOptions).map((key) => {
+      const [questionOrder, pillarId] = key.split('-');
+      return {
+        pilarId: parseInt(pillarId, 10),
+        perguntas: [
+          {
+            ordem: questionOrder,
+            resposta: {
+              peso: selectedOptions[key],
+            },
+          },
+        ],
+      };
+    });
+
+    const result = { respostasPessoa: answers };
+    updateAnswers(result);
   };
 
   return (
@@ -52,7 +74,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
           </OptionsList>
         </div>
       ))}
-      <NavigationButtons currentPillar={currentPillar}/>
+      <NavigationButtons currentPillar={currentPillar} onSeeResultClick={handleSeeResultClick}/>
     </Container>
   );
 };

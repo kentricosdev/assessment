@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import theme from './styles/theme.ts';
@@ -7,8 +6,9 @@ import Header from './components/Header/index.tsx';
 import Footer from './components/Footer/index.tsx';
 import AppRoutes from './Routes.tsx';
 import { BrowserRouter } from 'react-router-dom';
-import ExitModal from './components/ExitModal/index.tsx';
+// import ExitModal from './components/ExitModal/index.tsx';
 import { FormsProvider } from './context/forms.tsx';
+import React from 'react';
 
 const Main: React.FC = () => {
   return (

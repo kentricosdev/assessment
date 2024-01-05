@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+// import { useNavigate } from 'react-router-dom';
 
 interface PillarData {
   id: number;
@@ -30,6 +31,7 @@ interface FormsContextData {
   handleAssessmentPreviousStep: () => void;
   pillarsData: PillarData[];
   setAssessmentStep: React.Dispatch<React.SetStateAction<number>>;
+  updateAnswers: (answers: any) => void;
 }
 
 export const FormsContext = createContext<FormsContextData>(
@@ -37,6 +39,7 @@ export const FormsContext = createContext<FormsContextData>(
 )
 
 const FormsProvider = ({ children }: { children: React.ReactNode }) => {
+  // const navigate = useNavigate();
 
   const [pillarsData] = useState<PillarData[]>([
     {
@@ -154,6 +157,12 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
     console.log('assessmentPreviousStep handler', assessmentStep)
   }, []);
 
+  const updateAnswers = useCallback((answers: any) => {
+    // Log the answers or perform any other desired actions
+    console.log('Answers:', answers);
+    // navigate('/assessment/resultado')
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('assessmentStarted', JSON.stringify(assessmentStarted));
   }, [assessmentStarted]);
@@ -170,7 +179,8 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
       handleAssessmentNextStep,
       handleAssessmentPreviousStep,
       pillarsData,
-      setAssessmentStep
+      setAssessmentStep,
+      updateAnswers,
     }
   }, [isModalOpen, assessmentStarted, assessmentStep, pillarsData])
 

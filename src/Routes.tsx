@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-import { HomeScreen, PersonalFormScreen, PilarScreen } from './screens'
+import { HomeScreen, PersonalFormScreen, PilarScreen, ThanksScreen } from './screens'
 
 const pillarsData = [
   {
@@ -87,6 +87,8 @@ const AppRoutes = () => {
       {sortedPillars.map((pillar) => (
         <Route key={pillar.id} path={`/assessment/pilar-${pillar.ordem}`} element={<PilarScreen pillarData={pillar} />} />
       ))}
+
+      <Route path={`/assessment/resultado`} element={<ThanksScreen />} />
     </Routes>
   )
 }

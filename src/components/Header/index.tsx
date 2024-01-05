@@ -9,7 +9,6 @@ import {
   Menu,
   Navigation,
   NavigationItem,
-  RightSide,
   SeeVideo,
   StartAssessment,
   Text,
@@ -26,7 +25,7 @@ import { useForms } from "../../context/forms";
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const {isModalOpen, handleOpenModal, handleCloseModal, assessmentStarted, handleStartAssessment } = useForms();
+  const {handleOpenModal, assessmentStarted, handleStartAssessment } = useForms();
 
   const handleOpenMenuMobile = () => {
     setMenuOpen(!menuOpen);

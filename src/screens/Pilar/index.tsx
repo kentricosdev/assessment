@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PillarComponent from '../../components/PilarComponent';
 import QuestionComponent from '../../components/QuestionComponent';
 
