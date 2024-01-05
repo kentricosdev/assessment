@@ -51,7 +51,7 @@ export const Text = styled.p`
 
   b {
     color: #242125;
-    font-size: 17px;
+    font-size: 1.0625rem;
     font-style: normal;
     font-weight: 700;
     line-height: 140%;

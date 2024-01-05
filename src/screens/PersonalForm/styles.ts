@@ -50,7 +50,7 @@ export const Wrapper = styled.div`
 
       label {
         color: rgba(49, 46, 50, 0.80);
-        font-size: 17px;
+        font-size: 1.0625rem;
         font-style: normal;
         font-weight: 500;
         line-height: 140%; /* 23.8px */
@@ -59,7 +59,7 @@ export const Wrapper = styled.div`
       p {
         color: #888788;
         font-family: Ubuntu;
-        font-size: 14px;
+        font-size: 0.875rem;
         font-style: normal;
         font-weight: 400;
         line-height: 160%; /* 22.4px */
@@ -80,7 +80,7 @@ export const Wrapper = styled.div`
 
     label {
       color: #686770;
-      font-size: 15px;
+      font-size: 0.9375rem;
       font-style: normal;
       font-weight: 500;
       line-height: 160%;
@@ -165,7 +165,7 @@ export const ClearButton = styled.button`
   border-radius: 100px;
   border: 1px solid #000;
   color: #000;
-  font-size: 16px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 700;
   line-height: 160%; /* 25.6px */
@@ -185,7 +185,7 @@ export const SubmitButton = styled.button`
   border-radius: 100px;
   background: #76E2F4;
   color: #000;
-  font-size: 16px;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 700;
   line-height: 160%; /* 25.6px */

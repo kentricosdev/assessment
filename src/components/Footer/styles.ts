@@ -34,7 +34,7 @@ export const ContainerLogo = styled.div`
   p {
     margin-top: 35px;
     color: ${({ theme }) => theme.colors.neutral60};
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 500;
     line-height: 25px;
     letter-spacing: -0.32px;
