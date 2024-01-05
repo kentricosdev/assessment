@@ -1,56 +1,63 @@
-// // services/crudService.ts
-// import { db } from '../../firebase';
-// import {
-//   collection,
-//   addDoc,
-//   getDocs,
-//   updateDoc,
-//   deleteDoc,
-//   DocumentReference,
-//   doc,
-// } from 'firebase/firestore';
+// Import necessary functions and types
+import {
+  collection,
+  getDocs,
+  DocumentData,
+  QueryDocumentSnapshot,
+} from 'firebase/firestore';
+import { PillarData, PillarDataGet, QuestaoData, QuestaoDataGet, OpcaoData, OpcaoDataGet } from '../types/globalTypes';
+import { db } from '../../firebase';
 
-// interface Item {
-//   id: string;
-//   name: string;
-// }
+const getSubcollectionsData = async (doc: QueryDocumentSnapshot<DocumentData, DocumentData>) => {
+  const subcollections: Record<string, any[]> = {};
+  const subcollectionNames = ['questoes'];
 
-// const getItems = async (): Promise<Item[]> => {
-//   try {
-//     const querySnapshot = await getDocs(collection(db, 'items'));
-//     return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() } as Item));
-//   } catch (error) {
-//     console.error('Error fetching items:', error);
-//     throw error;
-//   }
-// };
+  for (const subcollectionName of subcollectionNames) {
+    const subcollectionSnapshot = await getDocs(collection(doc.ref, subcollectionName));
+    subcollections[subcollectionName] = await Promise.all(subcollectionSnapshot.docs.map(async subDoc => {
+      const subDocData = subDoc.data() as QuestaoDataGet;
 
-// const addItem = async (name: string): Promise<void> => {
-//   try {
-//     await addDoc(collection(db, 'items'), { name });
-//   } catch (error) {
-//     console.error('Error adding item:', error);
-//     throw error;
-//   }
-// };
+      const opcoesCollection = await getDocs(collection(subDoc.ref, 'opcoes'));
+      const opcoes = opcoesCollection.docs.map(opcaoDoc => ({
+        ...opcaoDoc.data() as OpcaoDataGet,
+        id: opcaoDoc.id,
+      } as OpcaoData));
 
-// const updateItem = async (itemId: string, newName: string): Promise<void> => {
-//   try {
-//     const itemRef: DocumentReference = doc(db, 'items', itemId);
-//     await updateDoc(itemRef, { name: newName });
-//   } catch (error) {
-//     console.error('Error updating item:', error);
-//     throw error;
-//   }
-// };
+      return {
+        ...subDocData,
+        id: subDoc.id,
+        opcoes: opcoes,
+      } as QuestaoData;
+    }));
+  }
 
-// const deleteItem = async (itemId: string): Promise<void> => {
-//   try {
-//     await deleteDoc(doc(db, 'items', itemId));
-//   } catch (error) {
-//     console.error('Error deleting item:', error);
-//     throw error;
-//   }
-// };
+  return subcollections;
+};
 
-// export { getItems, addItem, updateItem, deleteItem };
+const getPillarsData = async (): Promise<PillarData[]> => {
+  try {
+    const querySnapshot = await getDocs(collection(db, 'pilares'));
+    const pillarsData: PillarData[] = [];
+
+    for (const doc of querySnapshot.docs) {
+      const subcollectionsPromise = getSubcollectionsData(doc);
+      const pillarDocData = doc.data() as PillarDataGet;
+      const subcollections = await subcollectionsPromise;
+
+      pillarsData.push({
+        id: doc.id,
+        ...pillarDocData,
+        questoes: subcollections['questoes'],
+      });
+    }
+
+    console.log('Fetched Pillars Data:', pillarsData);
+    return pillarsData;
+  } catch (error) {
+    console.error('Error fetching pillars data:', error);
+    throw error;
+  }
+};
+
+export { getPillarsData };
+

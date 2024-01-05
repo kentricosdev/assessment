@@ -47,7 +47,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
     const result = { respostasPessoa: answers };
     updateAnswers(result);
   };
-
+  console.log("DFFFFFFFFFFFF", questions)
   return (
     <Container>
       {questions.map((currentQuestion) => (

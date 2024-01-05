@@ -6,22 +6,7 @@ import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { Wrapper } from './styles';
 import ExitModal from '../../components/ExitModal';
-
-interface PillarData {
-  id: number;
-  ordem: number;
-  texto: string;
-  aspecto: string;
-  peso: number;
-  questoes: {
-    ordem: number;
-    texto: string;
-    opcoes: {
-      peso: number;
-      texto: string;
-    }[];
-  }[];
-}
+import { PillarData } from '../../types/globalTypes';
 
 interface PillarScreenProps {
   pillarData: PillarData;
@@ -44,7 +29,7 @@ const Pilar: React.FC<PillarScreenProps> = ({ pillarData }) => {
     <Wrapper>
       <ExitModal confirmClear={handleExit} />
       <PillarComponent
-        title={currentPillar.aspecto}
+        title={currentPillar.nome}
         description={currentPillar.texto}
         ordem={currentPillar.ordem}
       />

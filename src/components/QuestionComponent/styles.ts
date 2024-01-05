@@ -23,7 +23,7 @@ export const OptionsList = styled.ul`
 export const Option = styled.li`
   margin-bottom: 18px;
   display: flex;
-  align-items: center;
+  align-items: start;
 
   &:last-child {
     margin-bottom: 46px;
@@ -36,6 +36,7 @@ export const Option = styled.li`
   font-weight: 400;
   line-height: 120%;
   margin-left: 10px;
+  width: fit-content;
   cursor: pointer;
   }
 
@@ -47,25 +48,26 @@ export const Option = styled.li`
     position: relative;
     width: 14.375px;
     height: 14.375px;
-    border: 1px solid #D5D5D5;
+    border: 1px solid ${({ theme }) => theme.colors.neutral50};
     background-color: transparent;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 1px;
   }
 
   input[type="radio"]::after {
   content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: ${({ theme }) => theme.colors.neutral50};
-  border-radius: 2px;
-  visibility: hidden;
-}
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: ${({ theme }) => theme.colors.neutral70};
+    border-radius: 2px;
+    visibility: hidden;
+  }
 
-input[type="radio"]:checked::after {
-  visibility: visible;
-}
+  input[type="radio"]:checked::after {
+    visibility: visible;
+  }
 `
