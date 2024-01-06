@@ -8,8 +8,6 @@ const useAssessmentRedirect = () => {
 
   useEffect(() => {
     const currentPath = window.location.pathname;
-    console.log("assessmentStep2", assessmentStep)
-    console.log("started", assessmentStarted)
     if (assessmentStarted) {
       switch (assessmentStep) {
         case 0:

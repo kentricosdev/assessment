@@ -1,14 +1,14 @@
 import Home from './Home'
 import PersonalForm from './PersonalForm'
-import Pilar from './Pilar'
 import Thanks from './Thanks'
 import IndividualResult from './IndividualResult'
+import Pillar from './Pillar'
 
 
 export {
   Home as HomeScreen,
   PersonalForm as PersonalFormScreen,
-  Pilar as PilarScreen,
+  Pillar as PillarScreen,
   Thanks as ThanksScreen,
   IndividualResult as IndividualResultScreen
 }

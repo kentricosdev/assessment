@@ -16,16 +16,129 @@ export const Wrapper = styled.div`
   }
 `
 
-export const Title = styled.h3`
+// SCORE: TOTAL RESULT
 
+export const TotalScoreContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 58px;
+  margin-bottom: 70px;
+`;
+
+export const ScoreResultCard = styled.div`
+  border-radius: 8px;
+  border: 1px solid #CACACA;
+  padding: 19px 27px 82px 20px;
+  width: 100%;
+  max-width: 347px;
+  min-height: 314px;
+
+  .ResultsFlex {
+    display: flex;
+    align-items: center;
+    gap: 19px;
+    margin-top: 34px;
+  }
+
+  p {
+    overflow: hidden;
+    color: #242125;
+    text-overflow: ellipsis;
+    font-size: 3.6458rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%; /* 70px */
+    width: 50%;
+
+    span {
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      color: #242125;
+      text-overflow: ellipsis;
+      font-size: 1.8229rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 120%;
+
+    }
+  }
+`;
+
+export const TotalResultCardTitle = styled.h1`
+  color: #242125;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%; /* 28px */
 `
 
-export const Description = styled.p`
-`
+export const ScoreExplanationCard = styled.div`
+  border-radius: 8px;
+  border: 1px solid #CACACA;
+  padding: 20px 34px 23px 36px;
+`;
 
-export const ButtonContainer = styled.div`
+export const ScoreExplanation = styled.div`
+  color: #000;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; /* 25.6px */
+  letter-spacing: -0.32px;
+  margin-bottom: 36px;
+  margin-top: 21px;
+`;
 
-`
+export const ScoreResultActions = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 30px;
+`;
 
-export const SeeResult = styled.button`
+export const SendEmail = styled.button`
+  display: flex;
+  padding: 14px 48px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  border: 1px solid #000;
+
+  color: #000;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 25.6px */
+  letter-spacing: -0.32px;
+`;
+
+export const DownloadPdf = styled.button`
+  display: flex;
+  padding: 14px 80px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 100px;
+  background: #89E3F5;
+
+  color: #000;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 160%; /* 25.6px */
+  letter-spacing: -0.32px;
+`;
+
+// --------------------------------------------------
+
+// SCORE: PILLARS RESULTS
+
+export const ProgressBarContainer = styled.div`
+  width: 50%;
 `

@@ -40,3 +40,21 @@ export interface OpcaoDataGet {
   peso: number;
   texto: string;
 }
+
+export interface IAssessmentAnswers {
+  respostasPessoa: {
+      pilarId: number;
+      pilarPeso: number;
+      perguntas: {
+          ordem: string;
+          resposta: {
+              peso: number;
+          };
+      }[];
+  }[];
+}
+
+export interface IAssessmentScoreIndividual {
+  totalScore: number;
+  scoresByPillar: { [key: number]: number };
+}

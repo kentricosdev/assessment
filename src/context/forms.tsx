@@ -2,7 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { getPillarsData } from '../services/AssessmentServices';
-import { PillarData } from '../types/globalTypes';
+import { IAssessmentAnswers, IAssessmentScoreIndividual, PillarData } from '../types/globalTypes';
 
 interface FormsContextData {
   isModalOpen: boolean;
@@ -16,7 +16,10 @@ interface FormsContextData {
   handleAssessmentPreviousStep: () => void;
   pillarsData: PillarData[];
   setAssessmentStep: React.Dispatch<React.SetStateAction<number>>;
-  updateAnswers: (answers: any) => void;
+  updateAnswers: (answers: IAssessmentAnswers) => void;
+  updateScore: (assessmentScore: IAssessmentScoreIndividual) => void;
+  assessmentAnswers: IAssessmentAnswers;
+  assessmentScoreIndividual: IAssessmentScoreIndividual
 }
 export const FormsContext = createContext<FormsContextData>(
   {} as FormsContextData
@@ -24,7 +27,20 @@ export const FormsContext = createContext<FormsContextData>(
 
 const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   const [pillarsData, setPillarsData] = useState<PillarData[]>([]);
-  console.log("pillarsData", pillarsData)
+
+  const [assessmentAnswers, setAssessmentAnswers] = useState<IAssessmentAnswers>(
+    () => {
+      const storedData = localStorage.getItem('assessmentAnswers');
+      return storedData ? (JSON.parse(storedData) as IAssessmentAnswers) : {} as IAssessmentAnswers;
+    }
+  );
+
+  const [assessmentScoreIndividual, setAssessmentScoreIndividual] = useState<IAssessmentScoreIndividual>(
+    () => {
+      const storedData = localStorage.getItem('assessmentScoreIndividual');
+      return storedData ? (JSON.parse(storedData) as IAssessmentScoreIndividual) : {} as IAssessmentScoreIndividual;
+    }
+  );
 
   // Control MODAL state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,12 +62,12 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
     setIsModalOpen(false);
     setAssessmentStarted(false);
     setAssessmentStep(0)
-    console.log("assstep", assessmentStep)
+    localStorage.removeItem('assessmentAnswers');
+    console.log('aq')
   }, [assessmentStep]);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
-    console.log(isModalOpen)
   }
 
   const handleCloseModal = () => {
@@ -59,19 +75,21 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   }
 
   const handleAssessmentNextStep = useCallback(() => {
-    console.log("DDDDDDD", pillarsData )
     setAssessmentStep((prevStep) => (prevStep < pillarsData.length ? prevStep + 1 : prevStep));
-    console.log('assessmentNextStep handler', assessmentStep)
   }, [pillarsData]);
 
   const handleAssessmentPreviousStep = useCallback(() => {
     setAssessmentStep((prevStep) => (prevStep > 0 ? prevStep - 1 : prevStep));
-    console.log('assessmentPreviousStep handler', assessmentStep)
   }, [pillarsData]);
 
   const updateAnswers = useCallback((answers: any) => {
-    // Log the answers or perform any other desired actions
-    console.log('Answers:', answers);
+    localStorage.setItem('assessmentAnswers', JSON.stringify(answers));
+    setAssessmentAnswers(answers);
+  }, []);
+
+  const updateScore = useCallback((scores: any) => {
+    localStorage.setItem('assessmentScoreIndividual', JSON.stringify(scores));
+    setAssessmentScoreIndividual(scores);
   }, []);
 
   useEffect(() => {
@@ -104,8 +122,11 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
       pillarsData,
       setAssessmentStep,
       updateAnswers,
+      assessmentAnswers,
+      updateScore,
+      assessmentScoreIndividual
     }
-  }, [isModalOpen, assessmentStarted, assessmentStep, pillarsData])
+  }, [isModalOpen, assessmentStarted, assessmentStep, pillarsData, assessmentAnswers])
 
   return (
     <FormsContext.Provider value={FormsContextValues}>

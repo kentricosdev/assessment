@@ -14,7 +14,9 @@ const getSubcollectionsData = async (doc: QueryDocumentSnapshot<DocumentData, Do
 
   for (const subcollectionName of subcollectionNames) {
     const subcollectionSnapshot = await getDocs(collection(doc.ref, subcollectionName));
-    subcollections[subcollectionName] = await Promise.all(subcollectionSnapshot.docs.map(async subDoc => {
+
+    subcollections[subcollectionName] = [];
+    for (const subDoc of subcollectionSnapshot.docs) {
       const subDocData = subDoc.data() as QuestaoDataGet;
 
       const opcoesCollection = await getDocs(collection(subDoc.ref, 'opcoes'));
@@ -23,12 +25,12 @@ const getSubcollectionsData = async (doc: QueryDocumentSnapshot<DocumentData, Do
         id: opcaoDoc.id,
       } as OpcaoData));
 
-      return {
+      subcollections[subcollectionName].push({
         ...subDocData,
         id: subDoc.id,
         opcoes: opcoes,
-      } as QuestaoData;
-    }));
+      } as QuestaoData);
+    }
   }
 
   return subcollections;
@@ -40,9 +42,8 @@ const getPillarsData = async (): Promise<PillarData[]> => {
     const pillarsData: PillarData[] = [];
 
     for (const doc of querySnapshot.docs) {
-      const subcollectionsPromise = getSubcollectionsData(doc);
+      const subcollections = await getSubcollectionsData(doc);
       const pillarDocData = doc.data() as PillarDataGet;
-      const subcollections = await subcollectionsPromise;
 
       pillarsData.push({
         id: doc.id,
@@ -60,4 +61,3 @@ const getPillarsData = async (): Promise<PillarData[]> => {
 };
 
 export { getPillarsData };
-

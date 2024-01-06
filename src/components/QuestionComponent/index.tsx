@@ -3,6 +3,8 @@ import { Container, OptionsList, Option } from './styles';
 import NavigationButtons from '../../components/NavigationButtons';
 import { useForms } from '../../context/forms';
 import { useNavigate } from 'react-router-dom';
+import { calculateScoresIndividual } from '../../Functions/calculateScoresIndividual';
+import { PillarData } from '../../types/globalTypes';
 
 interface Question {
   texto: string;
@@ -15,27 +17,29 @@ interface Question {
 
 interface QuestionComponentProps {
   questions: Question[];
-  currentPillar: number;
+  currentPillar: PillarData;
 }
 
 const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, currentPillar }) => {
   const [selectedOptions, setSelectedOptions] = useState<Record<string, number>>({});
-  const { updateAnswers } = useForms();
-
+  const { updateAnswers, pillarsData, updateScore } = useForms();
   const navigate = useNavigate();
 
   const handleOptionChange = (questionOrder: number, optionWeight: number) => {
     setSelectedOptions((prevSelectedOptions) => ({
       ...prevSelectedOptions,
-      [`${questionOrder}-${currentPillar}`]: optionWeight,
+      [`${questionOrder}-${currentPillar.ordem}`]: optionWeight,
     }));
   };
 
   const handleSeeResultClick = () => {
     const answers = Object.keys(selectedOptions).map((key) => {
       const [questionOrder, pillarId] = key.split('-');
+      const currentPillarData = pillarsData.find(pillar => pillar.ordem === parseInt(pillarId, 10));
+
       return {
         pilarId: parseInt(pillarId, 10),
+        pilarPeso: currentPillarData?.peso || 0,
         perguntas: [
           {
             ordem: questionOrder,
@@ -46,32 +50,42 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
         ],
       };
     });
-
     const result = { respostasPessoa: answers };
+
+    const scores = calculateScoresIndividual(result)
+
     updateAnswers(result);
-    localStorage.removeItem('modalClosed');
+    updateScore(scores);
     navigate('/assessment/agradecimento')
   };
-  console.log("DFFFFFFFFFFFF", questions)
+
+
+
   return (
     <Container>
-      {questions.map((currentQuestion) => (
+      {questions
+      .sort((a, b) => a.ordem - b.ordem)
+      .map((currentQuestion) => (
         <div key={currentQuestion.ordem}>
-          <h3>{currentPillar}. {currentQuestion.texto}</h3>
+          <h3>
+            {pillarsData.some(pillar => pillar.questoes.length > 1) ?
+               currentQuestion.ordem : currentPillar.ordem
+            }. {currentQuestion.texto}
+          </h3>
           <OptionsList>
             {currentQuestion.opcoes
               .sort((a, b) => a.peso - b.peso)
-              .map((option, index) => (
-                <Option key={index}>
+              .map((option, optionIndex) => (
+                <Option key={optionIndex}>
                   <input
                     type="radio"
-                    name={`question-${currentQuestion.ordem}-${currentPillar}`}
-                    id={`option-${currentQuestion.ordem}-${option.peso}-${currentPillar}`}
+                    name={`question-${currentQuestion.ordem}-${currentPillar.ordem}`}
+                    id={`option-${currentQuestion.ordem}-${option.peso}-${currentPillar.ordem}`}
                     value={option.peso}
-                    checked={selectedOptions[`${currentQuestion.ordem}-${currentPillar}`] === option.peso}
+                    checked={selectedOptions[`${currentQuestion.ordem}-${currentPillar.ordem}`] === option.peso}
                     onChange={() => handleOptionChange(currentQuestion.ordem, option.peso)}
                   />
-                  <label htmlFor={`option-${currentQuestion.ordem}-${option.peso}-${currentPillar}`}>
+                  <label htmlFor={`option-${currentQuestion.ordem}-${option.peso}-${currentPillar.ordem}`}>
                     {option.texto}
                   </label>
                 </Option>
@@ -79,7 +93,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
           </OptionsList>
         </div>
       ))}
-      <NavigationButtons currentPillar={currentPillar} onSeeResultClick={handleSeeResultClick}/>
+      <NavigationButtons currentPillar={currentPillar.ordem} onSeeResultClick={handleSeeResultClick} />
     </Container>
   );
 };

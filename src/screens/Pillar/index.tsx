@@ -1,19 +1,16 @@
 import React from 'react';
-import PillarComponent from '../../components/PilarComponent';
+
 import QuestionComponent from '../../components/QuestionComponent';
 
 import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { Wrapper } from './styles';
 import ExitModal from '../../components/ExitModal';
-import { PillarData } from '../../types/globalTypes';
 import Breadcrumb from '../../components/Breadcrumb';
+import PillarComponent from '../../components/PillarComponent';
 
-interface PillarScreenProps {
-  pillarData: PillarData;
-}
 
-const Pilar: React.FC<PillarScreenProps> = ({ pillarData }) => {
+const Pillar: React.FC = () => {
   const { handleExit, assessmentStep, pillarsData } = useForms();
 
   useAssessmentRedirect()
@@ -23,8 +20,6 @@ const Pilar: React.FC<PillarScreenProps> = ({ pillarData }) => {
   if (!currentPillar) {
     return null;
   }
-
-  console.log("pillarsData in pilar screen:", pillarData)
 
   return (
     <Wrapper>
@@ -39,10 +34,10 @@ const Pilar: React.FC<PillarScreenProps> = ({ pillarData }) => {
       />
       <QuestionComponent
         questions={currentPillar.questoes}
-        currentPillar={currentPillar.ordem}
+        currentPillar={currentPillar}
       />
     </Wrapper>
   );
 };
 
-export default Pilar;
+export default Pillar;

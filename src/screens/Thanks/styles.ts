@@ -34,7 +34,6 @@ export const Description = styled.p`
   line-height: 160%; /* 32px */
   letter-spacing: -0.4px;
   margin-top: 30px;
-  margin-bottom: 72px;
 `
 
 export const ButtonContainer = styled.div`
@@ -42,6 +41,7 @@ export const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: end;
+  margin-top: 72px;
 `
 
 export const SeeResult = styled.button`

@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useForms } from './context/forms';
-import { HomeScreen, PersonalFormScreen, PilarScreen, ThanksScreen, IndividualResultScreen } from './screens'
+import { HomeScreen, PersonalFormScreen, PillarScreen, ThanksScreen, IndividualResultScreen } from './screens'
 
 const AppRoutes = () => {
   const { pillarsData } = useForms()
@@ -12,7 +12,7 @@ const AppRoutes = () => {
       <Route path="/assessment" element={<PersonalFormScreen />} />
 
       {sortedPillars.map((pillar) => (
-        <Route key={pillar.id} path={`/assessment/pilar-${pillar.ordem}`} element={<PilarScreen pillarData={pillar} />} />
+        <Route key={pillar.id} path={`/assessment/pilar-${pillar.ordem}`} element={<PillarScreen />} />
       ))}
 
       <Route path={`/assessment/agradecimento`} element={<ThanksScreen />} />
@@ -29,7 +29,7 @@ export default AppRoutes
 // import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 // import { useTransition, a } from '@react-spring/web';
 
-// import { HomeScreen, PersonalFormScreen, PilarScreen } from './screens';
+// import { HomeScreen, PersonalFormScreen, PillarScreen } from './screens';
 
 // const pillarsData = [
 //   {
@@ -93,7 +93,7 @@ export default AppRoutes
 //             <Route path="/assessment" element={<PersonalFormScreen />} />
 
 //             {sortedPillars.map((pillar) => (
-//               <Route key={pillar.id} path={`/assessment/pilar-${pillar.ordem}`} element={<PilarScreen pillarData={pillar} />} />
+//               <Route key={pillar.id} path={`/assessment/pilar-${pillar.ordem}`} element={<PillarScreen pillarData={pillar} />} />
 //             ))}
 //             </Routes>
 //         </a.div>

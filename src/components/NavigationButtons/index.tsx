@@ -1,8 +1,7 @@
 import React from 'react';
-
-import { useForms } from '../../context/forms';
 import { Next, Previous, Container, SeeResult } from './styles';
 
+import { useForms } from '../../context/forms';
 
 interface NavigationButtonsProps {
   currentPillar: number;
