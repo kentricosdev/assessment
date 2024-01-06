@@ -1,14 +1,13 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useForms } from './context/forms';
 import { HomeScreen, PersonalFormScreen, PillarScreen, ThanksScreen, IndividualResultScreen } from './screens'
-import ScrollToTop from './components/utils/scrollToTop';
 
 const AppRoutes = () => {
   const { pillarsData } = useForms()
   const sortedPillars = pillarsData.sort((a, b) => a.ordem - b.ordem);
   return (
    <>
-    <ScrollToTop />
+    {/* <ScrollToTop /> */}
     <Routes>
 
       <Route path="/*" element={<Navigate to="/" />} />

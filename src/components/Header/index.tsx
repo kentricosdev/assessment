@@ -50,7 +50,7 @@ const Header: React.FC = () => {
               <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
             </NavigationItem>
             <NavigationItem>
-              <a href="/#AboutKentricosId" onClick={handleOpenModal}>Quem somos?</a>
+              <a href="/#AboutKentricosId">Quem somos?</a>
             </NavigationItem>
             <NavigationItem>
               <a href="/#comunityId">Comunidade</a>

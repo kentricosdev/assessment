@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useForms } from "../../context/forms";
 import {
   ContainerFooter,
@@ -49,8 +48,8 @@ const Footer: React.FC = () => {
             <MenuGroup>
               <Title>Assessment</Title>
               <Nav>
-                <a href="/#oAssessmentId" onClick={handleOpenModal}>O que é?</a>
-                <a href="/#oAssessmentId" onClick={handleOpenModal}>Como fazer?</a>
+                <a href="/#oAssessmentId">O que é?</a>
+                <a href="/#oAssessmentId">Como fazer?</a>
                 <div className="link" onClick={handleStartAssessment}>Responda</div>
               </Nav>
             </MenuGroup>
