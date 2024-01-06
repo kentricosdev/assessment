@@ -1,6 +1,5 @@
 import React from 'react';
 import { Next, Previous, Container, SeeResult } from './styles';
-
 import { useForms } from '../../context/forms';
 
 interface NavigationButtonsProps {

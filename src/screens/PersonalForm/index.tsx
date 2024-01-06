@@ -122,7 +122,9 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props })
 /** CUSTOM SELECT END **/
 
 const PersonalForm: React.FC = () => {
+  useAssessmentRedirect();
   const storedFormData = localStorage.getItem('personalForm');
+
   const initialValues: MyFormValues = storedFormData
     ? JSON.parse(storedFormData)
     : {
@@ -141,8 +143,6 @@ const PersonalForm: React.FC = () => {
     localStorage.removeItem('personalForm')
     formikProps.resetForm();
   };
-
-  useAssessmentRedirect();
 
   const handleSubmit = async (
     values: MyFormValues,

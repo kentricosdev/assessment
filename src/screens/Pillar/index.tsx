@@ -5,15 +5,13 @@ import QuestionComponent from '../../components/QuestionComponent';
 import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { Wrapper } from './styles';
-import ExitModal from '../../components/ExitModal';
 import Breadcrumb from '../../components/Breadcrumb';
 import PillarComponent from '../../components/PillarComponent';
 
 
 const Pillar: React.FC = () => {
-  const { handleExit, assessmentStep, pillarsData } = useForms();
-
   useAssessmentRedirect()
+  const { handleExit, assessmentStep, pillarsData } = useForms();
 
   const currentPillar = pillarsData.find((pillar) => pillar.ordem === assessmentStep);
 

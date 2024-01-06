@@ -3,7 +3,6 @@ import { useTransition, a } from '@react-spring/web';
 
 import { HomeScreen, PersonalFormScreen, PillarScreen, ThanksScreen, IndividualResultScreen } from './screens';
 import { useForms } from './context/forms';
-import ExitModal from './components/ExitModal';
 
 const AppRoutes = () => {
   const { pillarsData, handleExit } = useForms();

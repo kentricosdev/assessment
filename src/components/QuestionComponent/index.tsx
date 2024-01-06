@@ -53,7 +53,6 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
     const result = { respostasPessoa: answers };
 
     const scores = calculateScoresIndividual(result)
-
     updateAnswers(result);
     updateScore(scores);
     navigate('/assessment/agradecimento')

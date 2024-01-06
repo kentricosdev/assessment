@@ -1,5 +1,4 @@
 import React from 'react';
-import ExitModal from '../../components/ExitModal';
 import { useForms } from '../../context/forms';
 
 import {

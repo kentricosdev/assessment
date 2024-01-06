@@ -3,6 +3,8 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { getPillarsData } from '../services/AssessmentServices';
 import { IAssessmentAnswers, IAssessmentScoreIndividual, PillarData } from '../types/globalTypes';
+import useAssessmentRedirect from '../hooks/assessmentRedirect';
+import { useNavigate } from 'react-router-dom';
 
 interface FormsContextData {
   isModalOpen: boolean;
@@ -26,6 +28,7 @@ export const FormsContext = createContext<FormsContextData>(
 )
 
 const FormsProvider = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
   const [pillarsData, setPillarsData] = useState<PillarData[]>([]);
 
   const [assessmentAnswers, setAssessmentAnswers] = useState<IAssessmentAnswers>(
@@ -60,12 +63,12 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const handleExit = useCallback(() => {
-    console.log("handleExit is called");
-    setIsModalOpen(false);
     setAssessmentStarted(false);
     setAssessmentStep(0);
     localStorage.removeItem('assessmentAnswers');
-    console.log('aq');
+    localStorage.removeItem('assessmentStarted');
+    setIsModalOpen(false);
+    navigate('/')
   }, [assessmentStep]);
 
   const handleOpenModal = () => {
