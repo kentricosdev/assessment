@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import ExitModal from '../../components/ExitModal';
 import { useForms } from '../../context/forms';
+
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 import {
   Title as ResultThanksTitle,
@@ -20,32 +23,59 @@ import {
   TotalResultCardTitle,
   ProgressBarContainer
 } from './styles'
-import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumb';
-import ResultModal from '../../components/ResultModal';
 import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import ResultModal from '../../components/ResultModal';
 
 const IndividualResult: React.FC = () => {
   const { handleExit, assessmentScoreIndividual } = useForms();
-  const navigate = useNavigate();
-  console.log("assessmentScoreIndividual", assessmentScoreIndividual)
+  const totalScoreRef = useRef<HTMLDivElement>(null);
+  const resultThanksTitleRef = useRef<HTMLDivElement>(null);
+  const resultThanksDescriptionRef = useRef<HTMLDivElement>(null);
+  const pillarsResultsIndividualRef = useRef<HTMLDivElement>(null);
+  const [showResultModal, setShowResultModal] = useState(false);
+
+  const downloadPDF = async () => {
+    setShowResultModal(true);
+    const pdf = new jsPDF();
+
+    const titleCanvas = await html2canvas(resultThanksTitleRef.current!);
+    const titleImageData = titleCanvas.toDataURL('image/png');
+    pdf.addImage(titleImageData, 'PNG', 10, 10, 100, 0);
+
+    const descriptionCanvas = await html2canvas(resultThanksDescriptionRef.current!);
+    const descriptionImageData = descriptionCanvas.toDataURL('image/png');
+    pdf.addImage(descriptionImageData, 'PNG', 10, 20, 190, 0);
+
+    const totalScoreCanvas = await html2canvas(totalScoreRef.current!);
+    const totalScoreImageData = totalScoreCanvas.toDataURL('image/png');
+    pdf.addImage(totalScoreImageData, 'PNG', 10, 50, 80, 0);
+
+    const pillarsCanvas = await html2canvas(pillarsResultsIndividualRef.current!);
+    const pillarsImageData = pillarsCanvas.toDataURL('image/png');
+    pdf.addImage(pillarsImageData, 'PNG', 10, 135, 180, 0);
+
+    pdf.save('output.pdf');
+  };
+
   return (
     <Container>
       <ExitModal confirmClear={handleExit}/>
+      {showResultModal && <ResultModal onClose={() => setShowResultModal(false)} />}
       <Wrapper>
         <Breadcrumb />
 
-        <ResultThanksTitle>
+        <ResultThanksTitle ref={resultThanksTitleRef}>
           Resultado
         </ResultThanksTitle>
-        <ResultThanksDescription>
+        <ResultThanksDescription ref={resultThanksDescriptionRef}>
           Obrigado por responder! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </ResultThanksDescription>
 
         <TotalScoreContainer>
-          <ScoreResultCard>
+          <ScoreResultCard ref={totalScoreRef}>
             <TotalResultCardTitle>Xcore Total</TotalResultCardTitle>
             <div className="ResultsFlex">
               <ProgressBarContainer>
@@ -79,14 +109,14 @@ const IndividualResult: React.FC = () => {
               <SendEmail>
                 Reenviar por e-mail
               </SendEmail>
-              <DownloadPdf>
+              <DownloadPdf onClick={downloadPDF}>
                 Baixar PDF
               </DownloadPdf>
             </ScoreResultActions>
           </ScoreExplanationCard>
         </TotalScoreContainer>
 
-        <PillarsResultsIndividual />
+        <PillarsResultsIndividual ref={pillarsResultsIndividualRef} />
 
         <IndividualResultActions>
           <ResultActionsCard>

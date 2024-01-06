@@ -35,25 +35,25 @@ const Header: React.FC = () => {
     <ContainerHeader>
       <Wrapper>
         <Menu>
-          <Logo href="#">
+          <Logo onClick={handleOpenModal}>
             <img src="/images/logo.svg" alt="Logo Kentricos" />
           </Logo>
 
           <Navigation>
             <NavigationItem>
-              <a href="#">Início</a>
+              <div className="link" onClick={handleOpenModal}>Início</div>
             </NavigationItem>
             <NavigationItem>
-              <a href="#">Consultoria</a>
+              <a href="https://kentricos.com/consultoria">Consultoria</a>
             </NavigationItem>
             <NavigationItem>
-              <a href="#">Xcore</a>
+              <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
             </NavigationItem>
             <NavigationItem>
-              <a href="#">Quem somos?</a>
+              <Link to="/#AboutKentricosId" onClick={handleOpenModal}>Quem somos?a</Link>
             </NavigationItem>
             <NavigationItem>
-              <a href="#">Comunidade</a>
+              <a href="/#comunityId">Comunidade</a>
             </NavigationItem>
           </Navigation>
 
@@ -76,20 +76,21 @@ const Header: React.FC = () => {
                 </button>
               </MobileNavHeader>
               <NavigationItem>
-                <a href="#">Início</a>
+                <div className="link" onClick={handleOpenModal}>Início</div>
               </NavigationItem>
               <NavigationItem>
-                <a href="#">Consultoria</a>
+                <a href="https://kentricos.com/consultoria">Consultoria</a>
               </NavigationItem>
               <NavigationItem>
-                <a href="#">Xcore</a>
+                <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
               </NavigationItem>
               <NavigationItem>
-                <a href="#">Quem somos?</a>
+                <a href="/#AboutKentricosId">Quem somos?</a>
               </NavigationItem>
               <NavigationItem>
-                <a href="#">Comunidade</a>
+                <a href="/#comunityId">Comunidade</a>
               </NavigationItem>
+
 
               {assessmentStarted  && (
                 <Leave onClick={handleOpenModal} style={{width: '100%'}}>
@@ -118,7 +119,7 @@ const Header: React.FC = () => {
                   </Link>
                   </StartAssessment>
                   <SeeVideo>
-                    <button>Confira o vídeo</button>
+                    <a href="/#videoContainerId"><button>Confira o vídeo</button></a>
                   </SeeVideo>
                 </Actions>
               )

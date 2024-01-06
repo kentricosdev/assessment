@@ -14,7 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumb';
 
 const Thanks: React.FC = () => {
-  const { handleExit, assessmentStep, pillarsData } = useForms();
+  const { handleExit } = useForms();
   const navigate = useNavigate();
 
   return (

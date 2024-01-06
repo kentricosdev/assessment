@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { useForms } from "../../context/forms";
 import {
   ContainerFooter,
   ContainerLogo,
@@ -13,12 +15,14 @@ import {
 } from "./styles";
 
 const Footer: React.FC = () => {
+  const { handleStartAssessment, handleOpenModal } = useForms();
+
   return (
     <ContainerFooter>
       <Wrapper>
         <MainContent>
           <ContainerLogo>
-            <LogoLink href="#">
+            <LogoLink onClick={handleOpenModal}>
               <img src="/images/logo-light.svg" alt="" />
             </LogoLink>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
@@ -27,27 +31,27 @@ const Footer: React.FC = () => {
             <MenuGroup>
               <Title>A Kentricos</Title>
               <Nav>
-                <a href="#">Home</a>
-                <a href="#">Consultoria</a>
-                <a href="#">Experience Lab</a>
-                <a href="#">Experience Makers</a>
-                <a href="#">Mentoria</a>
+                <div className="link" onClick={handleOpenModal}>Home</div>
+                <a href="https://kentricos.com/consultoria">Consultoria</a>
+                <a href="https://kentricos.com/">Experience Lab</a>
+                <a href="https://kentricos.com/">Experience Makers</a>
+                <a href="https://kentricos.com">Mentoria</a>
               </Nav>
             </MenuGroup>
             <MenuGroup>
               <Title>Quem somos</Title>
               <Nav>
-                <a href="#">Nossa História</a>
-                <a href="#">Nosso Time</a>
-                <a href="#">Lorem Ipsus</a>
+                <a href="https://kentricos.com/sobre-mim/">Nossa História</a>
+                <a href="https://kentricos.com/sobre-mim/">Nosso Time</a>
+                <a href="/#AboutKentricosId">Sobre a Kentricos</a>
               </Nav>
             </MenuGroup>
             <MenuGroup>
               <Title>Assessment</Title>
               <Nav>
-                <a href="#">O que é?</a>
-                <a href="#">Como fazer?</a>
-                <a href="#">Responda</a>
+                <a href="/#oAssessmentId" onClick={handleOpenModal}>O que é?</a>
+                <a href="/#oAssessmentId" onClick={handleOpenModal}>Como fazer?</a>
+                <div className="link" onClick={handleStartAssessment}>Responda</div>
               </Nav>
             </MenuGroup>
             <MenuGroup>

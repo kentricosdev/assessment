@@ -4,11 +4,10 @@ import { Next, Previous, Container, SeeResult } from './styles';
 import { useForms } from '../../context/forms';
 
 interface NavigationButtonsProps {
-  currentPillar: number;
   onSeeResultClick: () => void;
 }
 
-const NavigationButtons: React.FC<NavigationButtonsProps> = ({ currentPillar, onSeeResultClick }) => {
+const NavigationButtons: React.FC<NavigationButtonsProps> = ({ onSeeResultClick }) => {
   const { handleAssessmentNextStep, handleAssessmentPreviousStep, assessmentStep, pillarsData } = useForms();
   const totalQuestions = pillarsData.reduce((total, pillar) => total + pillar.questoes.length, 0);
 

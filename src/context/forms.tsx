@@ -7,10 +7,10 @@ import { IAssessmentAnswers, IAssessmentScoreIndividual, PillarData } from '../t
 interface FormsContextData {
   isModalOpen: boolean;
   handleOpenModal: () => void;
-  handleCloseModal: () => void;
+  handleCloseModal: (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   assessmentStarted: boolean;
   handleExit: () => void;
-  handleStartAssessment: () => void;
+  handleStartAssessment: (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   assessmentStep: number;
   handleAssessmentNextStep: () => void;
   handleAssessmentPreviousStep: () => void;
@@ -54,7 +54,8 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   // Control ASSESSMENT CURRENT STEP state
   const [assessmentStep, setAssessmentStep] = useState<number>(0);
 
-  const handleStartAssessment = useCallback(() => {
+  const handleStartAssessment = useCallback((e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
     setAssessmentStarted(true);
   }, []);
 
@@ -67,10 +68,12 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   }, [assessmentStep]);
 
   const handleOpenModal = () => {
+    if (localStorage.getItem('assessmentStarted') === 'false') return
     setIsModalOpen(true);
   }
 
-  const handleCloseModal = () => {
+  const handleCloseModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
     setIsModalOpen(false);
   }
 

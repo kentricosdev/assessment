@@ -7,7 +7,12 @@ export const ContainerHeader = styled.header`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  min-height: 640px;
+  height: 640px;
+
+  @media (min-width: 0) and (max-width: 425px) {
+    height: fit-content;
+    min-height: 640px;
+  }
 `;
 
 export const Menu = styled.div`
@@ -32,10 +37,11 @@ export const Menu = styled.div`
   }
 `;
 
-export const Logo = styled.a`
+export const Logo = styled.div`
   flex: 1;
   display: block;
   width: fit-content;
+  cursor: pointer;
 `;
 
 export const Navigation = styled.nav`
@@ -99,18 +105,23 @@ export const MobileNavHeader = styled.div`
 export const NavigationItem = styled.div`
   margin-bottom: 36px;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media (min-width: 993px) {
     margin-bottom: 0px;
     text-align: start;
   }
 
-  a {
+  a, .link {
     color: ${({ theme }) => theme.colors.neutral40};
     text-align: center;
     font-weight: 700;
     position: relative;
     font-size: 1.2rem;
+    cursor: pointer;
+    width: fit-content;
 
     &::after {
       content: '';
@@ -179,6 +190,7 @@ export const Title = styled.div`
   }
 
   img {
+    cursor: pointer;
     @media (min-width: 0) and (max-width: 430px) {
       max-width: 100px;
     }

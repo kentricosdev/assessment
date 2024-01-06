@@ -93,7 +93,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
           </OptionsList>
         </div>
       ))}
-      <NavigationButtons currentPillar={currentPillar.ordem} onSeeResultClick={handleSeeResultClick} />
+      <NavigationButtons onSeeResultClick={handleSeeResultClick} />
     </Container>
   );
 };

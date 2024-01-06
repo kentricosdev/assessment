@@ -30,7 +30,6 @@ export const MainContent = styled.div`
 
 export const ContainerLogo = styled.div`
   width: 25%;
-
   p {
     margin-top: 35px;
     color: ${({ theme }) => theme.colors.neutral60};
@@ -91,13 +90,14 @@ export const Nav = styled.nav`
   flex-direction: column;
   gap: 16px;
 
-  a {
+  a, .link {
     color: ${({ theme }) => theme.colors.neutral60};
     font-size: 1rem;
     font-weight: 400;
     line-height: 25px;
     letter-spacing: -0.32px;
     width: fit-content;
+    cursor: pointer;
   }
 `
 
@@ -153,7 +153,8 @@ export const BottomMenu = styled.nav`
   }
 `;
 
-export const LogoLink = styled.a`
+export const LogoLink = styled.div`
   display: block;
   width: fit-content;
+  cursor: pointer;
 `;

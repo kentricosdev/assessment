@@ -1,3 +1,4 @@
+import { useState } from "react";
 import useAssessmentRedirect from "../../hooks/assessmentRedirect";
 import {
   Container,
@@ -28,10 +29,26 @@ import {
 const Home: React.FC = () => {
   useAssessmentRedirect();
 
+  const [email, setEmail] = useState('');
+
+  const validarEmail = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (email.trim() === '') {
+      alert('Por favor, preencha o campo de e-mail.');
+    } else if (!emailRegex.test(email)) {
+      alert('Por favor, insira um e-mail válido.');
+    } else {
+      window.location.href = "https://bit.ly/clovers_01";
+    }
+  };
+
   return (
     <>
       <Container>
-        <VideoContainer>
+        <VideoContainer id="videoContainerId">
           <BubblesLeft>
             <img src="/images/bubbles-left.svg" />
           </BubblesLeft>
@@ -45,7 +62,7 @@ const Home: React.FC = () => {
           </BubblesRight>
         </VideoContainer>
 
-        <TheAssessment>
+        <TheAssessment id="oAssessmentId">
           <AsessmentWrapper>
             <h2 className="assessment-title">O Assessment</h2>
             <h1 className="main-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
@@ -75,7 +92,7 @@ const Home: React.FC = () => {
           </AsessmentWrapper>
         </TheAssessment>
 
-        <About>
+        <About id="AboutKentricosId">
           <h2>Sobre a Kenrtricos</h2>
 
           <AboutContent>
@@ -110,7 +127,7 @@ const Home: React.FC = () => {
                 </DataItem>
               </AboutDatas>
 
-              <AboutSeeMore href="#">
+              <AboutSeeMore href="https://kentricos.com/sobre-mim/">
                 Confira mais
                 <img src="/icons/arrow-right.svg" />
               </AboutSeeMore>
@@ -118,16 +135,18 @@ const Home: React.FC = () => {
           </AboutContent>
         </About>
 
-        <Newsletter>
+        <Newsletter id="comunityId">
           <NewsletterWrapper>
             <h2>Faça parte da Comunidade Customer Lovers</h2>
             <p>Receba o link para acesso à Comunidade Customer Lovers.</p>
 
             <InputContainer>
-              <input type="email" placeholder="Digite seu E-mail" />
-              <button onClick={() => console.log('clicked e email validado e enviado')}>
-                Fazer parte da Comunidade
-              </button>
+              <input type="email" placeholder="Digite seu E-mail"  value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <a href="https://bit.ly/clovers_01" target="_blank" onClick={validarEmail}>
+                <button>
+                  Fazer parte da Comunidade
+                </button>
+              </a>
             </InputContainer>
           </NewsletterWrapper>
         </Newsletter>
