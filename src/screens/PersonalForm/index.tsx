@@ -3,7 +3,6 @@ import { Container, Explanation, ExplanationText, ExplanationTitle, Title, Wrapp
 import styled from 'styled-components';
 import { useState } from 'react';
 import Switch from "react-switch";
-import ExitModal from '../../components/ExitModal';
 import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 
@@ -143,12 +142,6 @@ const PersonalForm: React.FC = () => {
     formikProps.resetForm();
   };
 
-  const handleExitForm = (formikProps: FormikProps<MyFormValues>) => {
-    localStorage.removeItem('personalForm');
-    formikProps.resetForm();
-    handleExit();
-  }
-
   useAssessmentRedirect();
 
   const handleSubmit = async (
@@ -192,7 +185,6 @@ const PersonalForm: React.FC = () => {
             {
               (formikProps) => (
                 <>
-                  <ExitModal confirmClear={() => handleExitForm(formikProps)}/>
                   <Form>
                     <div className="input-wrapper">
                       <label htmlFor="fullName">Nome Completo:</label>

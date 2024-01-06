@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom';
 import Breadcrumb from '../../components/Breadcrumb';
 
 const Thanks: React.FC = () => {
-  const { handleExit } = useForms();
   const navigate = useNavigate();
 
   return (
@@ -34,7 +33,6 @@ const Thanks: React.FC = () => {
           </SeeResult>
         </ButtonContainer>
       </Wrapper>
-      <ExitModal confirmClear={handleExit} />
     </Container>
   );
 };

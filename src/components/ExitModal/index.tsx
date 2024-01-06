@@ -1,17 +1,32 @@
-import { Link } from "react-router-dom";
-import { Container, Card, Title, TitleContainer, Text, Actions, Exit, Cancel } from "./styles";
-import { useForms } from "../../context/forms";
+import { createPortal } from 'react-dom';
+import { useEffect, useRef } from 'react';
+import { Container, Card, Title, TitleContainer, Text, Actions, Exit, Cancel } from './styles';
+import { useForms } from '../../context/forms';
 
 interface ExitModalProps {
   confirmClear: () => void;
 }
 
 const ExitModal: React.FC<ExitModalProps> = ({ confirmClear }) => {
+  console.log("confirmClear type:", typeof confirmClear);
   const { isModalOpen, handleCloseModal } = useForms();
+  const modalRootRef = useRef(document.getElementById('modal-root') || document.createElement('div'));
+
+  useEffect(() => {
+    if (!document.getElementById('modal-root')) {
+      document.body.appendChild(modalRootRef.current);
+    }
+
+    return () => {
+      if (modalRootRef.current.parentElement) {
+        document.body.removeChild(modalRootRef.current);
+      }
+    };
+  }, [modalRootRef]);
 
   if (!isModalOpen) return null;
 
-  return (
+  return createPortal(
     <Container>
       <Card>
         <TitleContainer>
@@ -20,21 +35,19 @@ const ExitModal: React.FC<ExitModalProps> = ({ confirmClear }) => {
             <img src="/icons/CardExit.png" alt="Sair" />
           </button>
         </TitleContainer>
-        <Text>Ao clicar em <b>Sair</b>, você perderá todos os dados respondidos até o momento. Você tem certeza que deseja sair?</Text>
+        <Text>
+          Ao clicar em <b>Sair</b>, você perderá todos os dados respondidos até o momento. Você tem certeza que deseja sair?
+        </Text>
         <Actions>
-          <Link to="/">
-            <Exit onClick={confirmClear}>
-              Sair
-            </Exit>
-          </Link>
-          <Cancel onClick={handleCloseModal}>
-            Voltar
-          </Cancel>
+          <div>
+            <Exit onClick={confirmClear}>Sair</Exit>
+          </div>
+          <Cancel onClick={handleCloseModal}>Voltar</Cancel>
         </Actions>
       </Card>
-    </Container>
-  )
-}
-
+    </Container>,
+    modalRootRef.current
+  );
+};
 
 export default ExitModal;

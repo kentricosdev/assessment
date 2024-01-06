@@ -6,9 +6,17 @@ import Header from './components/Header/index.tsx';
 import Footer from './components/Footer/index.tsx';
 import AppRoutes from './Routes.tsx';
 import { BrowserRouter } from 'react-router-dom';
-// import ExitModal from './components/ExitModal/index.tsx';
-import { FormsProvider } from './context/forms.tsx';
+import { FormsProvider, useForms } from './context/forms.tsx';
 import React from 'react';
+import ExitModal from './components/ExitModal/index.tsx';
+
+const ModalRoot: React.FC = () => {
+  const { handleExit } = useForms();
+
+  return (
+    <ExitModal confirmClear={handleExit} />
+  );
+};
 
 const Main: React.FC = () => {
   return (
@@ -17,9 +25,10 @@ const Main: React.FC = () => {
         <ThemeProvider theme={theme}>
           <FormsProvider>
             <GlobalStyles />
-            <Header/>
-            <AppRoutes  />
+            <Header />
+            <AppRoutes />
             <Footer />
+            <ModalRoot />
           </FormsProvider>
         </ThemeProvider>
       </React.StrictMode>

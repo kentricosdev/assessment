@@ -44,6 +44,21 @@ export const Logo = styled.div`
   cursor: pointer;
 `;
 
+export const LogoMobile = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-bottom: 60px;
+  cursor: pointer;
+  width: 100%;
+
+  img {
+    width: 100%;
+    max-width: 200px;
+  }
+`;
+
 export const Navigation = styled.nav`
   flex-shrink: 0 auto;
   align-items: center;
@@ -76,10 +91,10 @@ export const MobileNavigation = styled.div`
   }
 `
 
-export const MobileNavContent = styled.div<{ ishidden?: boolean }>`
+export const MobileNavContent = styled.div<{ ishidden?: string }>`
   position: fixed;
   top: 0;
-  right: ${(props) => (props.ishidden ? '-70%' : '0')};
+  right: ${(props) => (props.ishidden === 'true' ? '-70%' : '0')};
   width: 70%;
   height: 100%;
   background-color: ${({ theme }) => theme.colors.neutral100};
@@ -89,7 +104,7 @@ export const MobileNavContent = styled.div<{ ishidden?: boolean }>`
   padding: 18px 24px;
 
   @media (min-width: 500px) {
-    right: ${(props) => (props.ishidden ? '-40%' : '0')};
+    right: ${(props) => (props.ishidden === 'true' ? '-40%' : '0')};
     width: 40%;
     z-index: 999;
   }

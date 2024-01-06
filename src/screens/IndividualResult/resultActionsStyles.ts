@@ -5,6 +5,7 @@ export const IndividualResultActions = styled.div`
   align-items: center;
   gap: 38px;
   margin-top: 55px;
+  flex-wrap: wrap;
 `;
 
 export const ResultActionsCard = styled.div`

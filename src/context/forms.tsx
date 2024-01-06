@@ -60,16 +60,20 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   }, []);
 
   const handleExit = useCallback(() => {
+    console.log("handleExit is called");
     setIsModalOpen(false);
     setAssessmentStarted(false);
-    setAssessmentStep(0)
+    setAssessmentStep(0);
     localStorage.removeItem('assessmentAnswers');
-    console.log('aq')
+    console.log('aq');
   }, [assessmentStep]);
 
   const handleOpenModal = () => {
-    if (localStorage.getItem('assessmentStarted') === 'false') return
-    setIsModalOpen(true);
+    console.log("aq")
+    console.log(localStorage.getItem('assessmentStarted'));
+    if (localStorage.getItem('assessmentStarted') === 'true') {
+      setIsModalOpen(true);
+    }
   }
 
   const handleCloseModal = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent> | React.MouseEvent<HTMLAnchorElement, MouseEvent> | React.MouseEvent<HTMLDivElement, MouseEvent>) => {

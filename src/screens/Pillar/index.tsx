@@ -23,8 +23,6 @@ const Pillar: React.FC = () => {
 
   return (
     <Wrapper>
-      <ExitModal confirmClear={handleExit} />
-
       <Breadcrumb />
 
       <PillarComponent

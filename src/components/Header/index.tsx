@@ -13,6 +13,7 @@ import {
   StartAssessment,
   Text,
   Title,
+  LogoMobile,
   Wrapper,
   Leave,
   MobileNavigation,
@@ -69,12 +70,15 @@ const Header: React.FC = () => {
             <button onClick={handleOpenMenuMobile}>
               <IoMenu color='#FFF' />
             </button>
-            <MobileNavContent ishidden={!menuOpen}>
+            <MobileNavContent ishidden={!menuOpen === true ? "true" : "false"}>
               <MobileNavHeader>
                 <button onClick={handleOpenMenuMobile}>
                   <IoClose color='#FFF' />
                 </button>
               </MobileNavHeader>
+              <LogoMobile>
+                <img src="/images/logo.svg" alt="Logo Kentricos" />
+              </LogoMobile>
               <NavigationItem>
                 <div className="link" onClick={handleOpenModal}>Início</div>
               </NavigationItem>

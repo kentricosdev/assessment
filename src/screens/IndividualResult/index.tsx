@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import ExitModal from '../../components/ExitModal';
 import { useForms } from '../../context/forms';
 
 import html2canvas from 'html2canvas';
@@ -37,6 +36,19 @@ const IndividualResult: React.FC = () => {
   const pillarsResultsIndividualRef = useRef<HTMLDivElement>(null);
   const [showResultModal, setShowResultModal] = useState(false);
 
+  const shareContent = async () => {
+    try {
+      await navigator.share({
+        title: 'Título do Compartilhamento',
+        text: 'Texto do Compartilhamento',
+        url: 'https://www.example.com'
+      });
+      console.log('cuca');
+    } catch (error) {
+      console.log('Erro ao compartilhar', error);
+    }
+  };
+
   const downloadPDF = async () => {
     setShowResultModal(true);
     const pdf = new jsPDF();
@@ -62,7 +74,6 @@ const IndividualResult: React.FC = () => {
 
   return (
     <Container>
-      <ExitModal confirmClear={handleExit}/>
       {showResultModal && <ResultModal onClose={() => setShowResultModal(false)} />}
       <Wrapper>
         <Breadcrumb />
@@ -142,10 +153,8 @@ const IndividualResult: React.FC = () => {
 
             <ResultActionsCardContent>
               <h2>Compartilhe esse teste</h2>
-
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-              <ResultActionsButton>
+              <ResultActionsButton onClick={shareContent}>
                 Compartilhar
               </ResultActionsButton>
             </ResultActionsCardContent>
