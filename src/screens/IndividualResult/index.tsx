@@ -27,9 +27,10 @@ import { IndividualResultActions, ResultActionsButton, ResultActionsCard, Result
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import ResultModal from '../../components/ResultModal';
+import ResendEmailModal from '../../components/ResendEmailModal';
 
 const IndividualResult: React.FC = () => {
-  const { assessmentScoreIndividual } = useForms();
+  const { assessmentScoreIndividual, setIsEmailModalOpen, isEmailModalOpen } = useForms();
   const totalScoreRef = useRef<HTMLDivElement>(null);
   const resultThanksTitleRef = useRef<HTMLDivElement>(null);
   const resultThanksDescriptionRef = useRef<HTMLDivElement>(null);
@@ -39,13 +40,13 @@ const IndividualResult: React.FC = () => {
   const shareContent = async () => {
     try {
       await navigator.share({
-        title: 'Título do Compartilhamento',
-        text: 'Texto do Compartilhamento',
-        url: 'https://www.example.com'
+        title: 'Conheça o Xcore',
+        text: 'Descubra o nível de maturidade de experiência do cliente da sua empresa em poucos cliques!',
+        url: 'https://kentricos.com/xcore'
       });
-      console.log('cuca');
     } catch (error) {
-      console.log('Erro ao compartilhar', error);
+      throw new Error("Erro ao compartilhar conteúdo:" + error);
+      ;
     }
   };
 
@@ -71,10 +72,11 @@ const IndividualResult: React.FC = () => {
 
     pdf.save('output.pdf');
   };
-
+  console.log("isEmailModalOpen", isEmailModalOpen)
   return (
     <Container>
       {showResultModal && <ResultModal onClose={() => setShowResultModal(false)} />}
+      {isEmailModalOpen && <ResendEmailModal onClose={() => setIsEmailModalOpen(false)} />}
       <Wrapper>
         <Breadcrumb />
 
@@ -117,7 +119,7 @@ const IndividualResult: React.FC = () => {
             </ScoreExplanation>
 
             <ScoreResultActions>
-              <SendEmail>
+              <SendEmail onClick={() => setIsEmailModalOpen(true)}>
                 Reenviar por e-mail
               </SendEmail>
               <DownloadPdf onClick={downloadPDF}>

@@ -20,7 +20,9 @@ interface FormsContextData {
   updateAnswers: (answers: IAssessmentAnswers) => void;
   updateScore: (assessmentScore: IAssessmentScoreIndividual) => void;
   assessmentAnswers: IAssessmentAnswers;
-  assessmentScoreIndividual: IAssessmentScoreIndividual
+  assessmentScoreIndividual: IAssessmentScoreIndividual;
+  isEmailModalOpen: boolean;
+  setIsEmailModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const FormsContext = createContext<FormsContextData>(
   {} as FormsContextData
@@ -29,6 +31,8 @@ export const FormsContext = createContext<FormsContextData>(
 const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const [pillarsData, setPillarsData] = useState<PillarData[]>([]);
+
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
 
   const [assessmentAnswers, setAssessmentAnswers] = useState<IAssessmentAnswers>(
     () => {
@@ -133,9 +137,11 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
       updateAnswers,
       assessmentAnswers,
       updateScore,
-      assessmentScoreIndividual
+      assessmentScoreIndividual,
+      isEmailModalOpen,
+      setIsEmailModalOpen
     }
-  }, [isModalOpen, assessmentStarted, assessmentStep, pillarsData, assessmentAnswers])
+  }, [isModalOpen, assessmentStarted, assessmentStep, pillarsData, assessmentAnswers, isEmailModalOpen])
 
   return (
     <FormsContext.Provider value={FormsContextValues}>

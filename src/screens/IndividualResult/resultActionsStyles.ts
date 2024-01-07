@@ -13,9 +13,14 @@ export const ResultActionsCard = styled.div`
   align-items: flex-start;
   border-radius: 8px;
   border: 1px solid #CACACA;
+  width: calc(50% - 19px);
 
   display: flex;
   gap: 32px;
+
+  @media (min-width: 0) and (max-width: 1420px) {
+    width: 100%;
+  }
 `;
 
 export const ResultActionsImgContainer = styled.div`
@@ -41,6 +46,11 @@ export const ResultActionsCardContent = styled.div`
     line-height: 160%; /* 32px */
     letter-spacing: -0.4px;
     margin-bottom: 27px;
+    max-width: 250px;
+
+    @media (min-width: 0) and (max-width: 1420px) {
+    max-width: 100%;
+    }
   }
 `;
 
