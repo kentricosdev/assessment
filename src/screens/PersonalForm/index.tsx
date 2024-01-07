@@ -18,10 +18,6 @@ interface MyFormValues {
   annualRevenue: string;
 }
 
-interface StyledSelectProps {
-  hasValue: boolean;
-}
-
 const StyledSwitch = styled(Switch)`
 
 `;
@@ -53,11 +49,11 @@ const CustomSelectWrapper = styled.div`
   }
 `;
 
-const StyledSelect = styled.div<StyledSelectProps>`
+const StyledSelect = styled.div`
   padding: 16px;
   width: 480px;
   gap: 10px;
-  color: ${(props) => (props.hasValue ? '#0A0A0A' : '#888788')};
+  color: ${(props) => (props['aria-atomic'] ? '#0A0A0A' : '#888788')};
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -102,7 +98,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props })
           {...props}
           onClick={() => setIsDropdownOpen(!isDropdownOpen)}
           onBlur={() => setIsDropdownOpen(false)}
-          hasValue={!!field.value}
+          aria-atomic={!!field.value}
         >
           {field.value || 'Selecionar'}
           <img src="/icons/arrow-down.svg" alt="icon" />
