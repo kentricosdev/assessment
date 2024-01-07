@@ -21,7 +21,11 @@ export const Wrapper = styled.div`
       gap: 8px;
 
       input {
-        color: #888788
+        color: #0A0A0A;
+
+        &::placeholder {
+          color: #888788;
+        }
       }
     }
 
