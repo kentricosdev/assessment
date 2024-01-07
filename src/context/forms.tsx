@@ -3,7 +3,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { getPillarsData } from '../services/AssessmentServices';
 import { IAssessmentAnswers, IAssessmentScoreIndividual, PillarData } from '../types/globalTypes';
-import useAssessmentRedirect from '../hooks/assessmentRedirect';
 import { useNavigate } from 'react-router-dom';
 
 interface FormsContextData {

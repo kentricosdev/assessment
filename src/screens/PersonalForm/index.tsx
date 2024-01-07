@@ -138,7 +138,7 @@ const PersonalForm: React.FC = () => {
         receiveContent: false,
         annualRevenue: '',
       };
-  const { handleExit, handleAssessmentNextStep, assessmentStep } = useForms();
+  const { handleAssessmentNextStep, assessmentStep } = useForms();
   const handleCleanForm = (formikProps: FormikProps<MyFormValues>) => {
     localStorage.removeItem('personalForm')
     formikProps.resetForm();

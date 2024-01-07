@@ -11,7 +11,7 @@ import PillarComponent from '../../components/PillarComponent';
 
 const Pillar: React.FC = () => {
   useAssessmentRedirect()
-  const { handleExit, assessmentStep, pillarsData } = useForms();
+  const { assessmentStep, pillarsData } = useForms();
 
   const currentPillar = pillarsData.find((pillar) => pillar.ordem === assessmentStep);
 

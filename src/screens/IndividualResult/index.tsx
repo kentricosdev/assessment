@@ -29,7 +29,7 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import ResultModal from '../../components/ResultModal';
 
 const IndividualResult: React.FC = () => {
-  const { handleExit, assessmentScoreIndividual } = useForms();
+  const { assessmentScoreIndividual } = useForms();
   const totalScoreRef = useRef<HTMLDivElement>(null);
   const resultThanksTitleRef = useRef<HTMLDivElement>(null);
   const resultThanksDescriptionRef = useRef<HTMLDivElement>(null);

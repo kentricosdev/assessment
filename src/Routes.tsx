@@ -1,18 +1,27 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useTransition, a } from '@react-spring/web';
+import { useState, useEffect } from 'react';
 
-import { HomeScreen, PersonalFormScreen, PillarScreen, ThanksScreen, IndividualResultScreen } from './screens';
+import {
+  HomeScreen,
+  PersonalFormScreen,
+  PillarScreen,
+  ThanksScreen,
+  IndividualResultScreen
+} from './screens';
 import { useForms } from './context/forms';
 
 const AppRoutes = () => {
-  const { pillarsData, handleExit } = useForms();
+  const { pillarsData } = useForms();
   const sortedPillars = pillarsData.sort((a, b) => a.ordem - b.ordem);
   const location = useLocation();
+  console.log("location",location)
   const transitions = useTransition(location, {
-    from: { opacity: 0, transform: 'translate3d(100%,0,0)' },
-    enter: { opacity: 1, transform: 'translate3d(0%,0,0)' },
-    leave: { opacity: 0, transform: 'translate3d(-50%,0,0)' },
+    from: { opacity: 0, transform: 'translate3d(100%, 0, 0)' },
+    enter: { opacity: 1, transform: 'translate3d(0%, 0, 0)' },
+    leave: { opacity: 0, transform: 'translate3d(-50%, 0, 0)', height: '0px', display: 'none'},
   });
+
 
   return (
     <>
@@ -20,8 +29,14 @@ const AppRoutes = () => {
         <a.div style={styles}>
           <Routes location={item}>
             <Route path="/*" element={<Navigate to="/" />} />
-            <Route path="/" element={<HomeScreen />} />
-            <Route path="/assessment" element={<PersonalFormScreen />} />
+            <Route
+              path="/"
+              element={<HomeScreen />}
+            />
+            <Route
+              path="/assessment"
+              element={<PersonalFormScreen />}
+            />
 
             {sortedPillars.map((pillar) => (
               <Route
@@ -31,8 +46,14 @@ const AppRoutes = () => {
               />
             ))}
 
-            <Route path="/assessment/agradecimento" element={<ThanksScreen />} />
-            <Route path="/assessment/resultado" element={<IndividualResultScreen />} />
+            <Route
+              path="/assessment/agradecimento"
+              element={<ThanksScreen />}
+            />
+            <Route
+              path="/assessment/resultado"
+              element={<IndividualResultScreen />}
+            />
           </Routes>
         </a.div>
       ))}
