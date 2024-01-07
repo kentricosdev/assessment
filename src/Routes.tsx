@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useTransition, a } from '@react-spring/web';
-import { useState, useEffect } from 'react';
 
 import {
   HomeScreen,
