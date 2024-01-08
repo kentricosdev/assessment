@@ -5,6 +5,12 @@ export const Container = styled.div`
     margin: 0 auto;
     padding: 60px 120px 90px;
 
+    .error-message {
+      color: #BF3131 !important;
+      font-size: 0.875rem;
+      width: 100%;
+    }
+
     @media (min-width:0) and (max-width:1320px) {
       padding-left: 24px;
       padding-right: 24px;
@@ -15,6 +21,10 @@ export const Container = styled.div`
       padding-right: 16px;
     }
 `;
+
+export const ErrorWrapper = styled.div`
+
+`
 
 export const Wrapper = styled.div`
 
@@ -132,6 +142,11 @@ export const Title = styled.h1`
 
 export const Explanation = styled.div`
   /* Your explanation styles here */
+  @media (min-width:0) and (max-width: 1320px) {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
 `;
 
 export const ExplanationTitle = styled.h2`
@@ -186,6 +201,8 @@ export const FormActionsContainer = styled.div`
   @media (min-width:0) and (max-width:1320px) {
     margin-top: 32px;
     flex-wrap: wrap;
+    width: 100%;
+    max-width: 600px;
   }
 `;
 
@@ -239,5 +256,14 @@ export const SubmitButton = styled.button`
 
   &:hover {
     filter: brightness(1.03);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: ${({ theme }) => theme.colors.neutral50};
+  }
+
+  &:disabled:hover {
+    filter: none;
   }
 `;

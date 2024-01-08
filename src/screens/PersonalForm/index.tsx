@@ -1,11 +1,12 @@
-import { Formik, Form, Field, FieldProps, FieldAttributes, useField, FormikProps, FormikHelpers } from 'formik';
-import { Container, Explanation, ExplanationText, ExplanationTitle, Title, Wrapper, FormActionsContainer, ClearButton, SubmitButton } from './styles';
+import { Formik, Form, Field, FieldProps, FieldAttributes, useField, FormikProps, FormikHelpers, ErrorMessage } from 'formik';
+import { Container, Explanation, ExplanationText, ExplanationTitle, Title, Wrapper, FormActionsContainer, ClearButton, SubmitButton, ErrorWrapper } from './styles';
 import styled from 'styled-components';
 import { useState } from 'react';
 import Switch from "react-switch";
 import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { useMediaQuery } from 'react-responsive';
+import * as Yup from 'yup';
 
 interface MyFormValues {
   fullName: string;
@@ -121,7 +122,6 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props })
           ))}
         </OptionsContainer>
       )}
-      {meta.touched && meta.error ? <div>{meta.error}</div> : null}
     </CustomSelectWrapper>
   );
 };
@@ -131,6 +131,18 @@ const PersonalForm: React.FC = () => {
   useAssessmentRedirect();
   const storedFormData = localStorage.getItem('personalForm');
   const isMobile = useMediaQuery({ maxWidth: 1320 });
+
+  const validationSchema = Yup.object().shape({
+    fullName: Yup.string().required('Campo obrigatório'),
+    company: Yup.string().required('Campo obrigatório'),
+    email: Yup.string().email('Formato de e-mail inválido').required('Campo obrigatório'),
+    sector: Yup.string().required('Campo obrigatório'),
+    whatsapp: Yup.string(),
+    employeeQuantity: Yup.string().required('Campo obrigatório'),
+    privacyPolicy: Yup.bool().oneOf([true], 'Você deve aceitar as políticas de privacidade'),
+    receiveContent: Yup.bool(),
+    annualRevenue: Yup.string().required('Campo obrigatório'),
+  });
 
   const initialValues: MyFormValues = storedFormData
     ? JSON.parse(storedFormData)
@@ -148,7 +160,8 @@ const PersonalForm: React.FC = () => {
   const { handleAssessmentNextStep } = useForms();
   const handleCleanForm = (formikProps: FormikProps<MyFormValues>) => {
     localStorage.removeItem('personalForm')
-    formikProps.resetForm();
+    formikProps.resetForm()
+    formikProps.validateForm();
   };
 
   const handleSubmit = async (
@@ -184,28 +197,32 @@ const PersonalForm: React.FC = () => {
           <Formik
             initialValues={initialValues}
             onSubmit={handleSubmit}
+            validationSchema={validationSchema}
           >
             {
               (formikProps) => (
                 <>
                   <Form>
                     <div className="input-wrapper">
-                      <label htmlFor="fullName">Nome Completo:</label>
+                      <label htmlFor="fullName">Nome Completo: *</label>
                       <Field id="fullName" name="fullName" placeholder="Nome Completo" />
+                      <ErrorMessage name="fullName" component="p" className="error-message" />
                     </div>
 
                     <div className="input-wrapper">
-                      <label htmlFor="company">Empresa:</label>
+                      <label htmlFor="company">Empresa: *</label>
                       <Field id="company" name="company" placeholder="Empresa" />
+                      <ErrorMessage name="company" component="p" className="error-message" />
                     </div>
 
                     <div className="input-wrapper">
-                      <label htmlFor="email">E-mail:</label>
+                      <label htmlFor="email">E-mail: *</label>
                       <Field id="email" name="email" type="email" placeholder="E-mail" />
+                      <ErrorMessage name="email" component="p" className="error-message" />
                     </div>
 
                     <div className="input-wrapper">
-                      <label htmlFor="sector">Setor:</label>
+                      <label htmlFor="sector">Setor: *</label>
                       <CustomSelect
                         label="Escolha uma opção"
                         id="sector"
@@ -215,15 +232,17 @@ const PersonalForm: React.FC = () => {
                           { value: 'option2', label: 'Opção 2' },
                         ]}
                       />
+                      <ErrorMessage name="sector" component="p" className="error-message" />
                     </div>
 
                     <div className="input-wrapper">
                       <label htmlFor="whatsapp">Whatsapp:</label>
                       <Field id="whatsapp" name="whatsapp" type="phone" placeholder="Whatsapp" />
+                      <ErrorMessage name="whatsapp" component="p" className="error-message" />
                     </div>
 
                     <div className="input-wrapper">
-                      <label htmlFor="employeeQuantity">Quantidade de Funcionário:</label>
+                      <label htmlFor="employeeQuantity">Quantidade de Funcionário: *</label>
                       <CustomSelect
                         label="Escolha uma opção"
                         id="employeeQuantity"
@@ -233,11 +252,12 @@ const PersonalForm: React.FC = () => {
                           { value: 'option2', label: 'Opção 2' },
                         ]}
                       />
+                      <ErrorMessage name="employeeQuantity" component="p" className="error-message" />
                     </div>
 
                     {isMobile && (
                       <div className="input-wrapper">
-                        <label htmlFor="annualRevenue">Faturamento Anual:</label>
+                        <label htmlFor="annualRevenue">Faturamento Anual: *</label>
                         <CustomSelect
                           label="Escolha uma opção"
                           id="annualRevenue"
@@ -247,67 +267,73 @@ const PersonalForm: React.FC = () => {
                             { value: 'option2', label: 'Opção 2' },
                           ]}
                         />
+                        <ErrorMessage name="annualRevenue" component="p" className="error-message" />
                       </div>
                     )}
 
                     <div className="input-wrapper-policy">
-                      <div className="policy-inner-wrapper">
-                        <Field name="privacyPolicy">
-                          {({ field, form }: FieldProps<MyFormValues>) => (
-                            <StyledSwitch
-                              offColor="#e4e5e7"
-                              onColor="#e4e5e7"
-                              height={13}
-                              width={33}
-                              handleDiameter={16}
-                              offHandleColor="#888788"
-                              onHandleColor="#184E77"
-                              uncheckedIcon={false}
-                              checkedIcon={false}
-                              onChange={(checked) => {
-                                form.setFieldValue(field.name, checked);
-                              }}
-                              checked={!!field.value}
-                            />
-                          )}
-                        </Field>
-                        <div className="check-description">
-                          <label htmlFor="privacyPolicy">Politicas de privacidade:</label>
-                          <p>Eu li e aceito os termos de privacidade.</p>
+                      <ErrorWrapper>
+                        <div className="policy-inner-wrapper">
+                          <Field name="privacyPolicy">
+                            {({ field, form }: FieldProps<MyFormValues>) => (
+                              <StyledSwitch
+                                offColor="#e4e5e7"
+                                onColor="#e4e5e7"
+                                height={13}
+                                width={33}
+                                handleDiameter={16}
+                                offHandleColor="#888788"
+                                onHandleColor="#184E77"
+                                uncheckedIcon={false}
+                                checkedIcon={false}
+                                onChange={(checked) => {
+                                  form.setFieldValue(field.name, checked);
+                                }}
+                                checked={!!field.value}
+                              />
+                            )}
+                          </Field>
+                          <div className="check-description">
+                            <label htmlFor="privacyPolicy">Politicas de privacidade: *</label>
+                            <p>Eu li e aceito os termos de privacidade.</p>
+                          </div>
                         </div>
-                      </div>
+                        <ErrorMessage name="privacyPolicy" component="p" className="error-message" />
+                      </ErrorWrapper>
 
-                      <div className="policy-inner-wrapper">
-                        <Field name="receiveContent">
-                          {({ field, form }: FieldProps<MyFormValues>) => (
-                            <StyledSwitch
-                              offColor="#e4e5e7"
-                              onColor="#e4e5e7"
-                              height={13}
-                              width={33}
-                              handleDiameter={16}
-                              offHandleColor="#888788"
-                              onHandleColor="#184E77"
-                              uncheckedIcon={false}
-                              checkedIcon={false}
-                              onChange={(checked) => {
-                                form.setFieldValue(field.name, checked);
-                              }}
-                              checked={!!field.value}
-                            />
-                          )}
-                        </Field>
-                        <div className="check-description">
-                          <label htmlFor="receiveContent">Aceito Receber conteúdos e noticias:</label>
-                          <p>Eu aceito receber os conteúdos e notícias desta empresa.</p>
+                      <ErrorWrapper>
+                        <div className="policy-inner-wrapper">
+                          <Field name="receiveContent">
+                            {({ field, form }: FieldProps<MyFormValues>) => (
+                              <StyledSwitch
+                                offColor="#e4e5e7"
+                                onColor="#e4e5e7"
+                                height={13}
+                                width={33}
+                                handleDiameter={16}
+                                offHandleColor="#888788"
+                                onHandleColor="#184E77"
+                                uncheckedIcon={false}
+                                checkedIcon={false}
+                                onChange={(checked) => {
+                                  form.setFieldValue(field.name, checked);
+                                }}
+                                checked={!!field.value}
+                              />
+                            )}
+                          </Field>
+                          <div className="check-description">
+                            <label htmlFor="receiveContent">Aceito Receber conteúdos e noticias:</label>
+                            <p>Eu aceito receber os conteúdos e notícias desta empresa.</p>
+                          </div>
+                          <ErrorMessage name="receiveContent" component="p" className="error-message" />
                         </div>
-                      </div>
-
+                      </ErrorWrapper>
                     </div>
 
                     {!isMobile && (
                       <div className="input-wrapper">
-                        <label htmlFor="annualRevenue">Faturamento Anual:</label>
+                        <label htmlFor="annualRevenue">Faturamento Anual: *</label>
                         <CustomSelect
                           label="Escolha uma opção"
                           id="annualRevenue"
@@ -317,6 +343,7 @@ const PersonalForm: React.FC = () => {
                             { value: 'option2', label: 'Opção 2' },
                           ]}
                         />
+                        <ErrorMessage name="annualRevenue" component="p" className="error-message" />
                       </div>
                     )}
 

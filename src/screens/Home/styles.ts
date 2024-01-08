@@ -323,14 +323,17 @@ export const InputContainer = styled.div`
   border-radius: 100px;
   background: #fff;
 
-  @media (min-width: 0) and (max-width: 768px) {
+  @media (min-width: 0px) and (max-width: 768px) {
     width: 100%;
   }
 
-  @media (min-width: 0) and (max-width: 460px) {
+  @media (min-width: 0) and (max-width: 560px) {
     display: flex;
     flex-direction: column;
     background: transparent;
+
+    padding-left: 0;
+    padding-right: 0;
   }
 
   input {
@@ -349,7 +352,7 @@ export const InputContainer = styled.div`
       opacity: 0.6;
     }
 
-    @media (min-width: 0) and (max-width: 460px) {
+    @media (min-width: 0) and (max-width: 560px) {
       width: 100%;
       text-align: center;
       margin: 0;

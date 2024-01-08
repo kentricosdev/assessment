@@ -69,7 +69,7 @@ const GlobalStyles = createGlobalStyle`
 
   button:hover {
     filter: brightness(1.05);
-    transition: filter .3 ease-in-out;
+    transition: filter .3s ease-in-out;
   }
 `;
 
