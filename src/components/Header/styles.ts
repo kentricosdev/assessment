@@ -356,7 +356,8 @@ export const Leave = styled.button`
   line-height: 25px;
   letter-spacing: -0.32px;
   display: flex;
-  width: 160px;
+  width: 100%;
+  max-width: 160px;
   height: 56px;
   padding: 14px 30px;
   justify-content: center;

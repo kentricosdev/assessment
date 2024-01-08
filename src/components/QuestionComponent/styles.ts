@@ -5,6 +5,11 @@ export const Container = styled.div`
   border-radius: 28px;
   background: #EDEDED;
 
+  @media (min-width:0) and (max-width:600px) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   h3{
     color: #686770;
     font-size: 1.25rem;

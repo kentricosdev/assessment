@@ -46,7 +46,8 @@ export const ButtonContainer = styled.div`
 
 export const SeeResult = styled.button`
   display: flex;
-  width: 241px;
+  width: 100%;
+  max-width: 241px;
   height: 56px;
   padding: 14px 30px;
   justify-content: center;
@@ -62,4 +63,8 @@ export const SeeResult = styled.button`
   font-weight: 700;
   line-height: 160%; /* 25.6px */
   letter-spacing: -0.32px;
+
+  @media (min-width: 0) and (max-width: 600px) {
+    max-width: 100%;
+  }
 `

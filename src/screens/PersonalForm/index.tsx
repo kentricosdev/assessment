@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Switch from "react-switch";
 import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
+import { useMediaQuery } from 'react-responsive';
 
 interface MyFormValues {
   fullName: string;
@@ -62,6 +63,10 @@ const StyledSelect = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+   @media (min-width:0) and (max-width:1320px) {
+    width: 100%;
+  }
 `;
 
 const OptionsContainer = styled.div`
@@ -125,6 +130,7 @@ const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props })
 const PersonalForm: React.FC = () => {
   useAssessmentRedirect();
   const storedFormData = localStorage.getItem('personalForm');
+  const isMobile = useMediaQuery({ maxWidth: 1320 });
 
   const initialValues: MyFormValues = storedFormData
     ? JSON.parse(storedFormData)
@@ -229,6 +235,21 @@ const PersonalForm: React.FC = () => {
                       />
                     </div>
 
+                    {isMobile && (
+                      <div className="input-wrapper">
+                        <label htmlFor="annualRevenue">Faturamento Anual:</label>
+                        <CustomSelect
+                          label="Escolha uma opção"
+                          id="annualRevenue"
+                          name="annualRevenue"
+                          options={[
+                            { value: 'option1', label: 'Opção 1' },
+                            { value: 'option2', label: 'Opção 2' },
+                          ]}
+                        />
+                      </div>
+                    )}
+
                     <div className="input-wrapper-policy">
                       <div className="policy-inner-wrapper">
                         <Field name="privacyPolicy">
@@ -284,19 +305,20 @@ const PersonalForm: React.FC = () => {
 
                     </div>
 
-
-                    <div className="input-wrapper">
-                      <label htmlFor="annualRevenue">Faturamento Anual:</label>
-                      <CustomSelect
-                        label="Escolha uma opção"
-                        id="annualRevenue"
-                        name="annualRevenue"
-                        options={[
-                          { value: 'option1', label: 'Opção 1' },
-                          { value: 'option2', label: 'Opção 2' },
-                        ]}
-                      />
-                    </div>
+                    {!isMobile && (
+                      <div className="input-wrapper">
+                        <label htmlFor="annualRevenue">Faturamento Anual:</label>
+                        <CustomSelect
+                          label="Escolha uma opção"
+                          id="annualRevenue"
+                          name="annualRevenue"
+                          options={[
+                            { value: 'option1', label: 'Opção 1' },
+                            { value: 'option2', label: 'Opção 2' },
+                          ]}
+                        />
+                      </div>
+                    )}
 
                     <FormActionsContainer>
                       <ClearButton type="button" onClick={() => handleCleanForm(formikProps)}>Limpar</ClearButton>

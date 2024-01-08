@@ -4,6 +4,16 @@ export const Container = styled.div`
     max-width: 1440px;
     margin: 0 auto;
     padding: 60px 120px 90px;
+
+    @media (min-width:0) and (max-width:1320px) {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    @media (min-width:0) and (max-width:425px) {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
 `;
 
 export const Wrapper = styled.div`
@@ -14,15 +24,27 @@ export const Wrapper = styled.div`
     justify-content: space-between;
     gap: 26px 100px;
 
+    @media (min-width:0) and (max-width:1320px) {
+      justify-content: center;
+    }
+
     .input-wrapper {
       width: fit-content;
       display: flex;
       flex-direction: column;
       gap: 8px;
 
+      @media (min-width:0) and (max-width:1320px) {
+        width: 100%;
+        max-width: 600px;
+
+        input {
+          width: 100%;
+        }
+      }
+
       input {
         color: #0A0A0A;
-
         &::placeholder {
           color: #888788;
         }
@@ -34,6 +56,11 @@ export const Wrapper = styled.div`
       flex-direction: column;
       width: 480px;
       gap: 26px;
+
+      @media (min-width:0) and (max-width:1320px) {
+        width: 100%;
+        max-width: 600px;
+      }
 
       .policy-inner-wrapper {
         display: flex;
@@ -155,11 +182,17 @@ export const FormActionsContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   gap: 23px;
+
+  @media (min-width:0) and (max-width:1320px) {
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
 `;
 
 export const ClearButton = styled.button`
   display: flex;
-  width: 160px;
+  width: 100%;
+  max-width: 160px;
   height: 56px;
   padding: 14px 30px;
   justify-content: center;
@@ -175,11 +208,16 @@ export const ClearButton = styled.button`
   line-height: 160%; /* 25.6px */
   letter-spacing: -0.32px;
   background-color: transparent;
+
+  @media (min-width:0) and (max-width:600px) {
+    max-width: 100%;
+  }
 `;
 
 export const SubmitButton = styled.button`
   display: flex;
-  width: 217px;
+  width: 100%;
+  max-width: 217px;
   height: 56px;
   padding: 14px 30px;
   justify-content: center;
@@ -194,6 +232,10 @@ export const SubmitButton = styled.button`
   font-weight: 700;
   line-height: 160%; /* 25.6px */
   letter-spacing: -0.32px;
+
+  @media (min-width:0) and (max-width:600px) {
+    max-width: 100%;
+  }
 
   &:hover {
     filter: brightness(1.03);

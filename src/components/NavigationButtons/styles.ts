@@ -1,8 +1,24 @@
 import styled from "styled-components";
+export const Container = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 34px;
+  align-items: center;
+
+  flex-wrap: wrap;
+
+  @media (min-width:0) and (max-width:600px) {
+    gap: 18px;
+    button {
+      max-width: 100%;
+    }
+  }
+`
 
 export const Previous = styled.button`
   display: flex;
-  width: 160px;
+  width: 100%;
+  max-width: 160px;
   height: 56px;
   padding: 14px 30px;
   justify-content: center;
@@ -21,7 +37,8 @@ export const Previous = styled.button`
 
 export const Next = styled.button`
   display: flex;
-  width: 217px;
+  width: 100%;
+  max-width: 217px;
   height: 56px;
   padding: 14px 30px;
   justify-content: center;
@@ -38,16 +55,10 @@ export const Next = styled.button`
   letter-spacing: -0.32px;
 `
 
-export const Container = styled.div`
-  width: 100%;
-  display: flex;
-  gap: 34px;
-  align-items: center;
-`
-
 export const SeeResult = styled.button`
   display: flex;
-  width: 217px;
+  width: 100%;
+  max-width: 217px;
   height: 56px;
   padding: 14px 30px;
   justify-content: center;
