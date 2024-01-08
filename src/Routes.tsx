@@ -14,13 +14,12 @@ const AppRoutes = () => {
   const { pillarsData } = useForms();
   const sortedPillars = pillarsData.sort((a, b) => a.ordem - b.ordem);
   const location = useLocation();
-  console.log("location",location)
+
   const transitions = useTransition(location, {
     from: { opacity: 0, transform: 'translate3d(100%, 0, 0)' },
     enter: { opacity: 1, transform: 'translate3d(0%, 0, 0)' },
     leave: { opacity: 0, transform: 'translate3d(-50%, 0, 0)', height: '0px', display: 'none'},
   });
-
 
   return (
     <>

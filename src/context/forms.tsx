@@ -77,7 +77,6 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   }, [assessmentStep]);
 
   const handleOpenModal = () => {
-    console.log(localStorage.getItem('assessmentStarted'));
     if (localStorage.getItem('assessmentStarted') === 'true') {
       setIsModalOpen(true);
     }

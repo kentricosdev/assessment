@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, OptionsList, Option } from './styles';
 import NavigationButtons from '../../components/NavigationButtons';
 import { useForms } from '../../context/forms';
@@ -25,6 +25,26 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
   const { updateAnswers, pillarsData, updateScore } = useForms();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const storedSelectedOptions = localStorage.getItem('selectedOptions');
+    if (storedSelectedOptions) {
+      setSelectedOptions(JSON.parse(storedSelectedOptions));
+    }
+  }, []);
+
+  useEffect(() => {
+    const storedOptions = localStorage.getItem('selectedOptions');
+    const currentOptions = storedOptions ? JSON.parse(storedOptions) : {};
+
+    const updatedOptions = {
+      ...currentOptions,
+      ...selectedOptions
+    };
+
+    localStorage.setItem('selectedOptions', JSON.stringify(updatedOptions));
+  }, [selectedOptions]);
+
+
   const handleOptionChange = (questionOrder: number, optionWeight: number) => {
     setSelectedOptions((prevSelectedOptions) => ({
       ...prevSelectedOptions,
@@ -50,7 +70,6 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
         ],
       };
     });
-    console.log(answers)
     const result = { respostasPessoa: answers };
     updateAnswers(result);
 

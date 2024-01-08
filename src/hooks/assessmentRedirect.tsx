@@ -5,7 +5,7 @@ import { useForms } from '../context/forms';
 const useAssessmentRedirect = () => {
   const { assessmentStarted, assessmentStep } = useForms();
   const navigate = useNavigate();
-  console.log(assessmentStep)
+  
   useEffect(() => {
     const currentPath = window.location.pathname;
     if (assessmentStarted) {

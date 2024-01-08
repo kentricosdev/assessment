@@ -151,12 +151,8 @@ const PersonalForm: React.FC = () => {
     ) => {
     try {
       //criar coleçao "Client" no banco de dados com o documento "personalForm" como um objeto com os dados.
-      console.log("values", values)
-      console.log("actions", actions)
       localStorage.setItem('personalForm', JSON.stringify(values));
       handleAssessmentNextStep();
-      console.log("assessmentStep",assessmentStep)
-
 
       // finalizar enviando os dados para o service do personal form e assim criar e adicionar os dados a uma coleçao de users do firebase,
       // para no futuro conectar o id desse user baseado no id/nome da coleção com as respostas submetidas ao fim do formulario.

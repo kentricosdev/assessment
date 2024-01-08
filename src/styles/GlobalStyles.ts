@@ -66,6 +66,11 @@ const GlobalStyles = createGlobalStyle`
   ::-webkit-scrollbar-corner {
     background: transparent;
   }
+
+  button:hover {
+    filter: brightness(1.05);
+    transition: filter .3 ease-in-out;
+  }
 `;
 
 export default GlobalStyles;

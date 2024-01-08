@@ -8,7 +8,6 @@ interface ExitModalProps {
 }
 
 const ExitModal: React.FC<ExitModalProps> = ({ confirmClear }) => {
-  console.log("confirmClear type:", typeof confirmClear);
   const { isModalOpen, handleCloseModal } = useForms();
   const modalRootRef = useRef(document.getElementById('modal-exit-root') || document.createElement('div'));
 
