@@ -8,6 +8,10 @@ export const ScoresContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 25px;
+
+  @media (min-width: 0) and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `
 
 export const Card = styled.div`

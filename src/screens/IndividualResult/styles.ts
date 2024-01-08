@@ -24,6 +24,11 @@ export const TotalScoreContainer = styled.div`
   gap: 22px;
   margin-top: 58px;
   margin-bottom: 70px;
+
+  @media (min-width: 0) and (max-width: 1200px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 `;
 
 export const ScoreResultCard = styled.div`
@@ -31,14 +36,30 @@ export const ScoreResultCard = styled.div`
   border: 1px solid #CACACA;
   padding: 19px 27px 82px 20px;
   width: 100%;
+  min-width: 347px;
   max-width: 347px;
   min-height: 314px;
+
+  @media (min-width: 0) and (max-width: 1200px) {
+    max-width: 100%;
+    padding-bottom: 40px;
+    min-height: 0;
+  }
 
   .ResultsFlex {
     display: flex;
     align-items: center;
     gap: 19px;
     margin-top: 34px;
+
+    @media (min-width: 0) and (max-width: 1200px) {
+      justify-content: center;
+      margin-top: 16px;
+
+      p {
+        width: fit-content;
+      }
+    }
   }
 
   p {
@@ -97,6 +118,15 @@ export const ScoreResultActions = styled.div`
   align-items: center;
   justify-content: end;
   gap: 30px;
+
+  @media (min-width: 0) and (max-width: 590px) {
+    flex-wrap: wrap;
+    gap: 20px;
+
+    button {
+      width: 100%;
+    }
+  }
 `;
 
 export const SendEmail = styled.button`
@@ -141,4 +171,8 @@ export const DownloadPdf = styled.button`
 
 export const ProgressBarContainer = styled.div`
   width: 50%;
+
+  @media (min-width: 0) and (max-width: 1200px) {
+    max-width: 250px;
+  }
 `

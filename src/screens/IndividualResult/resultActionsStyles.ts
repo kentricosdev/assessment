@@ -21,6 +21,10 @@ export const ResultActionsCard = styled.div`
   @media (min-width: 0) and (max-width: 1420px) {
     width: 100%;
   }
+
+  @media (min-width: 0) and (max-width: 768px) {
+    flex-wrap: wrap;
+  }
 `;
 
 export const ResultActionsImgContainer = styled.div`
