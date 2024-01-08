@@ -13,6 +13,10 @@ export const ContainerHeader = styled.header`
     height: fit-content;
     min-height: 640px;
   }
+
+  @media (min-width: 1600px) {
+    height: 740px;
+  }
 `;
 
 export const Menu = styled.div`
@@ -20,10 +24,7 @@ export const Menu = styled.div`
   display: flex;
   align-items: center;
   padding: 0 16px;
-
-  @media (min-width: 992px) {
-    height: 56px;
-  }
+  height: 56px;
 
   .leave-assessment--button {
     display: none;
@@ -42,6 +43,13 @@ export const Logo = styled.div`
   display: block;
   width: fit-content;
   cursor: pointer;
+
+  img {
+    display: block;
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+  }
 `;
 
 export const LogoMobile = styled.div`

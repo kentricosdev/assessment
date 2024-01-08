@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { IoClose, IoMenu } from "react-icons/io5"
 import { Link as ScrollLink } from 'react-scroll';
+import { useLocation } from "react-router-dom";
 
 import {
   Actions,
@@ -22,13 +23,24 @@ import {
   MobileNavContent,
   MobileNavHeader
 } from "./styles";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForms } from "../../context/forms";
 
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const {handleOpenModal, assessmentStarted, handleStartAssessment } = useForms();
+  const location = useLocation();
+
+  useEffect(() => {
+    const unlisten = () => {
+      setMenuOpen(false);
+    };
+
+    return () => {
+      unlisten();
+    };
+  }, [location.pathname]);
 
   const handleOpenMenuMobile = () => {
     setMenuOpen(!menuOpen);

@@ -58,7 +58,7 @@ export const TheAssessment = styled.div`
     font-weight: 700;
     line-height: 38px;
     letter-spacing: -0.48px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
   }
 
   .main-title {

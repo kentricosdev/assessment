@@ -100,6 +100,7 @@ export const Title = styled.h1`
   line-height: 160%;
   letter-spacing: -0.48px;
   width: 100%;
+  margin-bottom: 40px;
 `;
 
 export const Explanation = styled.div`
