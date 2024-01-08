@@ -37,7 +37,7 @@ const ResultModal: React.FC<ResultModalProps> = ({ onClose }) => {
           </button>
         </TitleContainer>
         <Description>
-          O PDF com o resultado será enviado em alguns instantes, no e-mail informado
+          O PDF com o resultado será enviado em alguns instantes, no e-mail informado.
         </Description>
         <ButtonContainer>
           <Button onClick={onClose}>Ok</Button>
