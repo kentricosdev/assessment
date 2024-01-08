@@ -23,6 +23,8 @@ interface FormsContextData {
   assessmentScoreIndividual: IAssessmentScoreIndividual;
   isEmailModalOpen: boolean;
   setIsEmailModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isContactModalOpen: boolean;
+  setIsContactModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const FormsContext = createContext<FormsContextData>(
   {} as FormsContextData
@@ -33,6 +35,7 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   const [pillarsData, setPillarsData] = useState<PillarData[]>([]);
 
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const [assessmentAnswers, setAssessmentAnswers] = useState<IAssessmentAnswers>(
     () => {
@@ -68,14 +71,12 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
   const handleExit = useCallback(() => {
     setAssessmentStarted(false);
     setAssessmentStep(0);
-    localStorage.removeItem('assessmentAnswers');
-    localStorage.removeItem('assessmentStarted');
+    localStorage.clear();
     setIsModalOpen(false);
     navigate('/')
   }, [assessmentStep]);
 
   const handleOpenModal = () => {
-    console.log("aq")
     console.log(localStorage.getItem('assessmentStarted'));
     if (localStorage.getItem('assessmentStarted') === 'true') {
       setIsModalOpen(true);
@@ -139,9 +140,11 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
       updateScore,
       assessmentScoreIndividual,
       isEmailModalOpen,
-      setIsEmailModalOpen
+      setIsEmailModalOpen,
+      isContactModalOpen,
+      setIsContactModalOpen
     }
-  }, [isModalOpen, assessmentStarted, assessmentStep, pillarsData, assessmentAnswers, isEmailModalOpen])
+  }, [isModalOpen, assessmentStarted, assessmentStep, pillarsData, assessmentAnswers, isEmailModalOpen, isContactModalOpen])
 
   return (
     <FormsContext.Provider value={FormsContextValues}>

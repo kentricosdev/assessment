@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useForms } from '../../context/forms';
 import { Card, CardTitle, Container, Result, ProgressBarContainer, ScoresContainer, TalkToUsCard, TalkToUsAction } from './styles';
-
 
 const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, score }) => {
   const { pillarsData } = useForms();
@@ -34,7 +33,7 @@ const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, s
 };
 
 const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> = ({}, ref) => {
-  const { assessmentScoreIndividual } = useForms();
+  const { assessmentScoreIndividual, setIsContactModalOpen } = useForms();
   const { scoresByPillar } = assessmentScoreIndividual;
 
   return (
@@ -49,8 +48,7 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> =
         <TalkToUsCard>
           <img src="/icons/rocket.png" alt="Rocket" />
           <p>Quer ir mais a fundo nessa análise?</p>
-
-          <TalkToUsAction>
+          <TalkToUsAction onClick={() => setIsContactModalOpen(true)}>
             Fale com a gente
           </TalkToUsAction>
         </TalkToUsCard>

@@ -6,12 +6,12 @@ interface ResultModalProps {
   onClose: () => void;
 }
 
-const ResultModal: React.FC<ResultModalProps> = ({ onClose }) => {
-  const modalRootRef = useRef(document.getElementById('modal-root') || document.createElement('div'));
+const ModalResultSended: React.FC<ResultModalProps> = ({ onClose }) => {
+  const modalRootRef = useRef(document.getElementById('modal-sended-result-root') || document.createElement('div'));
   const modalContainerRef = useRef(document.createElement('div'));
 
   useEffect(() => {
-    if (!document.getElementById('modal-root')) {
+    if (!document.getElementById('modal-sended-result-root')) {
       document.body.appendChild(modalRootRef.current);
     }
 
@@ -49,4 +49,4 @@ const ResultModal: React.FC<ResultModalProps> = ({ onClose }) => {
   return createPortal(modalContent, modalContainerRef.current);
 };
 
-export default ResultModal;
+export default ModalResultSended;

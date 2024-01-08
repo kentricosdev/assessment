@@ -58,3 +58,16 @@ export interface IAssessmentScoreIndividual {
   totalScore: number;
   scoresByPillar: { [key: number]: number };
 }
+
+
+export interface IPersonalFormData {
+  fullName: string;
+  company: string;
+  email: string;
+  sector: string;
+  whatsapp: string;
+  employeeQuantity: string;
+  privacyPolicy: boolean;
+  receiveContent: boolean;
+  annualRevenue: string;
+}

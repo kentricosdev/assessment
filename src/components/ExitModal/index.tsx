@@ -10,10 +10,10 @@ interface ExitModalProps {
 const ExitModal: React.FC<ExitModalProps> = ({ confirmClear }) => {
   console.log("confirmClear type:", typeof confirmClear);
   const { isModalOpen, handleCloseModal } = useForms();
-  const modalRootRef = useRef(document.getElementById('modal-root') || document.createElement('div'));
+  const modalRootRef = useRef(document.getElementById('modal-exit-root') || document.createElement('div'));
 
   useEffect(() => {
-    if (!document.getElementById('modal-root')) {
+    if (!document.getElementById('modal-exit-root')) {
       document.body.appendChild(modalRootRef.current);
     }
 

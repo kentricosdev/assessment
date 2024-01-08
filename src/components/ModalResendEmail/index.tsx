@@ -17,12 +17,18 @@ const validationSchema = Yup.object({
   email: Yup.string().email('E-mail inválido.').required('Campo obrigatório.')
 });
 
-const ResendEmailModal: React.FC<ResendEmailProps> = ({ onClose }) => {
-  const modalRootRef = useRef(document.getElementById('modal-root') || document.createElement('div'));
+const ModalResendEmail: React.FC<ResendEmailProps> = ({ onClose }) => {
+  const modalRootRef = useRef(document.getElementById('modal-email-root') || document.createElement('div'));
   const modalContainerRef = useRef(document.createElement('div'));
+  const storedPersonalFormData = localStorage.getItem('personalForm');
+
+  const initialValues = {
+    email: storedPersonalFormData && JSON.parse(storedPersonalFormData).email || '',
+    whatsapp: storedPersonalFormData && JSON.parse(storedPersonalFormData).whatsapp || '',
+  };
 
   useEffect(() => {
-    if (!document.getElementById('modal-root')) {
+    if (!document.getElementById('modal-email-root')) {
       document.body.appendChild(modalRootRef.current);
     }
 
@@ -38,18 +44,12 @@ const ResendEmailModal: React.FC<ResendEmailProps> = ({ onClose }) => {
     };
   }, [modalRootRef]);
 
-  const initialValues = {
-    email: '',
-    whatsapp: '',
-  };
-
   const handleSubmit = async (
   values: MyFormValues,
   actions: FormikHelpers<MyFormValues>
 ) => {
   try {
     // Get values from localStorage
-    const storedPersonalFormData = localStorage.getItem('personalForm');
     const storedValues = storedPersonalFormData
       ? JSON.parse(storedPersonalFormData)
       : {};
@@ -88,7 +88,7 @@ const ResendEmailModal: React.FC<ResendEmailProps> = ({ onClose }) => {
                 type="email"
                 id="email"
                 name="email"
-                placeholder={(JSON.parse(localStorage.getItem('personalForm') || '')?.email) || ''}
+                placeholder="exemplo@mail.com"
               />
               <ErrorMessage name="email" component="p" className="error-message" />
             </InputGroup>
@@ -99,7 +99,7 @@ const ResendEmailModal: React.FC<ResendEmailProps> = ({ onClose }) => {
                 type="text"
                 id="whatsapp"
                 name="whatsapp"
-                placeholder={(JSON.parse(localStorage.getItem('personalForm') || '')?.whatsapp) || ''}
+                placeholder="11 00000-0000"
               />
             </InputGroup>
 
@@ -115,4 +115,4 @@ const ResendEmailModal: React.FC<ResendEmailProps> = ({ onClose }) => {
   );
 };
 
-export default ResendEmailModal;
+export default ModalResendEmail;

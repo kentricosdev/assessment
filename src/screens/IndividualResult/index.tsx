@@ -26,11 +26,12 @@ import Breadcrumb from '../../components/Breadcrumb';
 import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
-import ResultModal from '../../components/ResultModal';
-import ResendEmailModal from '../../components/ResendEmailModal';
+import ModalResultSended from '../../components/ModalResultSended';
+import ModalResendEmail from '../../components/ModalResendEmail';
+import ModalGetInTouch from '../../components/ModalGetInTouch';
 
 const IndividualResult: React.FC = () => {
-  const { assessmentScoreIndividual, setIsEmailModalOpen, isEmailModalOpen } = useForms();
+  const { assessmentScoreIndividual, setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
   const totalScoreRef = useRef<HTMLDivElement>(null);
   const resultThanksTitleRef = useRef<HTMLDivElement>(null);
   const resultThanksDescriptionRef = useRef<HTMLDivElement>(null);
@@ -72,11 +73,12 @@ const IndividualResult: React.FC = () => {
 
     pdf.save('output.pdf');
   };
-  console.log("isEmailModalOpen", isEmailModalOpen)
+  
   return (
     <Container>
-      {showResultModal && <ResultModal onClose={() => setShowResultModal(false)} />}
-      {isEmailModalOpen && <ResendEmailModal onClose={() => setIsEmailModalOpen(false)} />}
+      {showResultModal && <ModalResultSended onClose={() => setShowResultModal(false)} />}
+      {isEmailModalOpen && <ModalResendEmail onClose={() => setIsEmailModalOpen(false)} />}
+      {isContactModalOpen && <ModalGetInTouch onClose={() => setIsContactModalOpen(false)} />}
       <Wrapper>
         <Breadcrumb />
 
