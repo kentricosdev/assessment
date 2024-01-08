@@ -25,6 +25,8 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
   const { updateAnswers, pillarsData, updateScore } = useForms();
   const navigate = useNavigate();
 
+  const [isOptionSelected, setIsOptionSelected] = useState(false);
+
   useEffect(() => {
     const storedSelectedOptions = localStorage.getItem('selectedOptions');
     if (storedSelectedOptions) {
@@ -50,6 +52,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
       ...prevSelectedOptions,
       [`${questionOrder}-${currentPillar.ordem}`]: optionWeight,
     }));
+    setIsOptionSelected(true);
   };
 
   const handleSeeResultClick = () => {
@@ -113,7 +116,7 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
           </OptionsList>
         </div>
       ))}
-      <NavigationButtons onSeeResultClick={handleSeeResultClick} />
+      <NavigationButtons onSeeResultClick={handleSeeResultClick} isOptionSelected={isOptionSelected}/>
     </Container>
   );
 };

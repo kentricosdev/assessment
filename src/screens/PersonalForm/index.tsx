@@ -91,6 +91,7 @@ const StyledOption = styled.div<{ isselected: string }>`
 
 const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props }) => {
   const [field, meta, helpers] = useField(props.name as string);
+  console.log(meta)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleSelect = (value: string) => {
     helpers.setValue(value);

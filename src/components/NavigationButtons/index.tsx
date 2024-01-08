@@ -4,9 +4,10 @@ import { useForms } from '../../context/forms';
 
 interface NavigationButtonsProps {
   onSeeResultClick: () => void;
+  isOptionSelected: boolean;
 }
 
-const NavigationButtons: React.FC<NavigationButtonsProps> = ({ onSeeResultClick }) => {
+const NavigationButtons: React.FC<NavigationButtonsProps> = ({ onSeeResultClick, isOptionSelected }) => {
   const { handleAssessmentNextStep, handleAssessmentPreviousStep, assessmentStep, pillarsData } = useForms();
   const totalQuestions = pillarsData.reduce((total, pillar) => total + pillar.questoes.length, 0);
 
@@ -14,9 +15,9 @@ const NavigationButtons: React.FC<NavigationButtonsProps> = ({ onSeeResultClick 
     <Container>
       <Previous onClick={handleAssessmentPreviousStep}>Voltar</Previous>
       {assessmentStep === totalQuestions ? (
-        <SeeResult onClick={onSeeResultClick}>Ver Resultado</SeeResult>
+        <SeeResult onClick={onSeeResultClick} disabled={!isOptionSelected}>Ver Resultado</SeeResult>
       ) : (
-        <Next onClick={handleAssessmentNextStep}>Próxima</Next>
+        <Next onClick={handleAssessmentNextStep} disabled={!isOptionSelected}>Próxima</Next>
       )}
     </Container>
   );

@@ -53,6 +53,15 @@ export const Next = styled.button`
   font-weight: 700;
   line-height: 160%;
   letter-spacing: -0.32px;
+
+  &:disabled {
+    background: ${({ theme }) => theme.colors.neutral50};
+    cursor: not-allowed;
+
+    &:hover {
+      filter: none;
+    }
+  }
 `
 
 export const SeeResult = styled.button`
@@ -73,4 +82,13 @@ export const SeeResult = styled.button`
   font-weight: 700;
   line-height: 160%;
   letter-spacing: -0.32px;
+
+  &:disabled {
+    background: ${({ theme }) => theme.colors.neutral50};
+    cursor: not-allowed;
+
+    &:hover {
+      filter: none;
+    }
+  }
 `
