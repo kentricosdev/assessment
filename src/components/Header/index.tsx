@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { IoClose, IoMenu } from "react-icons/io5"
+import { Link as ScrollLink } from 'react-scroll';
+
 import {
   Actions,
   ContainerHeader,
@@ -51,10 +53,10 @@ const Header: React.FC = () => {
               <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
             </NavigationItem>
             <NavigationItem>
-              <a href="/#AboutKentricosId">Quem somos?</a>
+              <ScrollLink to="AboutKentricosId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
             </NavigationItem>
             <NavigationItem>
-              <a href="/#comunityId">Comunidade</a>
+              <ScrollLink to="comunityId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
             </NavigationItem>
           </Navigation>
 
@@ -89,10 +91,10 @@ const Header: React.FC = () => {
                 <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
               </NavigationItem>
               <NavigationItem>
-                <a href="/#AboutKentricosId">Quem somos?</a>
+                <ScrollLink to="AboutKentricosId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
               </NavigationItem>
               <NavigationItem>
-                <a href="/#comunityId">Comunidade</a>
+                <ScrollLink to="comunityId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
               </NavigationItem>
 
 
@@ -123,7 +125,7 @@ const Header: React.FC = () => {
                   </Link>
                   </StartAssessment>
                   <SeeVideo>
-                    <a href="/#videoContainerId"><button>Confira o vídeo</button></a>
+                    <ScrollLink to="videoContainerId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}><button>Confira o vídeo</button></ScrollLink>
                   </SeeVideo>
                 </Actions>
               )

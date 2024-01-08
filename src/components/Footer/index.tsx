@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useForms } from "../../context/forms";
 import {
   ContainerFooter,
@@ -12,9 +13,10 @@ import {
   BottomMenu,
   LogoLink
 } from "./styles";
+import { Link as ScrollLink } from "react-scroll";
 
 const Footer: React.FC = () => {
-  const { handleStartAssessment, handleOpenModal } = useForms();
+  const { handleStartAssessment, handleOpenModal, assessmentStarted } = useForms();
 
   return (
     <ContainerFooter>
@@ -42,14 +44,14 @@ const Footer: React.FC = () => {
               <Nav>
                 <a href="https://kentricos.com/sobre-mim/">Nossa História</a>
                 <a href="https://kentricos.com/sobre-mim/">Nosso Time</a>
-                <a href="/#AboutKentricosId">Sobre a Kentricos</a>
+                <ScrollLink to="AboutKentricosId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Sobre a Kentricos</ScrollLink>
               </Nav>
             </MenuGroup>
             <MenuGroup>
               <Title>Assessment</Title>
               <Nav>
-                <a href="/#oAssessmentId">O que é?</a>
-                <a href="/#oAssessmentId">Como fazer?</a>
+                <ScrollLink to="oAssessmentId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>O que é?</ScrollLink>
+                <ScrollLink to="oAssessmentId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Como fazer?</ScrollLink>
                 <div className="link" onClick={handleStartAssessment}>Responda</div>
               </Nav>
             </MenuGroup>

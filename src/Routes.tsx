@@ -15,10 +15,12 @@ const AppRoutes = () => {
   const sortedPillars = pillarsData.sort((a, b) => a.ordem - b.ordem);
   const location = useLocation();
 
+  const isAnchorLink = location.hash && location.hash.length > 1;
   const transitions = useTransition(location, {
     from: { opacity: 0, transform: 'translate3d(100%, 0, 0)' },
     enter: { opacity: 1, transform: 'translate3d(0%, 0, 0)' },
     leave: { opacity: 0, transform: 'translate3d(-50%, 0, 0)', height: '0px', display: 'none'},
+    immediate: isAnchorLink
   });
 
   return (
