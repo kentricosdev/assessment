@@ -11,11 +11,11 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 16px;
 `;
 
 export const Card = styled.div`
   max-width: 544px;
-  height: 292px;
   padding: 32px 32px 40px;
   border-radius: 8px;
   background: #FFF;
@@ -63,6 +63,18 @@ export const Actions = styled.div`
   justify-content: flex-end;
   align-items: center;
   gap: 21px;
+  flex-wrap: wrap;
+
+  @media (min-width:0) and (max-width:460px) {
+    .exitWrapper {
+      width: 100%;
+      max-width: 100%;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
 `;
 
 export const Exit = styled.button`
@@ -105,5 +117,10 @@ export const Cancel = styled.button`
 
   &:hover {
     filter: brightness(1.03);
+  }
+
+  @media (min-width:0) and (max-width:460px) {
+    width: 100%;
+    max-width: 100%;
   }
 `;

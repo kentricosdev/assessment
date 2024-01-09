@@ -31,6 +31,7 @@ export const ModalOverlay = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  padding: 0 16px;
 `;
 
 export const Title = styled.p`
@@ -98,6 +99,14 @@ export const ActionsContainer = styled.div`
   justify-content: flex-end;
   width: 100%;
   gap: 21px;
+  flex-wrap: wrap;
+
+  @media (min-width:0) and (max-width: 480px) {
+    button {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 `
 
 export const Cancel = styled.button`

@@ -38,7 +38,7 @@ const ExitModal: React.FC<ExitModalProps> = ({ confirmClear }) => {
           Ao clicar em <b>Sair</b>, você perderá todos os dados respondidos até o momento. Você tem certeza que deseja sair?
         </Text>
         <Actions>
-          <div>
+          <div className='exitWrapper'>
             <Exit onClick={confirmClear}>Sair</Exit>
           </div>
           <Cancel onClick={handleCloseModal}>Voltar</Cancel>
