@@ -56,7 +56,7 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> =
     <Container>
       <Dropdown onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
         <RotatingArrow isDropdownOpen={isDropdownOpen} />
-        Resultado Por pilar
+        Resultados Por pilar
       </Dropdown>
       <ScoresContainer isOpen={isDropdownOpen}>
         <div className="scoreWrapper" ref={ref}>
