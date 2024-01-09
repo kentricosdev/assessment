@@ -3,7 +3,35 @@ import styled from "styled-components";
 export const Container = styled.div`
 `
 
-export const ScoresContainer = styled.div`
+export const Dropdown = styled.button`
+  margin: 0 auto 20px;
+  width: 100%;
+  display: flex;
+  font-weight: 600;
+  align-items: center;
+  font-size: 16px;
+  border: 1px solid #000;
+  background-color: transparent;
+  padding: 8px;
+  border-radius: 100px;
+  max-width: 430px;
+  justify-content: center;
+
+  @media (min-width: 619px) {
+    display: none;
+  }
+
+  svg {
+    font-size: 30px;
+    margin-right: 8px;
+  }
+`
+
+interface ScoresContainerProps {
+  isOpen: boolean;
+}
+
+export const ScoresContainer = styled.div<ScoresContainerProps>`
   width: 100%;
   display: flex;
   align-items: center;
@@ -24,6 +52,19 @@ export const ScoresContainer = styled.div`
     @media (min-width: 0) and (max-width: 768px) {
       justify-content: center;
     }
+
+    @media (min-width: 0) and (max-width: 618px) {
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out;
+    }
+
+    @media (min-width: 0) and (max-width: 425px) {
+      max-height: ${({ isOpen }) => (isOpen ? "1650px" : "0")};
+    }
+
+    @media (min-width: 426px) and (max-width: 618px) {
+      max-height: ${({ isOpen }) => (isOpen ? "1100px" : "0")};
+    }
   }
 `
 
@@ -39,7 +80,7 @@ export const Card = styled.div`
   border: 1px solid #CACACA;
   max-width: 202px;
 
-  @media (min-width:0) and (max-width: 420px) {
+  @media (min-width:0) and (max-width: 425px) {
     max-width: 100%;
     width: 100%;
   }

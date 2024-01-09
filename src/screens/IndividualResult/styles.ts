@@ -20,7 +20,7 @@ export const Wrapper = styled.div`
 
 export const TotalScoreContainer = styled.div`
   display: flex;
-  align-items: center;
+  align-items: normal;
   gap: 22px;
   margin-top: 58px;
   margin-bottom: 70px;

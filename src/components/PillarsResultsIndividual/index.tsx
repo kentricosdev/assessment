@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useForms } from '../../context/forms';
-import { Card, CardTitle, Container, Result, ProgressBarContainer, ScoresContainer, TalkToUsCard, TalkToUsAction } from './styles';
+import { Card, CardTitle, Container, Result, ProgressBarContainer, ScoresContainer, TalkToUsCard, TalkToUsAction, Dropdown } from './styles';
+import { IoIosArrowDropdown  } from "react-icons/io";
+import styled, { css } from 'styled-components';
+
+interface ArrowProps {
+  isModalOpen: boolean;
+}
 
 const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, score }) => {
   const { pillarsData } = useForms();
@@ -35,10 +41,24 @@ const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, s
 const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> = ({}, ref) => {
   const { assessmentScoreIndividual, setIsContactModalOpen } = useForms();
   const { scoresByPillar } = assessmentScoreIndividual;
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const RotatingArrow = styled(IoIosArrowDropdown)<ArrowProps>`
+  ${({ isDropdownOpen }) =>
+    isDropdownOpen &&
+    css`
+      transform: rotate(180deg);
+      transition: transform 0.3s ease-in-out;
+    `}
+`;
 
   return (
     <Container>
-      <ScoresContainer>
+      <Dropdown onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
+        <RotatingArrow isDropdownOpen={isDropdownOpen} />
+        Resultado Por pilar
+      </Dropdown>
+      <ScoresContainer isOpen={isDropdownOpen}>
         <div className="scoreWrapper" ref={ref}>
           {Object.entries(scoresByPillar).map(([pillarId, score]) => (
             <PillarCard key={pillarId} pillarId={pillarId} score={score} />

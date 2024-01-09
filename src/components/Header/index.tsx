@@ -65,10 +65,10 @@ const Header: React.FC = () => {
               <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
             </NavigationItem>
             <NavigationItem>
-              <ScrollLink to="AboutKentricosId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
+              <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
             </NavigationItem>
             <NavigationItem>
-              <ScrollLink to="comunityId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
+              <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
             </NavigationItem>
           </Navigation>
 
@@ -103,10 +103,10 @@ const Header: React.FC = () => {
                 <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
               </NavigationItem>
               <NavigationItem>
-                <ScrollLink to="AboutKentricosId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
+                <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
               </NavigationItem>
               <NavigationItem>
-                <ScrollLink to="comunityId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
+                <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
               </NavigationItem>
 
 
@@ -137,7 +137,7 @@ const Header: React.FC = () => {
                   </Link>
                   </StartAssessment>
                   <SeeVideo>
-                    <ScrollLink to="videoContainerId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}><button>Confira o vídeo</button></ScrollLink>
+                    <ScrollLink to="videoContainerId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}><button>Confira o vídeo</button></ScrollLink>
                   </SeeVideo>
                 </Actions>
               )

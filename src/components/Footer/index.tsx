@@ -43,14 +43,14 @@ const Footer: React.FC = () => {
               <Nav>
                 <a href="https://kentricos.com/sobre-mim/">Nossa História</a>
                 <a href="https://kentricos.com/sobre-mim/">Nosso Time</a>
-                <ScrollLink to="AboutKentricosId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Sobre a Kentricos</ScrollLink>
+                <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Sobre a Kentricos</ScrollLink>
               </Nav>
             </MenuGroup>
             <MenuGroup>
               <Title>Assessment</Title>
               <Nav>
-                <ScrollLink to="oAssessmentId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>O que é?</ScrollLink>
-                <ScrollLink to="oAssessmentId" smooth={true} duration={200} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Como fazer?</ScrollLink>
+                <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>O que é?</ScrollLink>
+                <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Como fazer?</ScrollLink>
                 <div className="link" onClick={handleStartAssessment}>Responda</div>
               </Nav>
             </MenuGroup>
