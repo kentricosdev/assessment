@@ -39,7 +39,7 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> =
   return (
     <Container>
       <ScoresContainer>
-        <div style={{ display: 'flex', gap: '25px', flexWrap: 'wrap' }} ref={ref}>
+        <div className="scoreWrapper" ref={ref}>
           {Object.entries(scoresByPillar).map(([pillarId, score]) => (
             <PillarCard key={pillarId} pillarId={pillarId} score={score} />
           ))}

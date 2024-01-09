@@ -7,10 +7,20 @@ export const ScoresContainer = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 25px;
 
   @media (min-width: 0) and (max-width: 768px) {
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+  }
+
+  .scoreWrapper {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 `
 
@@ -25,6 +35,11 @@ export const Card = styled.div`
   border-radius: 8px;
   border: 1px solid #CACACA;
   max-width: 202px;
+
+  @media (min-width:0) and (max-width: 420px) {
+    max-width: 100%;
+    width: 100%;
+  }
 `
 
 export const CardTitle = styled.p`
@@ -39,6 +54,10 @@ export const CardTitle = styled.p`
 
   width: 137px;
   text-align: center;
+
+  @media (min-width: 0) and (max-width: 420px) {
+    width: 100%;
+  }
 `
 
 export const Result = styled.p`
@@ -75,19 +94,24 @@ export const TalkToUsCard = styled.div`
     border-radius: 7px;
     background: #89E3F5;
     max-width: 202px;
-
+    min-width: 202px;
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    img {
+    @media (min-width:0) and (max-width:768px) {
+      width: 100%;
+      max-width: 430px;
+      min-width: 0;
+    }
 
+    img {
     }
 
     p {
       color: #242125;
       text-align: center;
-      font-size: 1rem;
+      font-size: 16px;
       font-style: normal;
       font-weight: 700;
       line-height: 140%; /* 22.4px */

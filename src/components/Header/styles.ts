@@ -116,6 +116,12 @@ export const MobileNavContent = styled.div<{ ishidden?: string }>`
     width: 40%;
     z-index: 999;
   }
+
+  @media (min-width: 0) and (max-width: 992px) {
+    button {
+      max-width: 100%;
+    }
+  }
 `
 
 export const MobileNavHeader = styled.div`

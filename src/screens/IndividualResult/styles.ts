@@ -46,6 +46,10 @@ export const ScoreResultCard = styled.div`
     min-height: 0;
   }
 
+  @media (min-width: 0) and (max-width: 380px) {
+    min-width: 0;
+  }
+
   .ResultsFlex {
     display: flex;
     align-items: center;
@@ -60,6 +64,13 @@ export const ScoreResultCard = styled.div`
         width: fit-content;
       }
     }
+
+    @media (min-width: 0) and (max-width: 380px) {
+      p {
+        width: 55%;
+      }
+    }
+
   }
 
   p {
@@ -127,6 +138,13 @@ export const ScoreResultActions = styled.div`
       width: 100%;
     }
   }
+
+  @media (min-width: 0) and (max-width: 350px) {
+    button {
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+  }
 `;
 
 export const SendEmail = styled.button`
@@ -173,6 +191,6 @@ export const ProgressBarContainer = styled.div`
   width: 50%;
 
   @media (min-width: 0) and (max-width: 1200px) {
-    max-width: 250px;
+    max-width: 200px;
   }
 `
