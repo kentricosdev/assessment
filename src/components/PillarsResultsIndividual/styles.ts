@@ -20,7 +20,10 @@ export const ScoresContainer = styled.div`
     display: flex;
     gap: 25px;
     flex-wrap: wrap;
-    justify-content: center;
+
+    @media (min-width: 0) and (max-width: 768px) {
+      justify-content: center;
+    }
   }
 `
 
