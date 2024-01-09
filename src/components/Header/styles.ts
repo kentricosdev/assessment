@@ -110,11 +110,11 @@ export const MobileNavContent = styled.div<{ ishidden?: string }>`
   overflow-y: auto;
   transition: right 0.3s;
   padding: 18px 24px;
+  z-index: 1000;
 
   @media (min-width: 500px) {
     right: ${(props) => (props.ishidden === 'true' ? '-40%' : '0')};
     width: 40%;
-    z-index: 999;
   }
 
   @media (min-width: 0) and (max-width: 992px) {

@@ -74,9 +74,7 @@ export const ScoreResultCard = styled.div`
   }
 
   p {
-    overflow: hidden;
     color: #242125;
-    text-overflow: ellipsis;
     font-size: 3.6458rem;
     font-style: normal;
     font-weight: 700;
