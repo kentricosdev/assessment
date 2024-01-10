@@ -7,6 +7,7 @@ import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { useMediaQuery } from 'react-responsive';
 import * as Yup from 'yup';
+import formatPhone from '../../utils/formatPhone';
 
 interface MyFormValues {
   fullName: string;
@@ -132,18 +133,20 @@ const PersonalForm: React.FC = () => {
   useAssessmentRedirect();
   const storedFormData = localStorage.getItem('personalForm');
   const isMobile = useMediaQuery({ maxWidth: 1320 });
+  const [whatsappNumber, setWhatsappNumber] = useState('');
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required('Campo obrigatório'),
     company: Yup.string().required('Campo obrigatório'),
     email: Yup.string().email('Formato de e-mail inválido').required('Campo obrigatório'),
+    whatsapp: Yup.string().min(11, "Número inválido. Deve ter pelo menos 10 caracteres.").max(13, "Número muito longo."),
     sector: Yup.string().required('Campo obrigatório'),
-    whatsapp: Yup.string(),
     employeeQuantity: Yup.string().required('Campo obrigatório'),
     privacyPolicy: Yup.bool().oneOf([true], 'Você deve aceitar as políticas de privacidade'),
     receiveContent: Yup.bool(),
     annualRevenue: Yup.string().required('Campo obrigatório'),
   });
+
 
   const initialValues: MyFormValues = storedFormData
     ? JSON.parse(storedFormData)
@@ -152,13 +155,15 @@ const PersonalForm: React.FC = () => {
         company: '',
         email: '',
         sector: '',
-        whatsapp: '',
+        whatsapp: whatsappNumber,
         employeeQuantity: '',
         privacyPolicy: false,
         receiveContent: false,
         annualRevenue: '',
       };
+
   const { handleAssessmentNextStep } = useForms();
+
   const handleCleanForm = (formikProps: FormikProps<MyFormValues>) => {
     localStorage.removeItem('personalForm')
     formikProps.resetForm()
@@ -170,6 +175,7 @@ const PersonalForm: React.FC = () => {
     actions: FormikHelpers<MyFormValues>
     ) => {
     try {
+      console.log(values.whatsapp)
       //criar coleçao "Client" no banco de dados com o documento "personalForm" como um objeto com os dados.
       localStorage.setItem('personalForm', JSON.stringify(values));
       handleAssessmentNextStep();
@@ -238,7 +244,17 @@ const PersonalForm: React.FC = () => {
 
                     <div className="input-wrapper">
                       <label htmlFor="whatsapp">Whatsapp:</label>
-                      <Field id="whatsapp" name="whatsapp" type="phone" placeholder="Whatsapp" />
+                      <Field
+                        id="whatsapp"
+                        name="whatsapp"
+                        type="phone"
+                        placeholder="Whatsapp"
+                        value={whatsappNumber}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                          setWhatsappNumber(formatPhone((e.target.value)))
+                          formikProps.setFieldValue("whatsapp", formatPhone((e.target.value)));
+                        }}
+                      />
                       <ErrorMessage name="whatsapp" component="p" className="error-message" />
                     </div>
 

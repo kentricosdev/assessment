@@ -69,6 +69,8 @@ export const InputGroup = styled.div`
     font-style: normal;
     font-weight: 500;
     line-height: 160%; /* 22.4px */
+    width: fit-content;
+    cursor: pointer;
   }
 
   input {

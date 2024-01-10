@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { ActionsContainer, Cancel, TitleContainer, Description, InputGroup, ModalCard, ModalOverlay, Save, Title } from './styles';
+import formatPhone from '../../utils/formatPhone';
 
 interface ResendEmailProps {
   onClose: () => void;
@@ -14,17 +15,19 @@ interface MyFormValues {
 }
 
 const validationSchema = Yup.object({
-  email: Yup.string().email('E-mail inválido.').required('Campo obrigatório.')
+  email: Yup.string().email('E-mail inválido.').required('Campo obrigatório.'),
+  whatsapp: Yup.string().min(11, "Número inválido. Deve ter pelo menos 10 caracteres.").max(13, "Número muito longo.")
 });
 
 const ModalResendEmail: React.FC<ResendEmailProps> = ({ onClose }) => {
   const modalRootRef = useRef(document.getElementById('modal-email-root') || document.createElement('div'));
   const modalContainerRef = useRef(document.createElement('div'));
   const storedPersonalFormData = localStorage.getItem('personalForm');
+  const [whatsappNumber, setWhatsappNumber] = useState(storedPersonalFormData && JSON.parse(storedPersonalFormData).whatsapp || '');
 
   const initialValues = {
     email: storedPersonalFormData && JSON.parse(storedPersonalFormData).email || '',
-    whatsapp: storedPersonalFormData && JSON.parse(storedPersonalFormData).whatsapp || '',
+    whatsapp: whatsappNumber,
   };
 
   useEffect(() => {
@@ -73,41 +76,51 @@ const ModalResendEmail: React.FC<ResendEmailProps> = ({ onClose }) => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          <Form>
-            <TitleContainer>
-              <Title>Reenviar por e-mail</Title>
-              <button onClick={onClose}>
-                <img src="/icons/CardExit.png" alt="Sair" />
-              </button>
-            </TitleContainer>
-            <Description>Informe qual e-mail o resultado deverá ser enviado:</Description>
+          {
+            (formikProps) => (
+              <Form>
+                <TitleContainer>
+                  <Title>Reenviar por e-mail</Title>
+                  <button onClick={onClose}>
+                    <img src="/icons/CardExit.png" alt="Sair" />
+                  </button>
+                </TitleContainer>
+                <Description>Informe qual e-mail o resultado deverá ser enviado:</Description>
 
-            <InputGroup>
-              <label htmlFor="email">E-mail:</label>
-              <Field
-                type="email"
-                id="email"
-                name="email"
-                placeholder="exemplo@mail.com"
-              />
-              <ErrorMessage name="email" component="p" className="error-message" />
-            </InputGroup>
+                <InputGroup>
+                  <label htmlFor="email">E-mail:</label>
+                  <Field
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="exemplo@mail.com"
+                  />
+                  <ErrorMessage name="email" component="p" className="error-message" />
+                </InputGroup>
 
-            <InputGroup>
-              <label htmlFor="whatsapp">WhatsApp:</label>
-              <Field
-                type="text"
-                id="whatsapp"
-                name="whatsapp"
-                placeholder="11 00000-0000"
-              />
-            </InputGroup>
+                <InputGroup>
+                  <label htmlFor="whatsapp">WhatsApp:</label>
+                  <Field
+                    type="text"
+                    id="whatsapp"
+                    name="whatsapp"
+                    placeholder="11 00000-0000"
+                    value={whatsappNumber}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                      setWhatsappNumber(formatPhone((e.target.value)))
+                      formikProps.setFieldValue("whatsapp", formatPhone((e.target.value)));
+                    }}
+                  />
+                  <ErrorMessage name="whatsapp" component="p" className="error-message" />
+                </InputGroup>
 
-            <ActionsContainer>
-              <Cancel type="button" onClick={onClose}>Cancelar</Cancel>
-              <Save type="submit">Salvar</Save>
-            </ActionsContainer>
-          </Form>
+                <ActionsContainer>
+                  <Cancel type="button" onClick={onClose}>Cancelar</Cancel>
+                  <Save type="submit">Salvar</Save>
+                </ActionsContainer>
+              </Form>
+            )
+          }
         </Formik>
       </ModalCard>
     </ModalOverlay>,
