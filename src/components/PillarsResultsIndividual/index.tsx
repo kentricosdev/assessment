@@ -7,7 +7,7 @@ import { IoIosArrowDropdown  } from "react-icons/io";
 import styled, { css } from 'styled-components';
 
 interface ArrowProps {
-  isModalOpen: boolean;
+  isModalOpen: string;
 }
 
 const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, score }) => {
@@ -44,21 +44,22 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> =
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const RotatingArrow = styled(IoIosArrowDropdown)<ArrowProps>`
-  ${({ isDropdownOpen }) =>
-    isDropdownOpen &&
+    transition: transform 0.3s ease-in-out;
+
+    ${({ isdropdownopen }) =>
+    isdropdownopen === "true" &&
     css`
       transform: rotate(180deg);
-      transition: transform 0.3s ease-in-out;
     `}
 `;
 
   return (
     <Container>
       <Dropdown onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-        <RotatingArrow isDropdownOpen={isDropdownOpen} />
+        <RotatingArrow isdropdownopen={isDropdownOpen ? "true" : "false"} />
         Resultados Por pilar
       </Dropdown>
-      <ScoresContainer isOpen={isDropdownOpen}>
+      <ScoresContainer isopen={isDropdownOpen ? "true" : "false"}>
         <div className="scoreWrapper" ref={ref}>
           {Object.entries(scoresByPillar).map(([pillarId, score]) => (
             <PillarCard key={pillarId} pillarId={pillarId} score={score} />

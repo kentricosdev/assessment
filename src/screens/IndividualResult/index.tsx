@@ -73,7 +73,7 @@ const IndividualResult: React.FC = () => {
 
     pdf.save('output.pdf');
   };
-  
+
   return (
     <Container>
       {showResultModal && <ModalResultSended onClose={() => setShowResultModal(false)} />}

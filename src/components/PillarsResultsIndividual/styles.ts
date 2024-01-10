@@ -28,7 +28,7 @@ export const Dropdown = styled.button`
 `
 
 interface ScoresContainerProps {
-  isOpen: boolean;
+  isopen: string;
 }
 
 export const ScoresContainer = styled.div<ScoresContainerProps>`
@@ -59,11 +59,11 @@ export const ScoresContainer = styled.div<ScoresContainerProps>`
     }
 
     @media (min-width: 0) and (max-width: 425px) {
-      max-height: ${({ isOpen }) => (isOpen ? "1650px" : "0")};
+      max-height: ${({ isopen }) => (isopen === 'true' ? "1650px" : "0")};
     }
 
     @media (min-width: 426px) and (max-width: 618px) {
-      max-height: ${({ isOpen }) => (isOpen ? "1100px" : "0")};
+      max-height: ${({ isopen }) => (isopen === 'true' ? "1100px" : "0")};
     }
   }
 `
