@@ -35,14 +35,35 @@ export const Wrapper = styled.div`
     gap: 26px 100px;
 
     @media (min-width:0) and (max-width:1320px) {
-      justify-content: center;
+        justify-content: center;
+      }
+
+    .FormFlexWrapper {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 26px;
+
+      @media (min-width:0) and (max-width:1320px) {
+        width: 100%;
+        max-width: 600px;
+      }
     }
+
 
     .input-wrapper {
       width: fit-content;
       display: flex;
       flex-direction: column;
       gap: 8px;
+
+      label {
+        max-width: 480px;
+
+        @media (min-width:0) and (max-width:1320px) {
+          max-width: 100%;
+        }
+      }
 
       @media (min-width:0) and (max-width:1320px) {
         width: 100%;
@@ -192,6 +213,7 @@ export const ToggleButton = styled.input`
 `;
 
 export const FormActionsContainer = styled.div`
+  margin-top: 26px;
   width: 100%;
   display: flex;
   align-items: center;

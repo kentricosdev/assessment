@@ -104,7 +104,7 @@ const ModalGetInTouch: React.FC<GetInTouchProps> = ({ onClose }) => {
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="exemplo@mail.com"
+                    placeholder="exemplo@empresa.com"
                   />
                   <ErrorMessage name="email" component="p" className="error-message" />
                 </InputGroup>
