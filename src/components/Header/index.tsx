@@ -59,10 +59,7 @@ const Header: React.FC = () => {
               <div className="link" onClick={handleOpenModal}>Início</div>
             </NavigationItem>
             <NavigationItem>
-              <a href="https://kentricos.com/consultoria">Consultoria</a>
-            </NavigationItem>
-            <NavigationItem>
-              <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
+              <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Assessment</ScrollLink>
             </NavigationItem>
             <NavigationItem>
               <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
@@ -97,10 +94,7 @@ const Header: React.FC = () => {
                 <div className="link" onClick={handleOpenModal}>Início</div>
               </NavigationItem>
               <NavigationItem>
-                <a href="https://kentricos.com/consultoria">Consultoria</a>
-              </NavigationItem>
-              <NavigationItem>
-                <Link to="/assessment" onClick={handleStartAssessment}>Xcore</Link>
+                <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Assessment</ScrollLink>
               </NavigationItem>
               <NavigationItem>
                 <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>

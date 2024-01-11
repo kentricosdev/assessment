@@ -296,6 +296,8 @@ export const StartAssessment = styled.div`
 `;
 
 export const SeeVideo = styled.div`
+// Remover quando tiver o video, por enquanto invisivel
+  display: none;
   width: fit-content;
 
   a {

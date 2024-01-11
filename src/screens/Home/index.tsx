@@ -49,7 +49,8 @@ const Home: React.FC = () => {
   return (
     <>
       <Container>
-        <Element name="videoContainerId">
+        {/* Container do video abaixo, remover o style diplay: none quando tiver video */}
+        <Element name="videoContainerId" style={{ display:'none' }}>
           <VideoContainer>
             <BubblesLeft>
               <img src="/images/bubbles-left.svg" />
@@ -69,28 +70,28 @@ const Home: React.FC = () => {
           <TheAssessment>
             <AsessmentWrapper>
               <h2 className="assessment-title">O Assessment</h2>
-              <h1 className="main-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit</h1>
+              <h1 className="main-title">Compreenda o nível que sua empresa está de maturidade de experiência do cliente</h1>
 
               <Infos>
                 <InfoItem>
                   <img src="/icons/circle-people.svg" />
-                  <InfoTitle>Título 1</InfoTitle>
-                  <InfoDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</InfoDescription>
+                  <InfoTitle>Saiba por onde começar</InfoTitle>
+                  <InfoDescription>Entenda quais são os pilares que precisam de mais atenção para evoluir a maturidade e cultura do cliente dentro da sua empresa.</InfoDescription>
                 </InfoItem>
                 <InfoItem>
                   <img src="/icons/circle-money.svg" />
-                  <InfoTitle>Título 1</InfoTitle>
-                  <InfoDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</InfoDescription>
+                  <InfoTitle>Compare com o mercado</InfoTitle>
+                  <InfoDescription>Compare o resultado de maturidade da sua empresa com outras empresas do mercado que você atua. Conseguindo compreender qual o caminho que você terá que percorrer.</InfoDescription>
                 </InfoItem>
                 <InfoItem>
                   <img src="/icons/circle-person.svg" />
-                  <InfoTitle>Título 1</InfoTitle>
-                  <InfoDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</InfoDescription>
+                  <InfoTitle>Visão clara</InfoTitle>
+                  <InfoDescription>Saiba onde estão os pontos de dor da sua empresa para conseguir atingir um nível alto de excelência em maturidade de cliente.</InfoDescription>
                 </InfoItem>
                 <InfoItem>
                   <img src="/icons/circle-document.svg" />
-                  <InfoTitle>Título 1</InfoTitle>
-                  <InfoDescription>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</InfoDescription>
+                  <InfoTitle>Evolua sua maturidade</InfoTitle>
+                  <InfoDescription>Tenha em mãos o caminho para evoluir a maturidade da sua empresa em centralidade do cliente.</InfoDescription>
                 </InfoItem>
               </Infos>
             </AsessmentWrapper>
@@ -99,7 +100,7 @@ const Home: React.FC = () => {
 
         <Element name="AboutKentricosId">
           <About>
-            <h2>Sobre a Kenrtricos</h2>
+            <h2>Sobre a Kentricos</h2>
 
             <AboutContent>
               <AboutImage>
@@ -107,33 +108,33 @@ const Home: React.FC = () => {
               </AboutImage>
 
               <AboutDescription>
-                <h3 className="title-description">Lorem ipsum dolor sit amet, consectetur</h3>
-                <p className="text-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur tempus urna at turpis.</p>
+                <h3 className="title-description">Ajudando as empresas a evoluirem suas relações com os clientes</h3>
+                <p className="text-description">A Kentricos é especializada em Customer Experience e em Empresas Centradas no Cliente (Customer Centric Companies). Ajudamos a compreender o que são os conceitos de CX e como torná-los realidade em sua empresa, para que você se diferencie e mantenha uma posição única na mente e no coração de seus clientes.</p>
 
                 <AboutDatas>
                   <DataItem>
                     <DataNumber>
-                      900+
+                    100+
                     </DataNumber>
-                    <DataText>consultorias</DataText>
+                    <DataText>Consultorias</DataText>
                   </DataItem>
 
                   <DataItem>
                     <DataNumber>
-                      250+
+                      50+
                     </DataNumber>
                     <DataText>Mentorias</DataText>
                   </DataItem>
 
                   <DataItem>
                     <DataNumber>
-                      1200+
+                      70+
                     </DataNumber>
                     <DataText>Assessments</DataText>
                   </DataItem>
                 </AboutDatas>
 
-                <AboutSeeMore href="https://kentricos.com/sobre-mim/">
+                <AboutSeeMore href="https://kentricos.com">
                   Confira mais
                   <img src="/icons/arrow-right.svg" />
                 </AboutSeeMore>
