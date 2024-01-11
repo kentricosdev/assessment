@@ -70,4 +70,5 @@ export interface IPersonalFormData {
   privacyPolicy: boolean;
   receiveContent: boolean;
   annualRevenue: string;
+  maturityLevel: string;
 }

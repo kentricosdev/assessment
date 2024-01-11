@@ -12,10 +12,9 @@ import {
   BottomMenu,
   LogoLink
 } from "./styles";
-import { Link as ScrollLink } from "react-scroll";
 
 const Footer: React.FC = () => {
-  const { handleStartAssessment, handleOpenModal, assessmentStarted } = useForms();
+  const { handleOpenModal } = useForms();
 
   return (
     <ContainerFooter>

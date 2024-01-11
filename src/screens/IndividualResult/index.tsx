@@ -86,7 +86,7 @@ const IndividualResult: React.FC = () => {
           Resultado
         </ResultThanksTitle>
         <ResultThanksDescription ref={resultThanksDescriptionRef}>
-          Obrigado por responder! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Confira abaixo o resultado consolidado do assessment que você acabou de realizar. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode voltar a realizar esse assessment em um momento futuro e os resultados serão diferentes, pois sua empresa terá evoluído sua maturidade.
         </ResultThanksDescription>
 
         <TotalScoreContainer>
@@ -117,7 +117,7 @@ const IndividualResult: React.FC = () => {
           <ScoreExplanationCard>
             <TotalResultCardTitle>Xcore Total - Explicação</TotalResultCardTitle>
             <ScoreExplanation>
-              Explicação Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              O resultado consolidado compartilha uma informação direta e objetiva do nível de maturidade que sua empresa está em cada pilar das disciplinas de Customer Experience. Se você desejar saber um pouco mais de detalhes e conclusões sobre o seu resultado, clique no botão abaixo para enviarmos para você. Você receberá essas informações no email que você cadastrou no início do assessment. Se ainda não recebeu, veja em sua caixa de SPAM ou clique no botão “reenviar por e-mail”.
             </ScoreExplanation>
 
             <ScoreResultActions>
@@ -125,7 +125,7 @@ const IndividualResult: React.FC = () => {
                 Reenviar por e-mail
               </SendEmail>
               <DownloadPdf onClick={downloadPDF}>
-                Baixar PDF
+                Enviar PDF
               </DownloadPdf>
             </ScoreResultActions>
           </ScoreExplanationCard>
@@ -140,9 +140,9 @@ const IndividualResult: React.FC = () => {
             </ResultActionsImgContainer>
 
             <ResultActionsCardContent>
-              <h2>Quer comparar com o mercado?</h2>
+              <h2>Quer comparar com o seu mercado?</h2>
 
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p>Clique no botão abaixo para receber um e-mail com o link para acessar o relatório com o resultado do seu assessment comparando com os resultados de outras empresas do seu mercado.</p>
 
               <ResultActionsButton>
                 Compare aqui
@@ -156,8 +156,8 @@ const IndividualResult: React.FC = () => {
             </ResultActionsImgContainer>
 
             <ResultActionsCardContent>
-              <h2>Compartilhe esse teste</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <h2>Compartilhe os seus resultados</h2>
+              <p>Quer compartilhar esse relatório final com outra pessoa? Clique no botão abaixo.</p>
               <ResultActionsButton onClick={shareContent}>
                 Compartilhar
               </ResultActionsButton>

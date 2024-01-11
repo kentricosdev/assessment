@@ -37,7 +37,7 @@ const ModalResultSended: React.FC<ResultModalProps> = ({ onClose }) => {
           </button>
         </TitleContainer>
         <Description>
-          O PDF com o resultado será enviado em alguns instantes, no e-mail informado.
+          O e-mail com o link para fazer o download do PDF com o resultado será enviado em alguns instantes, no e-mail cadastrado no inicio do assessment.
         </Description>
         <ButtonContainer>
           <Button onClick={onClose}>Ok</Button>

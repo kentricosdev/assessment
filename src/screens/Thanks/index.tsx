@@ -22,7 +22,7 @@ const Thanks: React.FC = () => {
           Resultado
         </Title>
         <Description>
-          Obrigado por responder! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          Obrigado por responder! O objetivo principal desse assessment é realizar uma análise mínima do nível de maturidade em centralidade no cliente que sua empresa está, e conseguir compará-lo com outras empresas. Além disso, entregar para você um mapeamento claro de onde está os principais pontos de oportunidades que sua empresa pode investir para conseguir evoluir sua maturidade e entregar uma melhor experiência para os seus consumidores. Clique no link abaixo para acessar o resultado final desta análise.
         </Description>
 
         <ButtonContainer>
