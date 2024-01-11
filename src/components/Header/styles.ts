@@ -191,8 +191,11 @@ export const LeftSide = styled.div`
   width: 50%;
 
   @media (min-width: 0px) and (max-width: 1180px) {
-    padding-left: 16px;
     width: 70%;
+  }
+
+  @media (min-width: 0px) and (max-width: 920px) {
+    padding-left: 16px;
   }
 
   @media (min-width: 0px) and (max-width: 768px) {

@@ -99,7 +99,7 @@ const ModalGetInTouch: React.FC<GetInTouchProps> = ({ onClose }) => {
                 <Description>Informe e-mail e WhatsApp. Entraremos em contato em até 12 horas úteis.</Description>
 
                 <InputGroup>
-                  <label htmlFor="email">E-mail:</label>
+                  <label htmlFor="email">E-mail: *</label>
                   <Field
                     type="email"
                     id="email"
@@ -110,7 +110,7 @@ const ModalGetInTouch: React.FC<GetInTouchProps> = ({ onClose }) => {
                 </InputGroup>
 
                 <InputGroup>
-                  <label htmlFor="whatsapp">WhatsApp:</label>
+                  <label htmlFor="whatsapp">WhatsApp: *</label>
                   <Field
                     type="text"
                     id="whatsapp"

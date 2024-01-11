@@ -136,15 +136,15 @@ const PersonalForm: React.FC = () => {
   const [whatsappNumber, setWhatsappNumber] = useState('');
 
   const validationSchema = Yup.object().shape({
-    fullName: Yup.string().required('Campo obrigatório'),
-    company: Yup.string().required('Campo obrigatório'),
-    email: Yup.string().email('Formato de e-mail inválido').required('Campo obrigatório'),
+    fullName: Yup.string().required('Campo obrigatório.'),
+    company: Yup.string().required('Campo obrigatório.'),
+    email: Yup.string().email('Formato de e-mail inválido').required('Campo obrigatório.'),
     whatsapp: Yup.string().min(11, "Número inválido. Deve ter pelo menos 10 caracteres.").max(13, "Número muito longo."),
     sector: Yup.string().required('Campo obrigatório'),
-    employeeQuantity: Yup.string().required('Campo obrigatório'),
-    privacyPolicy: Yup.bool().oneOf([true], 'Você deve aceitar as políticas de privacidade'),
+    employeeQuantity: Yup.string().required('Campo obrigatório.'),
+    privacyPolicy: Yup.bool().oneOf([true], 'Você deve aceitar as políticas de privacidade para continuar.'),
     receiveContent: Yup.bool(),
-    annualRevenue: Yup.string().required('Campo obrigatório'),
+    annualRevenue: Yup.string().required('Campo obrigatório.'),
   });
 
 

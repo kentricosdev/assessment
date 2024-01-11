@@ -88,7 +88,7 @@ const ModalResendEmail: React.FC<ResendEmailProps> = ({ onClose }) => {
                 <Description>Informe qual e-mail o resultado deverá ser enviado:</Description>
 
                 <InputGroup>
-                  <label htmlFor="email">E-mail:</label>
+                  <label htmlFor="email">E-mail: *</label>
                   <Field
                     type="email"
                     id="email"
