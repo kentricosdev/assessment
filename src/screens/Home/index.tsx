@@ -26,6 +26,7 @@ import {
   NewsletterWrapper
 } from "./styles"
 import { Element } from "react-scroll";
+import emailRegex from "../../utils/emailRegex";
 
 const Home: React.FC = () => {
   useAssessmentRedirect();
@@ -34,8 +35,6 @@ const Home: React.FC = () => {
 
   const validarEmail = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (email.trim() === '') {
       alert('Por favor, preencha o campo de e-mail.');

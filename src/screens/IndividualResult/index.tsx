@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { useForms } from '../../context/forms';
-
+import { PDFDocument } from 'pdf-lib';
 import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 import {
   Title as ResultThanksTitle,
@@ -29,6 +28,7 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import ModalResultSended from '../../components/ModalResultSended';
 import ModalResendEmail from '../../components/ModalResendEmail';
 import ModalGetInTouch from '../../components/ModalGetInTouch';
+import axios from 'axios';
 
 const IndividualResult: React.FC = () => {
   const { assessmentScoreIndividual, setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
@@ -51,27 +51,60 @@ const IndividualResult: React.FC = () => {
     }
   };
 
-  const downloadPDF = async () => {
+  const handleSendEmail = async () => {
     setShowResultModal(true);
-    const pdf = new jsPDF();
+    const createPdfWithImages = async (
+      images: { canvasRef: React.RefObject<HTMLDivElement>; x: number; y: number; width: number }[]
+    ): Promise<string> => {
+      const pdfDoc = await PDFDocument.create();
+      const page = pdfDoc.addPage();
 
-    const titleCanvas = await html2canvas(resultThanksTitleRef.current!);
-    const titleImageData = titleCanvas.toDataURL('image/png');
-    pdf.addImage(titleImageData, 'PNG', 10, 10, 100, 0);
+      for (const { canvasRef, x, y, width } of images) {
+        const canvas = await html2canvas(canvasRef.current as HTMLElement);
+        const height = (canvas.height * width) / canvas.width;
 
-    const descriptionCanvas = await html2canvas(resultThanksDescriptionRef.current!);
-    const descriptionImageData = descriptionCanvas.toDataURL('image/png');
-    pdf.addImage(descriptionImageData, 'PNG', 10, 20, 190, 0);
+        const imageData = canvas.toDataURL('image/png');
+        const imageBytes = Uint8Array.from(atob(imageData.split(',')[1]), (c) => c.charCodeAt(0));
+        const image = await pdfDoc.embedPng(imageBytes);
 
-    const totalScoreCanvas = await html2canvas(totalScoreRef.current!);
-    const totalScoreImageData = totalScoreCanvas.toDataURL('image/png');
-    pdf.addImage(totalScoreImageData, 'PNG', 10, 50, 80, 0);
+        page.drawImage(image, { x, y, width, height });
+      }
 
-    const pillarsCanvas = await html2canvas(pillarsResultsIndividualRef.current!);
-    const pillarsImageData = pillarsCanvas.toDataURL('image/png');
-    pdf.addImage(pillarsImageData, 'PNG', 10, 135, 180, 0);
+      const pdfBytes = await pdfDoc.save();
+      const pdfBase64 = btoa(String.fromCharCode(...pdfBytes));
+      return pdfBase64;
+    };
 
-    pdf.save('output.pdf');
+    // Example usage
+    const images = [
+      { canvasRef: pillarsResultsIndividualRef, x: 10, y: 135, width: 180 },
+      { canvasRef: totalScoreRef, x: 10, y: 50, width: 80 },
+      { canvasRef: resultThanksDescriptionRef, x: 10, y: 20, width: 190 },
+      { canvasRef: resultThanksTitleRef, x: 10, y: 10, width: 100 },
+    ];
+
+    const combinedPdfContent = await createPdfWithImages(images);
+
+    try {
+      const storedItem = localStorage.getItem('personalForm');
+      if (!storedItem) throw new Error ('Não há dados de email.')
+      const personalFormObject = JSON.parse(storedItem);
+      const userEmail = personalFormObject.email;
+
+      const response = await axios.post('http://localhost:3002/api/send-email', {
+        to: userEmail,
+        pdfContent: combinedPdfContent, // Replace with your PDF content
+      }, {
+        withCredentials: true, // Include cookies in the request
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Email sent successfully:', response.data);
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
   };
 
   return (
@@ -124,7 +157,7 @@ const IndividualResult: React.FC = () => {
               <SendEmail onClick={() => setIsEmailModalOpen(true)}>
                 Reenviar por e-mail
               </SendEmail>
-              <DownloadPdf onClick={downloadPDF}>
+              <DownloadPdf onClick={handleSendEmail}>
                 Enviar PDF
               </DownloadPdf>
             </ScoreResultActions>

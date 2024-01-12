@@ -4,6 +4,7 @@ import { Formik, Field, Form, ErrorMessage, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import { ActionsContainer, Cancel, TitleContainer, Description, InputGroup, ModalCard, ModalOverlay, Save, Title } from './styles';
 import formatPhone from '../../utils/formatPhone';
+import emailRegex from '../../utils/emailRegex';
 
 interface ResendEmailProps {
   onClose: () => void;
@@ -14,16 +15,24 @@ interface MyFormValues {
   whatsapp: string;
 }
 
-const validationSchema = Yup.object({
-  email: Yup.string().email('E-mail inválido.').required('Campo obrigatório.'),
-  whatsapp: Yup.string().min(11, "Número inválido. Deve ter pelo menos 10 caracteres.").max(13, "Número muito longo.")
-});
-
 const ModalResendEmail: React.FC<ResendEmailProps> = ({ onClose }) => {
   const modalRootRef = useRef(document.getElementById('modal-email-root') || document.createElement('div'));
   const modalContainerRef = useRef(document.createElement('div'));
   const storedPersonalFormData = localStorage.getItem('personalForm');
   const [whatsappNumber, setWhatsappNumber] = useState(storedPersonalFormData && JSON.parse(storedPersonalFormData).whatsapp || '');
+  const publicEmailProviders = ['gmail', 'outlook', 'hotmail', 'ig', 'aol', 'icloud', 'protonmail', 'mail', 'yandex', 'yahoo'];
+
+  const validationSchema = Yup.object({
+    email: Yup.string()
+      .matches(emailRegex, 'Formato de e-mail inválido')
+      .required('Campo obrigatório.')
+      .test('is-corporate-email', 'Por favor, colocar o seu email corporativo.', function (value) {
+        if (!value) return true;
+        const domain = value.split('@')[1].split('.')[0];
+        return !publicEmailProviders.includes(domain);
+      }),
+    whatsapp: Yup.string().min(11, "Número inválido. Deve ter pelo menos 10 caracteres.").max(13, "Número muito longo.")
+  });
 
   const initialValues = {
     email: storedPersonalFormData && JSON.parse(storedPersonalFormData).email || '',

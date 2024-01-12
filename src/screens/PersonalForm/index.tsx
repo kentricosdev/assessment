@@ -1,13 +1,14 @@
 import { Formik, Form, Field, FieldProps, FieldAttributes, useField, FormikProps, FormikHelpers, ErrorMessage } from 'formik';
 import { Container, Explanation, ExplanationText, ExplanationTitle, Title, Wrapper, FormActionsContainer, ClearButton, SubmitButton, ErrorWrapper } from './styles';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Switch from "react-switch";
 import { useForms } from '../../context/forms';
 import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { useMediaQuery } from 'react-responsive';
 import * as Yup from 'yup';
 import formatPhone from '../../utils/formatPhone';
+import emailRegex from '../../utils/emailRegex';
 
 interface MyFormValues {
   fullName: string;
@@ -108,8 +109,7 @@ const StyledOption = styled.div<{ isselected: string }>`
 `;
 
 const CustomSelect: React.FC<CustomSelectProps> = ({ label, options, ...props }) => {
-  const [field, meta, helpers] = useField(props.name as string);
-  console.log(meta)
+  const [field, _, helpers] = useField(props.name as string);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const handleSelect = (value: string) => {
     helpers.setValue(value);
@@ -152,10 +152,19 @@ const PersonalForm: React.FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 1320 });
   const [whatsappNumber, setWhatsappNumber] = useState('');
 
+  const publicEmailProviders = ['gmail', 'outlook', 'hotmail', 'ig', 'aol', 'icloud', 'protonmail', 'mail', 'yandex', 'yahoo'];
+
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required('Campo obrigatório.'),
     company: Yup.string().required('Campo obrigatório.'),
-    email: Yup.string().email('Formato de e-mail inválido').required('Campo obrigatório.'),
+    email: Yup.string()
+    .matches(emailRegex, 'Formato de e-mail inválido')
+    .required('Campo obrigatório.')
+    .test('is-corporate-email', 'Por favor, colocar o seu email corporativo.', function (value) {
+      if (!value) return true;
+      const domain = value.split('@')[1].split('.')[0];
+      return !publicEmailProviders.includes(domain);
+    }),
     whatsapp: Yup.string().min(11, "Número inválido. Deve ter pelo menos 10 caracteres.").max(13, "Número muito longo."),
     sector: Yup.string().required('Campo obrigatório'),
     employeeQuantity: Yup.string().required('Campo obrigatório.'),
@@ -206,6 +215,10 @@ const PersonalForm: React.FC = () => {
       throw new Error("Erro ao enviar dados pessoais.")
     }
   };
+
+  useEffect(() => {
+    console.log("aqui")
+  }, [handleCleanForm])
 
   return (
     <>
