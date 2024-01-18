@@ -69,7 +69,7 @@ const IndividualResult: React.FC = () => {
       const personalFormObject = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
 
-      const response = await axios.post('https://email-service-peach.vercel.app/', {
+      const response = await axios.post('https://email-service-peach.vercel.app/api', {
         to: userEmail,
         url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`,
         additionalContent: {
@@ -88,7 +88,7 @@ const IndividualResult: React.FC = () => {
       console.error('Error sending email:', error);
     }
   };
-  
+
   return (
     assessmentScoreIndividual &&  Object.keys(assessmentScoreIndividual).length > 0 &&
       (<Container>
