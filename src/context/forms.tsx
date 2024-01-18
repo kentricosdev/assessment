@@ -114,10 +114,11 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
       localStorage.setItem('currentResultId', resultId);
       setAssessmentScoreIndividual(scores);
       console.log('Result ID:', resultId);
+      return resultId;
     } catch (error) {
       console.error('Error:', error);
     }
-  }, []);
+  }, [assessmentScoreIndividual]);
 
 
   useEffect(() => {

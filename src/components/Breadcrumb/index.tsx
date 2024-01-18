@@ -13,14 +13,22 @@ const Breadcrumb: React.FC = () => {
     return pillar ? `Pilar ${order} - ${pillar.nome}` : '';
   };
 
+  // Find the index of 'resultado' in the path
+  const resultadoIndex = pathSegments.indexOf('resultado');
+
   return (
     <Container>
       {pathSegments.map((segment, index) => (
         <React.Fragment key={segment}>
-          <p>
-            {index > 0 && ' > '}
-            {segment.startsWith('pilar-') ? formatPilarName(parseInt(segment.split('-')[1], 10)) : segment}
-          </p>
+          {index > 0 && ' > '}
+          {resultadoIndex !== -1 && index >= resultadoIndex ? (
+            // Display 'Resultado' only once
+            index === resultadoIndex && <p>Resultado</p>
+          ) : (
+            <p>
+              {segment.startsWith('pilar-') ? formatPilarName(parseInt(segment.split('-')[1], 10)) : segment}
+            </p>
+          )}
         </React.Fragment>
       ))}
     </Container>

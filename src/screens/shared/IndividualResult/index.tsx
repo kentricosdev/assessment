@@ -128,7 +128,7 @@ const IndividualResult: React.FC = () => {
               <ProgressBarContainer>
               <CircularProgressbarWithChildren
               strokeWidth={35}
-              value={score?.assessmentScore?.totalScore || 0}
+              value={score.assessmentScore.totalScore || 0}
               styles={buildStyles({
                 rotation: 0,
                 strokeLinecap: 'butt',
@@ -141,7 +141,7 @@ const IndividualResult: React.FC = () => {
               </CircularProgressbarWithChildren>
               </ProgressBarContainer>
               <p>
-                {score?.assessmentScore?.totalScore || 0}<span>/100</span>
+                {score.assessmentScore.totalScore || '0'}<span>/100</span>
               </p>
             </div>
           </ScoreResultCard>
