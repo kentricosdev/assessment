@@ -32,6 +32,20 @@ class ResultService {
       throw new Error('Failed to get result');
     }
   }
+
+  static async getAllResultsBySector(sectorName: string): Promise<IAssessmentScoreIndividualResponse[] | null> {
+    try {
+      const resultDoc = await getDoc(doc(db, 'results', resultId));
+      if (resultDoc.exists()) {
+        return resultDoc.data() as IAssessmentScoreIndividualResponse;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      console.error('Error getting result by ID:', error);
+      throw new Error('Failed to get result');
+    }
+  }
 }
 
 export default ResultService;
