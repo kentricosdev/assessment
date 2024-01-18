@@ -52,7 +52,6 @@ const getPillarsData = async (): Promise<PillarData[]> => {
       });
     }
 
-    console.log('Fetched Pillars Data:', pillarsData);
     return pillarsData;
   } catch (error) {
     console.error('Error fetching pillars data:', error);

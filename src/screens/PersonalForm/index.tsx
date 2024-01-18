@@ -203,7 +203,6 @@ const PersonalForm: React.FC = () => {
     actions: FormikHelpers<MyFormValues>
     ) => {
     try {
-      console.log(values.whatsapp)
       //criar coleçao "Client" no banco de dados com o documento "personalForm" como um objeto com os dados.
       localStorage.setItem('personalForm', JSON.stringify(values));
       handleAssessmentNextStep();
@@ -217,7 +216,6 @@ const PersonalForm: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("aqui")
   }, [handleCleanForm])
 
   return (

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useForms } from '../../../context/forms';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -105,9 +105,10 @@ const IndividualResult: React.FC = () => {
   //     console.error('Error sending email:', error);
   //   }
   // };
-  console.log("score:::", score)
+  console.log("score:::", score && Object.keys(score).length > 0 && score.assessmentScore.totalScore)
   return (
-    <Container>
+    score  &&  Object.keys(score).length > 0 &&
+    (<Container>
       {showResultModal && <ModalResultSended onClose={() => setShowResultModal(false)} />}
       {isEmailModalOpen && <ModalResendEmail onClose={() => setIsEmailModalOpen(false)} />}
       {isContactModalOpen && <ModalGetInTouch onClose={() => setIsContactModalOpen(false)} />}
@@ -128,7 +129,7 @@ const IndividualResult: React.FC = () => {
               <ProgressBarContainer>
               <CircularProgressbarWithChildren
               strokeWidth={35}
-              value={score.assessmentScore.totalScore || 0}
+              value={score.assessmentScore.totalScore}
               styles={buildStyles({
                 rotation: 0,
                 strokeLinecap: 'butt',
@@ -197,7 +198,7 @@ const IndividualResult: React.FC = () => {
           </ResultActionsCard>
         </IndividualResultActions>
       </Wrapper>
-    </Container>
+    </Container>)
   );
 };
 

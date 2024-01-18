@@ -46,7 +46,6 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement, P
   const { assessmentScoreIndividual } = useForms();
   const { scoresByPillar } = assessmentScoreIndividual;
   const [isDropdownOpen, setIsDropdownOpen] = useState(dropdownOpen);
-  console.log(dropdownOpen)
   const RotatingArrow = styled(IoIosArrowDropdown)<ArrowProps>`
     transition: transform 0.3s ease-in-out;
 

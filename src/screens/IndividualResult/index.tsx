@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForms } from '../../context/forms';
 
 import {
@@ -88,7 +88,6 @@ const IndividualResult: React.FC = () => {
       console.error('Error sending email:', error);
     }
   };
-  console.log("assessmentScoreIndividual:::", assessmentScoreIndividual);
   return (
     assessmentScoreIndividual &&  Object.keys(assessmentScoreIndividual).length > 0 &&
       (<Container>
