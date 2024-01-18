@@ -5,10 +5,12 @@ import { useForms } from '../context/forms';
 const useAssessmentRedirect = () => {
   const { assessmentStarted, assessmentStep } = useForms();
   const navigate = useNavigate();
-  
+
+  const currentPath = window.location.pathname;
+  const resultIdPattern = /^\/assessment\/resultado\/\w+$/;
+
   useEffect(() => {
-    const currentPath = window.location.pathname;
-    if (assessmentStarted) {
+    if (assessmentStarted && resultIdPattern.test(currentPath) === false) {
       switch (assessmentStep) {
         case 0:
           if (currentPath !== '/assessment') {
@@ -49,7 +51,7 @@ const useAssessmentRedirect = () => {
           break;
       }
     } else {
-      if (currentPath !== '/') {
+      if (currentPath !== '/' && resultIdPattern.test(currentPath) === false) {
         navigate('/');
       }
     }

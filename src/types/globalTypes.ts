@@ -59,6 +59,11 @@ export interface IAssessmentScoreIndividual {
   scoresByPillar: { [key: number]: number };
 }
 
+export interface IAssessmentScoreIndividualResponse {
+  assessmentScore: IAssessmentScoreIndividual;
+  setor: string;
+}
+
 
 export interface IPersonalFormData {
   fullName: string;

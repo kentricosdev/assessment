@@ -412,7 +412,7 @@ const PersonalForm: React.FC = () => {
                       </div>
 
                       <div className="input-wrapper">
-                        <label htmlFor="maturityLevel">Na sua opinião, qual o nível de maturidade em centralidade do cliente que sua empresa está?</label>
+                        <label htmlFor="maturityLevel">Na sua opinião, qual o nível de maturidade em centralidade do cliente que sua empresa está? *</label>
                         <CustomSelect
                           label="Escolha uma opção"
                           id="maturityLevel"

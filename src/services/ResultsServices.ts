@@ -1,5 +1,5 @@
 import { collection, addDoc, doc, getDoc } from 'firebase/firestore';
-import { IAssessmentScoreIndividual } from '../types/globalTypes';
+import { IAssessmentScoreIndividual, IAssessmentScoreIndividualResponse } from '../types/globalTypes';
 import { db } from '../../firebase';
 
 class ResultService {
@@ -19,11 +19,11 @@ class ResultService {
     }
   }
 
-  static async getResultById(resultId: string): Promise<IAssessmentScoreIndividual | null> {
+  static async getResultById(resultId: string): Promise<IAssessmentScoreIndividualResponse | null> {
     try {
       const resultDoc = await getDoc(doc(db, 'results', resultId));
       if (resultDoc.exists()) {
-        return resultDoc.data() as IAssessmentScoreIndividual;
+        return resultDoc.data() as IAssessmentScoreIndividualResponse;
       } else {
         return null;
       }

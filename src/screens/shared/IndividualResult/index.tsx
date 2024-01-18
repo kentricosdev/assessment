@@ -1,84 +1,111 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForms } from '../../../context/forms';
-import { useParams } from 'react-router-dom';
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+// import axios from 'axios';
+import Breadcrumb from '../../../components/Breadcrumb';
+import TalkToUs from '../../../components/TalkToUs';
+import useAssessmentRedirect from '../../../hooks/assessmentRedirect';
 
 import {
   Title as ResultThanksTitle,
-  Description as ResultThanksDescription
-} from '../../Thanks/styles'
+  Description as ResultThanksDescription,
+} from '../../Thanks/styles';
 
 import {
   Container,
   Wrapper,
   TotalScoreContainer,
   ScoreResultCard,
-  ScoreExplanationCard,
-  ScoreExplanation,
-  ScoreResultActions,
-  SendEmail,
-  DownloadPdf,
   TotalResultCardTitle,
-  ProgressBarContainer
-} from './styles'
-import Breadcrumb from '../../../components/Breadcrumb';
-import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
-import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+  ProgressBarContainer,
+  // IndividualResultActions,
+  // ResultActionsCard,
+  // ResultActionsImgContainer,
+  // ResultActionsCardContent,
+  // ResultActionsButton,
+} from './styles';
+import ResultService from '../../../services/ResultsServices';
 import ModalResultSended from '../../../components/ModalResultSended';
 import ModalResendEmail from '../../../components/ModalResendEmail';
 import ModalGetInTouch from '../../../components/ModalGetInTouch';
-import axios from 'axios';
-import TalkToUs from '../../../components/TalkToUs';
+import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
+import { IAssessmentScoreIndividualResponse } from '../../../types/globalTypes';
 
 const IndividualResult: React.FC = () => {
-  const { assessmentScoreIndividual, setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
+  const {
+    setIsEmailModalOpen,
+    isEmailModalOpen,
+    isContactModalOpen,
+    setIsContactModalOpen
+  } = useForms();
   const totalScoreRef = useRef<HTMLDivElement>(null);
   const resultThanksTitleRef = useRef<HTMLDivElement>(null);
   const resultThanksDescriptionRef = useRef<HTMLDivElement>(null);
-  // const pillarsResultsIndividualRef = useRef<HTMLDivElement>(null);
   const [showResultModal, setShowResultModal] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { resultId } = useParams();
-  console.log("resultID", resultId)
+  const [score, setScore] = useState<IAssessmentScoreIndividualResponse>({} as IAssessmentScoreIndividualResponse)
+
+  useAssessmentRedirect();
+
+  useEffect(() => {
+    if (!resultId) return
+    const fetchScoreData = async () => {
+      try {
+        const assessmentScore = await ResultService.getResultById(resultId);
+        if (assessmentScore) {
+          setScore(assessmentScore);
+        } else {
+          console.error('Assessment score not found for resultId:', resultId);
+        }
+      } catch (error) {
+        console.error('Error fetching score data:', error);
+      }
+    };
+
+    fetchScoreData();
+  }, [resultId]);
 
   const shareContent = async () => {
     try {
       await navigator.share({
-        title: 'Conheça o Xcore',
+        title: 'Veja esse resultado do assesment Xcore',
         text: 'Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!',
-        url: 'https://kentricos.com/xcore'
+        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
       });
     } catch (error) {
-      throw new Error("Erro ao compartilhar conteúdo:" + error);
-      ;
+      console.error('Erro ao compartilhar conteúdo:', error);
     }
   };
 
-  const handleSendEmail = async () => {
-    setDropdownOpen(true)
-    setShowResultModal(true);
 
-    try {
-      const storedItem = localStorage.getItem('personalForm');
-      if (!storedItem) throw new Error ('Não há dados de email.')
-      const personalFormObject = JSON.parse(storedItem);
-      const userEmail = personalFormObject.email;
+  // const handleSendEmail = async () => {
+  //   setDropdownOpen(true)
+  //   setShowResultModal(true);
 
-      const response = await axios.post('http://localhost:3002/api/send-email', {
-        to: userEmail,
-        url: 'https://example.com/results',
-      }, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  //   try {
+  //     const storedItem = localStorage.getItem('personalForm');
+  //     if (!storedItem) throw new Error ('Não há dados de email.')
+  //     const personalFormObject = JSON.parse(storedItem);
+  //     const userEmail = personalFormObject.email;
 
-      console.log('Email sent successfully:', response.data);
-    } catch (error) {
-      console.error('Error sending email:', error);
-    }
-  };
+  //     const response = await axios.post('http://localhost:3002/api/send-email', {
+  //       to: userEmail,
+  //       url: 'https://example.com/results',
+  //     }, {
+  //       withCredentials: true,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
 
+  //     console.log('Email sent successfully:', response.data);
+  //   } catch (error) {
+  //     console.error('Error sending email:', error);
+  //   }
+  // };
+  console.log("score:::", score)
   return (
     <Container>
       {showResultModal && <ModalResultSended onClose={() => setShowResultModal(false)} />}
@@ -91,7 +118,7 @@ const IndividualResult: React.FC = () => {
           Resultado
         </ResultThanksTitle>
         <ResultThanksDescription ref={resultThanksDescriptionRef}>
-          Confira abaixo o resultado consolidado do assessment que você acabou de realizar. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode voltar a realizar esse assessment em um momento futuro e os resultados serão diferentes, pois sua empresa terá evoluído sua maturidade.
+          Confira abaixo o resultado consolidado do assessment realizado. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode realizar esse assessment em um momento futuro e os resultados serão diferentes, pois sua empresa terá evoluído sua maturidade.
         </ResultThanksDescription>
 
         <TotalScoreContainer>
@@ -101,7 +128,7 @@ const IndividualResult: React.FC = () => {
               <ProgressBarContainer>
               <CircularProgressbarWithChildren
               strokeWidth={35}
-              value={assessmentScoreIndividual.totalScore}
+              value={score?.assessmentScore?.totalScore || 0}
               styles={buildStyles({
                 rotation: 0,
                 strokeLinecap: 'butt',
@@ -114,12 +141,12 @@ const IndividualResult: React.FC = () => {
               </CircularProgressbarWithChildren>
               </ProgressBarContainer>
               <p>
-                {assessmentScoreIndividual.totalScore}<span>/100</span>
+                {score?.assessmentScore?.totalScore || 0}<span>/100</span>
               </p>
             </div>
           </ScoreResultCard>
 
-          <ScoreExplanationCard>
+          {/* <ScoreExplanationCard>
             <TotalResultCardTitle>Xcore Total - Explicação</TotalResultCardTitle>
             <ScoreExplanation>
               O resultado consolidado compartilha uma informação direta e objetiva do nível de maturidade que sua empresa está em cada pilar das disciplinas de Customer Experience. Se você desejar saber um pouco mais de detalhes e conclusões sobre o seu resultado, clique no botão abaixo para enviarmos para você. Você receberá essas informações no email que você cadastrou no início do assessment. Se ainda não recebeu, veja em sua caixa de SPAM ou clique no botão “reenviar por e-mail”.
@@ -133,7 +160,7 @@ const IndividualResult: React.FC = () => {
                 Enviar PDF
               </DownloadPdf>
             </ScoreResultActions>
-          </ScoreExplanationCard>
+          </ScoreExplanationCard> */}
         </TotalScoreContainer>
 
         <TalkToUs />
