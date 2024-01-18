@@ -9,6 +9,7 @@ import {
   IndividualResultScreen
 } from './screens';
 import { useForms } from './context/forms';
+import IndividualResult from './screens/shared/IndividualResult';
 
 const AppRoutes = () => {
   const { pillarsData } = useForms();
@@ -53,6 +54,10 @@ const AppRoutes = () => {
             <Route
               path="/assessment/resultado"
               element={<IndividualResultScreen />}
+            />
+            <Route
+              path="/assessment/resultado/:resultId"
+              element={<IndividualResult />}
             />
           </Routes>
         </a.div>

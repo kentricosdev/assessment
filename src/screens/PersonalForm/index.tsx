@@ -230,7 +230,7 @@ const PersonalForm: React.FC = () => {
             <ExplanationTitle>
               Vamos nos conhecer?
             </ExplanationTitle>
-            <ExplanationText>Antes de começar o processo de entendimento da maturidade da sua empresa, precisamos conhecer um pouco mais sobre você e sua empresa, para conseguirmos comparar os seus resultados com o mercado que sua empresa atua.</ExplanationText>
+            <ExplanationText>Antes de começar o processo de entendimento da maturidade da sua empresa, precisamos conhecer um pouco mais sobre você e sua empresa, para conseguirmos comparar os seus resultados com o mercado em que sua empresa atua.</ExplanationText>
           </Explanation>
 
           <Formik
@@ -394,7 +394,7 @@ const PersonalForm: React.FC = () => {
                       </div>
 
                       <div className="input-wrapper">
-                        <label htmlFor="annualRevenue">Faturamento Anual: *</label>
+                        <label htmlFor="annualRevenue">Faturamento Anual (R$) *</label>
                         <CustomSelect
                           label="Escolha uma opção"
                           id="annualRevenue"

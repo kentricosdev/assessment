@@ -62,7 +62,7 @@ const Header: React.FC = () => {
               <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Assessment</ScrollLink>
             </NavigationItem>
             <NavigationItem>
-              <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
+              <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos</ScrollLink>
             </NavigationItem>
             <NavigationItem>
               <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
                 <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Assessment</ScrollLink>
               </NavigationItem>
               <NavigationItem>
-                <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos?</ScrollLink>
+                <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos</ScrollLink>
               </NavigationItem>
               <NavigationItem>
                 <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
@@ -120,7 +120,7 @@ const Header: React.FC = () => {
               <img src="/images/xcore-logo.svg" alt="Logo Xcore" />
             </Title>
 
-            <Text>Descubra o nível de maturidade de experiência do cliente da sua empresa em poucos cliques!</Text>
+            <Text>Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!</Text>
 
             {
               !assessmentStarted && (

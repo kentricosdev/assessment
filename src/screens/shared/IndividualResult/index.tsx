@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { useForms } from '../../context/forms';
+import { useForms } from '../../../context/forms';
+import { useParams } from 'react-router-dom';
 
 import {
   Title as ResultThanksTitle,
   Description as ResultThanksDescription
-} from '../Thanks/styles'
+} from '../../Thanks/styles'
 
 import {
   Container,
@@ -19,15 +20,14 @@ import {
   TotalResultCardTitle,
   ProgressBarContainer
 } from './styles'
-import Breadcrumb from '../../components/Breadcrumb';
+import Breadcrumb from '../../../components/Breadcrumb';
 import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
-import ModalResultSended from '../../components/ModalResultSended';
-import ModalResendEmail from '../../components/ModalResendEmail';
-import ModalGetInTouch from '../../components/ModalGetInTouch';
+import ModalResultSended from '../../../components/ModalResultSended';
+import ModalResendEmail from '../../../components/ModalResendEmail';
+import ModalGetInTouch from '../../../components/ModalGetInTouch';
 import axios from 'axios';
-import TalkToUs from '../../components/TalkToUs';
-import { Link } from 'react-router-dom';
+import TalkToUs from '../../../components/TalkToUs';
 
 const IndividualResult: React.FC = () => {
   const { assessmentScoreIndividual, setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
@@ -36,15 +36,16 @@ const IndividualResult: React.FC = () => {
   const resultThanksDescriptionRef = useRef<HTMLDivElement>(null);
   // const pillarsResultsIndividualRef = useRef<HTMLDivElement>(null);
   const [showResultModal, setShowResultModal] = useState(false);
-  const [_, setDropdownOpen] = useState(false);
-  const resultId = localStorage.getItem('currentResultId')
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { resultId } = useParams();
+  console.log("resultID", resultId)
 
   const shareContent = async () => {
     try {
       await navigator.share({
-        title: 'Veja meu resultado no assesment Xcore',
+        title: 'Conheça o Xcore',
         text: 'Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!',
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
+        url: 'https://kentricos.com/xcore'
       });
     } catch (error) {
       throw new Error("Erro ao compartilhar conteúdo:" + error);
@@ -58,18 +59,13 @@ const IndividualResult: React.FC = () => {
 
     try {
       const storedItem = localStorage.getItem('personalForm');
-      if (!storedItem) throw new Error ('Não há dados de email.');
-
+      if (!storedItem) throw new Error ('Não há dados de email.')
       const personalFormObject = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
 
       const response = await axios.post('http://localhost:3002/api/send-email', {
         to: userEmail,
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`,
-        additionalContent: {
-          linkText: 'Veja o resultado aqui',
-          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`,
-        }
+        url: 'https://example.com/results',
       }, {
         withCredentials: true,
         headers: {
@@ -154,9 +150,7 @@ const IndividualResult: React.FC = () => {
               <p>Clique no botão abaixo para receber um e-mail com o link para acessar o relatório com o resultado do seu assessment comparando com os resultados de outras empresas do seu mercado.</p>
 
               <ResultActionsButton>
-                <Link to={`/assessment/resultado/${resultId}`}>
-                  Compare aqui
-                </Link>
+                Compare aqui
               </ResultActionsButton>
             </ResultActionsCardContent>
           </ResultActionsCard>

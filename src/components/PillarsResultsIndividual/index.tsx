@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useForms } from '../../context/forms';
-import { Card, CardTitle, Container, Result, ProgressBarContainer, ScoresContainer, TalkToUsCard, TalkToUsAction, Dropdown } from './styles';
+import { Card, CardTitle, Container, Result, ProgressBarContainer, ScoresContainer, Dropdown } from './styles';
 import { IoIosArrowDropdown  } from "react-icons/io";
 import styled, { css } from 'styled-components';
 
 interface ArrowProps {
   isModalOpen: string;
+}
+
+interface PillarsResultsIndividualProps {
+  dropdownOpen: boolean;
 }
 
 const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, score }) => {
@@ -38,11 +42,11 @@ const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, s
   );
 };
 
-const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> = ({}, ref) => {
-  const { assessmentScoreIndividual, setIsContactModalOpen } = useForms();
+const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement, PillarsResultsIndividualProps> = ({ dropdownOpen }, ref) => {
+  const { assessmentScoreIndividual } = useForms();
   const { scoresByPillar } = assessmentScoreIndividual;
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
+  const [isDropdownOpen, setIsDropdownOpen] = useState(dropdownOpen);
+  console.log(dropdownOpen)
   const RotatingArrow = styled(IoIosArrowDropdown)<ArrowProps>`
     transition: transform 0.3s ease-in-out;
 
@@ -66,13 +70,6 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement> =
           ))}
         </div>
 
-        <TalkToUsCard>
-          <img src="/icons/rocket.png" alt="Rocket" />
-          <p>Quer ir mais a fundo nessa análise?</p>
-          <TalkToUsAction onClick={() => setIsContactModalOpen(true)}>
-            Fale com a gente
-          </TalkToUsAction>
-        </TalkToUsCard>
       </ScoresContainer>
     </Container>
   );

@@ -25,6 +25,10 @@ const GlobalStyles = createGlobalStyle`
     text-decoration: none;
   }
 
+  a {
+    text-decoration: none;
+  }
+
   button {
     cursor: pointer;
     background: transparent;

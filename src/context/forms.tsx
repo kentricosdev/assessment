@@ -2,8 +2,9 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { getPillarsData } from '../services/AssessmentServices';
-import { IAssessmentAnswers, IAssessmentScoreIndividual, PillarData } from '../types/globalTypes';
+import { IAssessmentAnswers, IAssessmentScoreIndividual, IPersonalFormData, PillarData } from '../types/globalTypes';
 import { useNavigate } from 'react-router-dom';
+import ResultService from '../services/ResultsServices';
 
 interface FormsContextData {
   isModalOpen: boolean;
@@ -100,10 +101,24 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
     setAssessmentAnswers(answers);
   }, []);
 
-  const updateScore = useCallback((scores: any) => {
+  const updateScore = useCallback(async (scores: IAssessmentScoreIndividual) => {
     localStorage.setItem('assessmentScoreIndividual', JSON.stringify(scores));
-    setAssessmentScoreIndividual(scores);
+    const personalFormData = localStorage.getItem('personalForm');
+
+    if (!personalFormData) return;
+
+    const setorResult = JSON.parse(personalFormData).sector;
+
+    try {
+      const resultId = await ResultService.postResult(scores, setorResult);
+      localStorage.setItem('currentResultId', resultId);
+      setAssessmentScoreIndividual(scores);
+      console.log('Result ID:', resultId);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }, []);
+
 
   useEffect(() => {
     localStorage.setItem('assessmentStarted', JSON.stringify(assessmentStarted));

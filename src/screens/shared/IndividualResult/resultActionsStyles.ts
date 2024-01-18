@@ -73,8 +73,4 @@ export const ResultActionsButton = styled.button`
   font-weight: 700;
   line-height: 160%; /* 25.6px */
   letter-spacing: -0.32px;
-
-  a {
-    color: #000;
-  }
-`;
+  `;
