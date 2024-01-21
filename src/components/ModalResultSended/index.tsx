@@ -31,13 +31,13 @@ const ModalResultSended: React.FC<ResultModalProps> = ({ onClose }) => {
     <Container>
       <Card>
         <TitleContainer>
-          <Title>Baixar Resultado</Title>
+          <Title>Resultado Enviado!</Title>
           <button onClick={onClose}>
             <img src="/icons/CardExit.png" alt="Sair" />
           </button>
         </TitleContainer>
         <Description>
-          O e-mail com o link para fazer o download do PDF com o resultado será enviado em alguns instantes, no e-mail cadastrado no inicio do assessment.
+          O e-mail com o link para acessar o resultado será enviado em alguns instantes, no e-mail cadastrado no inicio do assessment.
         </Description>
         <ButtonContainer>
           <Button onClick={onClose}>Ok</Button>

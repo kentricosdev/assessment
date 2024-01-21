@@ -107,10 +107,10 @@ const FormsProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (!personalFormData) return;
 
-    const setorResult = JSON.parse(personalFormData).sector;
+    const personalData = JSON.parse(personalFormData);
 
     try {
-      const resultId = await ResultService.postResult(scores, setorResult);
+      const resultId = await ResultService.postResult(scores, personalData);
       localStorage.setItem('currentResultId', resultId);
       setAssessmentScoreIndividual(scores);
       return resultId;

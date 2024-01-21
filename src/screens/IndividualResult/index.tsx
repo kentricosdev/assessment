@@ -27,8 +27,7 @@ import ModalResendEmail from '../../components/ModalResendEmail';
 import ModalGetInTouch from '../../components/ModalGetInTouch';
 import axios from 'axios';
 import TalkToUs from '../../components/TalkToUs';
-import { Link } from 'react-router-dom';
-import { IAssessmentScoreIndividual } from '../../types/globalTypes';
+import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
 
 const IndividualResult: React.FC = () => {
   const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
@@ -75,6 +74,38 @@ const IndividualResult: React.FC = () => {
         additionalContent: {
           linkText: 'Veja o resultado aqui',
           link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`,
+        }
+      }, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Email sent successfully:', response.data);
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
+
+  const handleSendEmailComparative = async () => {
+    setDropdownOpen(true)
+    setShowResultModal(true);
+
+    try {
+      const storedItem = localStorage.getItem('personalForm');
+      if (!storedItem) throw new Error ('Não há dados de email.');
+
+      const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
+      const userEmail = personalFormObject.email;
+      const userSector = personalFormObject.sector;
+
+      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+        to: userEmail,
+        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+        additionalContent: {
+          linkText: 'Veja o resultado comparativo aqui',
+          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
         }
       }, {
         withCredentials: true,
@@ -141,7 +172,7 @@ const IndividualResult: React.FC = () => {
                   Reenviar por e-mail
                 </SendEmail>
                 <DownloadPdf onClick={handleSendEmail}>
-                  Enviar PDF
+                  Enviar Resultado
                 </DownloadPdf>
               </ScoreResultActions>
             </ScoreExplanationCard>
@@ -160,10 +191,8 @@ const IndividualResult: React.FC = () => {
 
                 <p>Clique no botão abaixo para receber um e-mail com o link para acessar o relatório com o resultado do seu assessment comparando com os resultados de outras empresas do seu mercado.</p>
 
-                <ResultActionsButton>
-                  <Link to={`/assessment/resultado/${resultId}`}>
-                    Compare aqui
-                  </Link>
+                <ResultActionsButton onClick={handleSendEmailComparative}>
+                  Compare aqui
                 </ResultActionsButton>
               </ResultActionsCardContent>
             </ResultActionsCard>

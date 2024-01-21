@@ -61,7 +61,7 @@ export interface IAssessmentScoreIndividual {
 
 export interface IAssessmentScoreIndividualResponse {
   assessmentScore: IAssessmentScoreIndividual;
-  setor: string;
+  sector: string;
 }
 
 
@@ -76,4 +76,13 @@ export interface IPersonalFormData {
   receiveContent: boolean;
   annualRevenue: string;
   maturityLevel: string;
+}
+
+export interface ComparativeResultResponse {
+  sector: string;
+  results: ComparativeResultItem[];
+}
+
+export interface ComparativeResultItem {
+  scores: IAssessmentScoreIndividual;
 }

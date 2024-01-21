@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForms } from '../context/forms';
 
 const useAssessmentRedirect = () => {
@@ -7,10 +7,13 @@ const useAssessmentRedirect = () => {
   const navigate = useNavigate();
 
   const currentPath = window.location.pathname;
+  const pathSegments = currentPath.split('/');
+  const id = pathSegments[pathSegments.length - 1];
   const resultIdPattern = /^\/assessment\/resultado\/\w+$/;
+  const { param } = useParams();
 
   useEffect(() => {
-    if (assessmentStarted && resultIdPattern.test(currentPath) === false) {
+    if (assessmentStarted && !resultIdPattern.test(currentPath)) {
       switch (assessmentStep) {
         case 0:
           if (currentPath !== '/assessment') {
@@ -51,9 +54,13 @@ const useAssessmentRedirect = () => {
           break;
       }
     } else {
-      if (currentPath !== '/' && resultIdPattern.test(currentPath) === false) {
+      if (currentPath !== '/' && !resultIdPattern.test(currentPath)) {
         navigate('/');
       }
+    }
+
+    if (param) {
+      navigate(`/assessment/resultado/${id}/${param}`)
     }
   }, [assessmentStarted, assessmentStep, navigate]);
 };

@@ -8,7 +8,7 @@ const TalkToUs: React.FC  = () => {
   return (
     <TalkToUsCard>
       <img src="/icons/rocket.png" alt="Rocket" />
-      <p>Quer ir mais a fundo nessa análise?</p>
+      <p>Não pare por aqui. Quer ir mais a fundo nessa análise?</p>
       <TalkToUsAction onClick={() => setIsContactModalOpen(true)}>
         Fale com a gente
       </TalkToUsAction>

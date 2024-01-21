@@ -10,6 +10,7 @@ import {
 } from './screens';
 import { useForms } from './context/forms';
 import IndividualResult from './screens/shared/IndividualResult';
+import ComparativeResult from './screens/shared/ComparativeResult';
 
 const AppRoutes = () => {
   const { pillarsData } = useForms();
@@ -58,6 +59,11 @@ const AppRoutes = () => {
             <Route
               path="/assessment/resultado/:resultId"
               element={<IndividualResult />}
+            />
+
+            <Route
+              path="/assessment/resultado/:resultId/:param"
+              element={<ComparativeResult />}
             />
           </Routes>
         </a.div>

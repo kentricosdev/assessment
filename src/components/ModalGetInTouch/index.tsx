@@ -25,19 +25,19 @@ const ModalGetInTouch: React.FC<GetInTouchProps> = ({ onClose }) => {
   const storedPersonalFormData = localStorage.getItem('personalForm');
 
   const [whatsappNumber, setWhatsappNumber] = useState(
-    storedPersonalContactUsData
-    ? JSON.parse(storedPersonalContactUsData).whatsapp
-    : (storedPersonalFormData
-      ? JSON.parse(storedPersonalFormData).whatsapp
+    storedPersonalFormData
+    ? JSON.parse(storedPersonalFormData).whatsapp
+    : (storedPersonalContactUsData
+      ? JSON.parse(storedPersonalContactUsData).whatsapp
       : ''
     ),
   );
 
   const initialValues = {
-    email: storedPersonalContactUsData
-      ? JSON.parse(storedPersonalContactUsData).email
-      : (storedPersonalFormData
-          ? JSON.parse(storedPersonalFormData).email
+    email: storedPersonalFormData
+      ? JSON.parse(storedPersonalFormData).email
+      : (storedPersonalContactUsData
+          ? JSON.parse(storedPersonalContactUsData).email
           : ''
         ),
     whatsapp: whatsappNumber,

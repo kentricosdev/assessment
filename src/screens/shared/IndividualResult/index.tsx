@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useForms } from '../../../context/forms';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-// import axios from 'axios';
 import Breadcrumb from '../../../components/Breadcrumb';
 import TalkToUs from '../../../components/TalkToUs';
 import useAssessmentRedirect from '../../../hooks/assessmentRedirect';
@@ -20,6 +19,11 @@ import {
   ScoreResultCard,
   TotalResultCardTitle,
   ProgressBarContainer,
+  ScoreExplanationCard,
+  ScoreExplanation,
+  SendEmail,
+  ScoreResultActions,
+  DownloadPdf,
   // IndividualResultActions,
   // ResultActionsCard,
   // ResultActionsImgContainer,
@@ -32,6 +36,7 @@ import ModalResendEmail from '../../../components/ModalResendEmail';
 import ModalGetInTouch from '../../../components/ModalGetInTouch';
 import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
 import { IAssessmentScoreIndividualResponse } from '../../../types/globalTypes';
+import axios from 'axios';
 
 const IndividualResult: React.FC = () => {
   const {
@@ -46,6 +51,7 @@ const IndividualResult: React.FC = () => {
   const [showResultModal, setShowResultModal] = useState(false);
   const { resultId } = useParams();
   const [score, setScore] = useState<IAssessmentScoreIndividualResponse>({} as IAssessmentScoreIndividualResponse)
+  const [_, setDropdownOpen] = useState(false);
 
   useAssessmentRedirect();
 
@@ -80,32 +86,34 @@ const IndividualResult: React.FC = () => {
   };
 
 
-  // const handleSendEmail = async () => {
-  //   setDropdownOpen(true)
-  //   setShowResultModal(true);
+  const handleSendEmail = async () => {
+    try {
+      const storedItem = localStorage.getItem('personalForm');
+      if (!storedItem) {
+        alert('Cadastre um e-mail')
+        return
+      }
+      setDropdownOpen(true)
+      setShowResultModal(true);
+      const personalFormObject = JSON.parse(storedItem);
+      const userEmail = personalFormObject.email;
 
-  //   try {
-  //     const storedItem = localStorage.getItem('personalForm');
-  //     if (!storedItem) throw new Error ('Não há dados de email.')
-  //     const personalFormObject = JSON.parse(storedItem);
-  //     const userEmail = personalFormObject.email;
+      const response = await axios.post('http://localhost:3002/api/send-email', {
+        to: userEmail,
+        url: 'https://example.com/results',
+      }, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-  //     const response = await axios.post('http://localhost:3002/api/send-email', {
-  //       to: userEmail,
-  //       url: 'https://example.com/results',
-  //     }, {
-  //       withCredentials: true,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //     });
+      console.log('Email sent successfully:', response.data);
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
 
-  //     console.log('Email sent successfully:', response.data);
-  //   } catch (error) {
-  //     console.error('Error sending email:', error);
-  //   }
-  // };
-  console.log("score:::", score && Object.keys(score).length > 0 && score.assessmentScore.totalScore)
   return (
     score  &&  Object.keys(score).length > 0 &&
     (<Container>
@@ -119,7 +127,7 @@ const IndividualResult: React.FC = () => {
           Resultado
         </ResultThanksTitle>
         <ResultThanksDescription ref={resultThanksDescriptionRef}>
-          Confira abaixo o resultado consolidado do assessment realizado. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode realizar esse assessment em um momento futuro e os resultados serão diferentes, pois sua empresa terá evoluído sua maturidade.
+          Confira abaixo o resultado consolidado do assessment realizado. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode realizar esse assessment em um momento futuro e os resultados serão diferentes.
         </ResultThanksDescription>
 
         <TotalScoreContainer>
@@ -147,10 +155,10 @@ const IndividualResult: React.FC = () => {
             </div>
           </ScoreResultCard>
 
-          {/* <ScoreExplanationCard>
+          <ScoreExplanationCard>
             <TotalResultCardTitle>Xcore Total - Explicação</TotalResultCardTitle>
             <ScoreExplanation>
-              O resultado consolidado compartilha uma informação direta e objetiva do nível de maturidade que sua empresa está em cada pilar das disciplinas de Customer Experience. Se você desejar saber um pouco mais de detalhes e conclusões sobre o seu resultado, clique no botão abaixo para enviarmos para você. Você receberá essas informações no email que você cadastrou no início do assessment. Se ainda não recebeu, veja em sua caixa de SPAM ou clique no botão “reenviar por e-mail”.
+              O resultado consolidado compartilha uma informação direta e objetiva do nível de maturidade que a empresa está em cada pilar das disciplinas de Customer Experience. Se você desejar saber um pouco mais de detalhes e conclusões sobre o seu resultado, clique no botão abaixo para enviarmos para você. Você receberá essas informações no email que você cadastrou. Se ainda não recebeu, veja em sua caixa de SPAM ou clique no botão “reenviar por e-mail”.
             </ScoreExplanation>
 
             <ScoreResultActions>
@@ -161,13 +169,13 @@ const IndividualResult: React.FC = () => {
                 Enviar PDF
               </DownloadPdf>
             </ScoreResultActions>
-          </ScoreExplanationCard> */}
+          </ScoreExplanationCard>
         </TotalScoreContainer>
 
         <TalkToUs />
 
         <IndividualResultActions>
-          <ResultActionsCard>
+          {/* <ResultActionsCard>
             <ResultActionsImgContainer>
               <img src="/images/see-comparative-result.png" alt="Ver resultado comparativo" />
             </ResultActionsImgContainer>
@@ -181,7 +189,7 @@ const IndividualResult: React.FC = () => {
                 Compare aqui
               </ResultActionsButton>
             </ResultActionsCardContent>
-          </ResultActionsCard>
+          </ResultActionsCard> */}
 
           <ResultActionsCard>
             <ResultActionsImgContainer>
