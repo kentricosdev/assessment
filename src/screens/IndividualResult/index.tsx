@@ -17,7 +17,8 @@ import {
   SendEmail,
   DownloadPdf,
   TotalResultCardTitle,
-  ProgressBarContainer
+  ProgressBarContainer,
+  PillarsComparativeContainer
 } from './styles'
 import Breadcrumb from '../../components/Breadcrumb';
 import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
@@ -28,6 +29,7 @@ import ModalGetInTouch from '../../components/ModalGetInTouch';
 import axios from 'axios';
 import TalkToUs from '../../components/TalkToUs';
 import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
+import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 
 const IndividualResult: React.FC = () => {
   const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
@@ -41,7 +43,7 @@ const IndividualResult: React.FC = () => {
   const resultThanksDescriptionRef = useRef<HTMLDivElement>(null);
   // const pillarsResultsIndividualRef = useRef<HTMLDivElement>(null);
   const [showResultModal, setShowResultModal] = useState(false);
-  const [_, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const resultId = localStorage.getItem('currentResultId')
 
   const shareContent = async () => {
@@ -184,7 +186,11 @@ const IndividualResult: React.FC = () => {
             </ScoreExplanationCard>
           </TotalScoreContainer>
 
-          <TalkToUs />
+          <PillarsComparativeContainer>
+            <PillarsResultsIndividual dropdownOpen={dropdownOpen} />
+            <TalkToUs />
+          </PillarsComparativeContainer>
+
 
           <IndividualResultActions>
             <ResultActionsCard>

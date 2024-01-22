@@ -192,3 +192,13 @@ export const ProgressBarContainer = styled.div`
     max-width: 200px;
   }
 `
+
+export const PillarsComparativeContainer = styled.div`
+  display: flex;
+  gap: 45px;
+  align-items: center;
+
+  @media (min-width: 0) and (max-width: 619px) {
+    flex-wrap: wrap;
+  }
+`
