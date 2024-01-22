@@ -105,14 +105,16 @@ const ComparativeResult: React.FC = () => {
     fetchScoreData();
   }, [resultId, param]);
 
-  console.log("score:::", comparativeScore)
   const handleSendEmail = async () => {
-    setDropdownOpen(true)
-    setShowResultModal(true);
-
     try {
       const storedItem = localStorage.getItem('personalForm');
-      if (!storedItem) throw new Error ('Não há dados de email.');
+      if (!storedItem) {
+        alert('Nenhum e-mail informado. Cadastre em "reenviar e-mail"')
+        throw new Error ('Não há dados de email.');
+      }
+
+      setDropdownOpen(true)
+      setShowResultModal(true);
 
       const personalFormObject = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
