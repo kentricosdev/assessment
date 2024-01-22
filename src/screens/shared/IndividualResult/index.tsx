@@ -35,7 +35,7 @@ import ModalResultSended from '../../../components/ModalResultSended';
 import ModalResendEmail from '../../../components/ModalResendEmail';
 import ModalGetInTouch from '../../../components/ModalGetInTouch';
 import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
-import { IAssessmentScoreIndividualResponse } from '../../../types/globalTypes';
+import { IAssessmentScoreIndividualResponse, IPersonalFormData } from '../../../types/globalTypes';
 import axios from 'axios';
 
 const IndividualResult: React.FC = () => {
@@ -114,6 +114,41 @@ const IndividualResult: React.FC = () => {
     }
   };
 
+  const handleSendEmailComparative = async () => {
+    try {
+      const storedItem = localStorage.getItem('personalForm');
+      if (!storedItem) {
+        alert('Nenhum e-mail informado. Cadastre em "reenviar por e-mail"')
+        throw new Error ('Não há dados de email.');
+      }
+
+      setDropdownOpen(true)
+      setShowResultModal(true);
+
+      const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
+      const userEmail = personalFormObject.email;
+      const userSector = personalFormObject.sector;
+
+      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+        to: userEmail,
+        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+        additionalContent: {
+          linkText: 'Veja o resultado comparativo aqui',
+          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+        }
+      }, {
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      console.log('Email sent successfully:', response.data);
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
+
   return (
     score  &&  Object.keys(score).length > 0 &&
     (<Container>
@@ -175,29 +210,28 @@ const IndividualResult: React.FC = () => {
         <TalkToUs />
 
         <IndividualResultActions>
-          {/* <ResultActionsCard>
+          <ResultActionsCard>
             <ResultActionsImgContainer>
               <img src="/images/see-comparative-result.png" alt="Ver resultado comparativo" />
             </ResultActionsImgContainer>
 
             <ResultActionsCardContent>
-              <h2>Quer comparar com o seu mercado?</h2>
+              <h2>Quer comparar com o mercado?</h2>
 
-              <p>Clique no botão abaixo para receber um e-mail com o link para acessar o relatório com o resultado do seu assessment comparando com os resultados de outras empresas do seu mercado.</p>
+              <p>Clique no botão abaixo para receber um e-mail com o link para acessar o relatório com o resultado do assessment comparando com os resultados de outras empresas do mesmo mercado.</p>
 
-              <ResultActionsButton>
+              <ResultActionsButton onClick={handleSendEmailComparative}>
                 Compare aqui
               </ResultActionsButton>
             </ResultActionsCardContent>
-          </ResultActionsCard> */}
-
+          </ResultActionsCard>
           <ResultActionsCard>
             <ResultActionsImgContainer>
               <img src="/images/share-individual-result.png" alt="Compartilhar Resultado" />
             </ResultActionsImgContainer>
 
             <ResultActionsCardContent>
-              <h2>Compartilhe os seus resultados</h2>
+              <h2>Compartilhe os resultados</h2>
               <p>Quer compartilhar esse relatório final com outra pessoa? Clique no botão abaixo.</p>
               <ResultActionsButton onClick={shareContent}>
                 Compartilhar

@@ -1,7 +1,6 @@
-import { collection, addDoc, doc, getDoc, query, where, getDocs, DocumentData } from 'firebase/firestore';
+import { collection, addDoc, doc, getDoc, query, where, getDocs } from 'firebase/firestore';
 import { ComparativeResultItem, ComparativeResultResponse, IAssessmentScoreIndividual, IAssessmentScoreIndividualResponse, IPersonalFormData } from '../types/globalTypes';
 import { db } from '../../firebase';
-import { TotalScoreResult } from '../utils/TotalPillars';
 
 class ResultService {
 

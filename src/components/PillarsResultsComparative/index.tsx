@@ -15,10 +15,9 @@ interface PillarCardProps {
   pillarId: string;
   individualScore: number;
   comparativeScore: number;
-  sector: string
 }
 
-const PillarCard: React.FC<PillarCardProps> = ({ pillarId, individualScore, comparativeScore, sector }) => {
+const PillarCard: React.FC<PillarCardProps> = ({ pillarId, individualScore, comparativeScore }) => {
   const { pillarsData } = useForms();
 
   return (
@@ -100,7 +99,6 @@ const PillarsResultsComparative: React.ForwardRefRenderFunction<HTMLDivElement, 
               pillarId={pillarId}
               individualScore={individualScore}
               comparativeScore={(scoresByPillarComparative as Record<string, number>)[pillarId] || 0}
-              sector={comparativeScore.sector}
             />
           ))}
         </div>

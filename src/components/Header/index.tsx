@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoClose, IoMenu } from "react-icons/io5"
 import { Link as ScrollLink } from 'react-scroll';
 import { useLocation } from "react-router-dom";

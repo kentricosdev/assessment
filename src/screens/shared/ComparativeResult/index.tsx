@@ -107,7 +107,7 @@ const ComparativeResult: React.FC = () => {
     try {
       const storedItem = localStorage.getItem('personalForm');
       if (!storedItem) {
-        alert('Nenhum e-mail informado. Cadastre em "reenviar e-mail"')
+        alert('Nenhum e-mail informado. Cadastre em "reenviar por e-mail"')
         throw new Error ('Não há dados de email.');
       }
 
