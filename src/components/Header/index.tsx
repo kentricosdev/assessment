@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { IoClose, IoMenu } from "react-icons/io5"
 import { Link as ScrollLink } from 'react-scroll';
 import { useLocation } from "react-router-dom";
@@ -30,8 +30,9 @@ import { useForms } from "../../context/forms";
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const {handleOpenModal, assessmentStarted, handleStartAssessment } = useForms();
+  const [notAssessment, setNotAssessment] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
-
   useEffect(() => {
     const unlisten = () => {
       setMenuOpen(false);
@@ -42,6 +43,34 @@ const Header: React.FC = () => {
     };
   }, [location.pathname]);
 
+  useEffect(() => {
+    const getPathAfterResultado = () => {
+      const path = window.location.pathname;
+      const resultadoIndex = path.indexOf('/resultado/');
+
+      if (resultadoIndex !== -1) {
+        // Get the part of the path after "/resultado/"
+        const afterResultado = path.substring(resultadoIndex + '/resultado/'.length);
+        return afterResultado;
+      }
+
+      return null; // If "/resultado/" is not found in the path
+    };
+
+    const resultadoPath = getPathAfterResultado();
+    const haveAssessmentData = localStorage.getItem('personalData')
+
+    if ((resultadoPath || location.pathname.startsWith('/resultado/')) && !haveAssessmentData) {
+      setNotAssessment(true);
+    } else {
+      setNotAssessment(false)
+    }
+
+  }
+  , [])
+
+  console.log("notAssessment", notAssessment)
+
   const handleOpenMenuMobile = () => {
     setMenuOpen(!menuOpen);
   }
@@ -50,22 +79,26 @@ const Header: React.FC = () => {
     <ContainerHeader>
       <Wrapper>
         <Menu>
-          <Logo onClick={handleOpenModal}>
+          <Logo onClick={notAssessment === true ? () => navigate('/') : handleOpenModal}>
             <img src="/images/logo.svg" alt="Logo Kentricos" />
           </Logo>
 
           <Navigation>
             <NavigationItem>
-              <div className="link" onClick={handleOpenModal}>Início</div>
+              {
+                notAssessment === true ?
+                (<a className="link" href="/">Início</a>):
+                (<div className="link" onClick={handleOpenModal}>Início</div>)
+              }
             </NavigationItem>
             <NavigationItem>
-              <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Assessment</ScrollLink>
+              <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Assessment</ScrollLink>
             </NavigationItem>
             <NavigationItem>
-              <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos</ScrollLink>
+              <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Quem somos</ScrollLink>
             </NavigationItem>
             <NavigationItem>
-              <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
+              <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Comunidade</ScrollLink>
             </NavigationItem>
           </Navigation>
 
@@ -91,16 +124,20 @@ const Header: React.FC = () => {
                 <img src="/images/logo.svg" alt="Logo Kentricos" />
               </LogoMobile>
               <NavigationItem>
-                <div className="link" onClick={handleOpenModal}>Início</div>
+                {
+                  notAssessment === true ?
+                  (<a className="link" href="/">Início</a>):
+                  (<div className="link" onClick={handleOpenModal}>Início</div>)
+                }
               </NavigationItem>
               <NavigationItem>
-                <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Assessment</ScrollLink>
+                <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Assessment</ScrollLink>
               </NavigationItem>
               <NavigationItem>
-                <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Quem somos</ScrollLink>
+                <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Quem somos</ScrollLink>
               </NavigationItem>
               <NavigationItem>
-                <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}>Comunidade</ScrollLink>
+                <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Comunidade</ScrollLink>
               </NavigationItem>
 
 
@@ -123,7 +160,7 @@ const Header: React.FC = () => {
             <Text>Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!</Text>
 
             {
-              !assessmentStarted && (
+              !assessmentStarted && notAssessment === false && (
                 <Actions>
                   <StartAssessment>
                   <Link to="/assessment">

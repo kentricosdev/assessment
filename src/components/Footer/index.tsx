@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useForms } from "../../context/forms";
 import {
   ContainerFooter,
@@ -12,16 +13,45 @@ import {
   BottomMenu,
   LogoLink
 } from "./styles";
+import { useNavigate } from "react-router-dom";
 
 const Footer: React.FC = () => {
   const { handleOpenModal } = useForms();
+  const navigate = useNavigate();
+  const [notAssessment, setNotAssessment] = useState(false);
+
+  useEffect(() => {
+    const getPathAfterResultado = () => {
+      const path = window.location.pathname;
+      const resultadoIndex = path.indexOf('/resultado/');
+
+      if (resultadoIndex !== -1) {
+        // Get the part of the path after "/resultado/"
+        const afterResultado = path.substring(resultadoIndex + '/resultado/'.length);
+        return afterResultado;
+      }
+
+      return null; // If "/resultado/" is not found in the path
+    };
+
+    const resultadoPath = getPathAfterResultado();
+    const haveAssessmentData = localStorage.getItem('personalData')
+
+    if ((resultadoPath || location.pathname.startsWith('/resultado/')) && !haveAssessmentData) {
+      setNotAssessment(true);
+    } else {
+      setNotAssessment(false)
+    }
+
+  }
+  , [])
 
   return (
     <ContainerFooter>
       <Wrapper>
         <MainContent>
           <ContainerLogo>
-            <LogoLink onClick={handleOpenModal}>
+            <LogoLink onClick={notAssessment === true ? () => navigate('/') : handleOpenModal}>
               <img src="/images/logo-light.svg" alt="" />
             </LogoLink>
           </ContainerLogo>
@@ -29,7 +59,7 @@ const Footer: React.FC = () => {
             <MenuGroup>
               <Title>A Kentricos</Title>
               <Nav>
-                <div className="link" onClick={handleOpenModal}>Home</div>
+                <div className="link" onClick={notAssessment === true ? () => navigate('/') : handleOpenModal}>Início</div>
                 <a href="http://xlabmeetup.com.br">Experience Lab</a>
                 <a href="http://paradoxacademy.com.br/experiencemakers">Experience Makers</a>
               </Nav>

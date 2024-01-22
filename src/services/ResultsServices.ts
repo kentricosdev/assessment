@@ -62,9 +62,6 @@ class ResultService {
         totalScoreSum += assessmentResult.totalScore;
       });
 
-      // Calculate average total score
-      const averageTotalScore = totalScoreSum / querySnapshot.size;
-      console.log("averageTotalScore", averageTotalScore)
       // Create an array of ComparativeResultItem objects
       const comparativeResultItems: ComparativeResultItem[] = querySnapshot.docs.map((doc) => {
         const resultData = doc.data();

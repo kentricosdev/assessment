@@ -51,11 +51,9 @@ const ComparativeResult: React.FC = () => {
 
   useEffect(() => {
     if (!resultId || !param) return;
-    console.log('resultId', resultId)
     const fetchScoreData = async () => {
       try {
         const assessmentScores = await ResultService.getResultBySector(param);
-        console.log("assessmentScores::", assessmentScores)
 
         if (!assessmentScores) throw new Error('Assessment scores not available.');
 
@@ -138,7 +136,6 @@ const ComparativeResult: React.FC = () => {
       console.error('Error sending email:', error);
     }
   };
-  console.log(scoreIndividual)
   return (
     comparativeScore &&  Object.keys(comparativeScore).length > 0 &&
     scoreIndividual && Object.keys(scoreIndividual).length > 0 &&
