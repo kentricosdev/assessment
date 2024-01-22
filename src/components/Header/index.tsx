@@ -67,7 +67,7 @@ const Header: React.FC = () => {
     }
 
   }
-  , [])
+  , [location.pathname])
 
   console.log("notAssessment", notAssessment)
 

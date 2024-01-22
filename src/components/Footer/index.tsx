@@ -13,11 +13,12 @@ import {
   BottomMenu,
   LogoLink
 } from "./styles";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Footer: React.FC = () => {
   const { handleOpenModal } = useForms();
   const navigate = useNavigate();
+  const location = useLocation();
   const [notAssessment, setNotAssessment] = useState(false);
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const Footer: React.FC = () => {
     }
 
   }
-  , [])
+  , [location.pathname])
 
   return (
     <ContainerFooter>
