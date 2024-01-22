@@ -96,6 +96,57 @@ export const ScoreResultCard = styled.div`
   }
 `;
 
+export const ProgressResultsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+
+  .mini {
+    width: 100% !important;
+    color: #242125;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 80%; /* 28px */
+  }
+`;
+
+export const ProgressResultsIndividual = styled.div`
+
+  font-size: 3.6458rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  p {
+    color: #89E3F5;
+  }
+  span {
+    color: #242125;
+    font-size: 1.8229rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+  }
+`;
+
+export const ProgressResultsComparative = styled.div`
+  font-size: 3.6458rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+  span {
+    color: #242125;
+    font-size: 1.8229rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+  }
+  p {
+    color: #184E77;
+  }
+`;
+
+
 export const TotalResultCardTitle = styled.h1`
   color: #242125;
   font-size: 1.25rem;
@@ -127,6 +178,7 @@ export const ScoreResultActions = styled.div`
   align-items: center;
   justify-content: end;
   gap: 30px;
+  margin-top: 60px;
 
   @media (min-width: 0) and (max-width: 590px) {
     flex-wrap: wrap;
@@ -197,4 +249,8 @@ export const PillarsComparativeContainer = styled.div`
   display: flex;
   gap: 45px;
   align-items: center;
+
+  @media (min-width: 0) and (max-width: 619px) {
+    flex-wrap: wrap;
+  }
 `

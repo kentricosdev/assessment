@@ -59,7 +59,7 @@ export const ScoresContainer = styled.div<ScoresContainerProps>`
     }
 
     @media (min-width: 0) and (max-width: 425px) {
-      max-height: ${({ isopen }) => (isopen === 'true' ? "1650px" : "0")};
+      max-height: ${({ isopen }) => (isopen === 'true' ? "1750px" : "0")};
     }
 
     @media (min-width: 426px) and (max-width: 618px) {
@@ -75,7 +75,6 @@ export const Card = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 20px;
   border-radius: 8px;
   border: 1px solid #CACACA;
   max-width: 202px;
@@ -98,6 +97,7 @@ export const CardTitle = styled.p`
 
   width: 137px;
   text-align: center;
+  margin-bottom: 20px;
 
   @media (min-width: 0) and (max-width: 420px) {
     width: 100%;
@@ -106,12 +106,13 @@ export const CardTitle = styled.p`
 
 export const Result = styled.p`
   overflow: hidden;
-  color: #242125;
+  color: #16B8CC;
   text-overflow: ellipsis;
   font-size: 1.75rem;
   font-style: normal;
   font-weight: 700;
   line-height: 120%; /* 33.6px */
+  position: absolute;
 
   span {
     overflow: hidden;
@@ -131,4 +132,43 @@ export const ProgressBarContainer = styled.div`
   height: 100%;
   max-width: 121px;
   max-height: 121px;
+
+  position: relative;
+`
+
+
+export const CardSubtitle = styled.p `
+ overflow: hidden;
+  color: #888788;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 160%; /* 22.4px */
+  margin-top: 8px;
+  margin-bottom: 3px;
+
+  width: 137px;
+  text-align: center;
+
+  @media (min-width: 0) and (max-width: 420px) {
+    width: 100%;
+  }
+`
+
+export const ComparativeScore = styled.p`
+  color: #184E77;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 120%;
+
+  span {
+    color: #242125;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+  }
 `

@@ -18,16 +18,19 @@ import {
   ScoreResultActions,
   SendEmail,
   DownloadPdf,
-  PillarsComparativeContainer
+  PillarsComparativeContainer,
+  ProgressResultsContainer,
+  ProgressResultsIndividual,
+  ProgressResultsComparative
 } from './styles'
 import Breadcrumb from '../../../components/Breadcrumb';
-import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import { CircularProgressbar, CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import ModalResultSended from '../../../components/ModalResultSended';
 import ModalResendEmail from '../../../components/ModalResendEmail';
 import ModalGetInTouch from '../../../components/ModalGetInTouch';
 import axios from 'axios';
 import TalkToUs from '../../../components/TalkToUs';
-import { ComparativeResultResponse, IAssessmentScoreIndividualResponse } from '../../../types/globalTypes';
+import { IAssessmentScoreIndividualResponse } from '../../../types/globalTypes';
 import PillarsResultsComparative from '../../../components/PillarsResultsComparative';
 import { useParams } from 'react-router-dom';
 import ResultService from '../../../services/ResultsServices';
@@ -148,7 +151,7 @@ const ComparativeResult: React.FC = () => {
             Resultado
           </ResultThanksTitle>
           <ResultThanksDescription ref={resultThanksDescriptionRef}>
-            Confira abaixo o resultado consolidado do assessment que você acabou de realizar. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode voltar a realizar esse assessment em um momento futuro e os resultados serão diferentes, pois sua empresa terá evoluído sua maturidade.
+            Confira abaixo o resultado consolidado do assessment realizado. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode voltar a realizar esse assessment em um momento futuro e os resultados serão diferentes, pois a empresa terá evoluído sua maturidade.
           </ResultThanksDescription>
 
           <TotalScoreContainer>
@@ -156,30 +159,53 @@ const ComparativeResult: React.FC = () => {
               <TotalResultCardTitle>Xcore Total</TotalResultCardTitle>
               <div className="ResultsFlex">
                 <ProgressBarContainer>
-                <CircularProgressbarWithChildren
-                strokeWidth={35}
-                value={comparativeScore.assessmentScore.totalScore && comparativeScore.assessmentScore.totalScore}
-                styles={buildStyles({
-                  rotation: 0,
-                  strokeLinecap: 'butt',
-                  pathTransitionDuration: 0.5,
-                  pathColor: `#89E3F5`,
-                  textColor: '#89E3F5',
-                  trailColor: '#E7F4FB'
-                })}
-              >
-                </CircularProgressbarWithChildren>
+                  <CircularProgressbarWithChildren
+                    strokeWidth={35}
+                    value={scoreIndividual.assessmentScore.totalScore > comparativeScore.assessmentScore.totalScore ? scoreIndividual.assessmentScore.totalScore : comparativeScore.assessmentScore.totalScore}
+                    styles={buildStyles({
+                      rotation: 0,
+                      strokeLinecap: 'butt',
+                      pathTransitionDuration: 0.5,
+                      pathColor: `${scoreIndividual.assessmentScore.totalScore > comparativeScore.assessmentScore.totalScore ? '#16B8CC' : '#184E77'}`,
+                      textColor: '#89E3F5',
+                      trailColor: '#E7F4FB'
+                    })}
+                  >
+                     <CircularProgressbar
+                        value={scoreIndividual.assessmentScore.totalScore < comparativeScore.assessmentScore.totalScore ? scoreIndividual.assessmentScore.totalScore : comparativeScore.assessmentScore.totalScore}
+                        strokeWidth={35}
+                        styles={buildStyles({
+                          rotation: 0,
+                          strokeLinecap: 'butt',
+                          pathTransitionDuration: 0.5,
+                          pathColor: `${scoreIndividual.assessmentScore.totalScore < comparativeScore.assessmentScore.totalScore ? '#16B8CC' : '#184E77'}`,
+                          trailColor: 'transparent',
+                        })}
+                      />
+                  </CircularProgressbarWithChildren>
                 </ProgressBarContainer>
-                <p>
-                  {JSON.stringify(comparativeScore.assessmentScore.totalScore)}<span>/100</span>
-                </p>
+
+                <ProgressResultsContainer>
+                  <ProgressResultsIndividual>
+                  <p className='mini'>Seu Xcore</p>
+                  <p>
+                    {JSON.stringify(scoreIndividual.assessmentScore.totalScore)}<span>/100</span>
+                  </p>
+                  </ProgressResultsIndividual>
+                  <ProgressResultsComparative>
+                  <p className='mini'>Xcore Geral</p>
+                  <p>
+                    {JSON.stringify(comparativeScore.assessmentScore.totalScore)}<span>/100</span>
+                  </p>
+                  </ProgressResultsComparative>
+                </ProgressResultsContainer>
               </div>
             </ScoreResultCard>
 
             <ScoreExplanationCard>
               <TotalResultCardTitle>Xcore Total - Explicação</TotalResultCardTitle>
               <ScoreExplanation>
-                O resultado consolidado compartilha uma informação direta e objetiva do nível de maturidade que sua empresa está em cada pilar das disciplinas de Customer Experience. Se você desejar saber um pouco mais de detalhes e conclusões sobre o seu resultado, clique no botão abaixo para enviarmos para você. Você receberá essas informações no email que você cadastrou no início do assessment. Se ainda não recebeu, veja em sua caixa de SPAM ou clique no botão “reenviar por e-mail”.
+                O resultado consolidado compartilha uma informação direta e objetiva do nível de maturidade que a empresa está em cada pilar das disciplinas de Customer Experience. Se você desejar saber um pouco mais de detalhes e conclusões sobre o seu resultado, clique no botão abaixo para enviarmos para você. Você receberá essas informações no email cadastrado. Se ainda não recebeu, veja em sua caixa de SPAM ou clique no botão “reenviar por e-mail”.
               </ScoreExplanation>
 
               <ScoreResultActions>
