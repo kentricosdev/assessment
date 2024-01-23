@@ -74,12 +74,25 @@ const ModalGetInTouch: React.FC<GetInTouchProps> = ({ onClose }) => {
   }, [modalRootRef]);
 
   const handleSubmit = async (
-  values: MyFormValues,
-  actions: FormikHelpers<MyFormValues>
-) => {
+    values: MyFormValues,
+    actions: FormikHelpers<MyFormValues>
+  ) => {
   try {
     const personalData = { ...values };
     localStorage.setItem('personalDataContactUs',  JSON.stringify(personalData))
+
+    if (storedPersonalFormData) {
+      const companyName = JSON.parse(storedPersonalFormData).company
+      const fullname = JSON.parse(storedPersonalFormData).fullName
+
+      const whatsappLink = `https://wa.me/5511981878299?text=Olá,%20meu%20nome%20é%20${fullname}%20e%20represento%20a%20empresa%20${companyName}.%20Acabo%20de%20concluir%20o%20seu%20assessment%20e%20estou%20interessado%20em%20entender%20mais%20sobre%20a%20análise%20realizada.%20Você%20pode%20entrar%20em%20contato%20comigo%20pelo%20e-mail%20${personalData.email}.`;
+
+      window.open(whatsappLink, '_blank');
+    } else {
+      const whatsappLink = `https://wa.me/5511981878299?text=Olá!%20Acabei%20de%20conferir%20o%20resultado%20de%20um%20assessment%20e%20gostaria%20de%20entender%20mais%20sobre%20a%20análise.%20Você%20pode%20entrar%20em%20contato%20comigo%20pelo%20e-mail%20${personalData.email}.`;
+
+      window.open(whatsappLink, '_blank');
+    }
   } catch (error) {
     actions.setSubmitting(false);
     throw new Error("Erro ao salvar dados de contato.")
