@@ -379,3 +379,37 @@ export const Leave = styled.button`
   border-radius: 100px;
   border: 1px solid rgba(255, 255, 255, 0.50);
 `
+
+export const ProgressBarWrapper = styled.div`
+  width: 100%;
+  height: 15px;
+  background-color: #eee;
+  margin-bottom: 20px;
+  position: fixed;
+  top: 0;
+  z-index: 90;
+
+  .progressText {
+    position: relative;
+    width: 100%;
+
+    p {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+
+`;
+
+interface ProgressBarFillProps {
+  progress: number;
+}
+
+export const ProgressBarFill = styled.div<ProgressBarFillProps>`
+  height: 100%;
+  background-color: #A5BE00;
+  width: ${(props) => props.progress}%;
+`;

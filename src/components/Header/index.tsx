@@ -21,7 +21,9 @@ import {
   Leave,
   MobileNavigation,
   MobileNavContent,
-  MobileNavHeader
+  MobileNavHeader,
+  ProgressBarWrapper,
+  ProgressBarFill
 } from "./styles";
 import { useEffect, useState } from "react";
 import { useForms } from "../../context/forms";
@@ -29,10 +31,12 @@ import { useForms } from "../../context/forms";
 
 const Header: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const {handleOpenModal, assessmentStarted, handleStartAssessment } = useForms();
+  const {handleOpenModal, assessmentStarted, handleStartAssessment, assessmentStep } = useForms();
   const [notAssessment, setNotAssessment] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [assessmentProgress, setAssessmentProgress] = useState(0)
+
   useEffect(() => {
     const unlisten = () => {
       setMenuOpen(false);
@@ -69,60 +73,29 @@ const Header: React.FC = () => {
   }
   , [location.pathname])
 
-  console.log("notAssessment", notAssessment)
+  console.log("notAssessment", location.pathname)
 
   const handleOpenMenuMobile = () => {
     setMenuOpen(!menuOpen);
   }
 
+  useEffect(() => {
+    const progress = ((assessmentStep / 6)) * 100;
+    setAssessmentProgress(progress)
+  }, [assessmentStep]);
+
+
+
   return (
-    <ContainerHeader>
-      <Wrapper>
-        <Menu>
-          <Logo onClick={notAssessment === true ? () => navigate('/') : handleOpenModal}>
-            <img src="/images/logo.svg" alt="Logo Kentricos" />
-          </Logo>
+    <>
+      <ContainerHeader>
+        <Wrapper>
+          <Menu>
+            <Logo onClick={notAssessment === true ? () => navigate('/') : handleOpenModal}>
+              <img src="/images/logo.svg" alt="Logo Kentricos" />
+            </Logo>
 
-          <Navigation>
-            <NavigationItem>
-              {
-                notAssessment === true ?
-                (<a className="link" href="/">Início</a>):
-                (<div className="link" onClick={handleOpenModal}>Início</div>)
-              }
-            </NavigationItem>
-            <NavigationItem>
-              <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Assessment</ScrollLink>
-            </NavigationItem>
-            <NavigationItem>
-              <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Quem somos</ScrollLink>
-            </NavigationItem>
-            <NavigationItem>
-              <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Comunidade</ScrollLink>
-            </NavigationItem>
-          </Navigation>
-
-          <div className="leave-assessment--button">
-            {assessmentStarted  && (
-              <Leave onClick={handleOpenModal}>
-                Sair
-              </Leave>
-            )}
-          </div>
-
-          <MobileNavigation>
-            <button onClick={handleOpenMenuMobile}>
-              <IoMenu color='#FFF' />
-            </button>
-            <MobileNavContent ishidden={!menuOpen === true ? "true" : "false"}>
-              <MobileNavHeader>
-                <button onClick={handleOpenMenuMobile}>
-                  <IoClose color='#FFF' />
-                </button>
-              </MobileNavHeader>
-              <LogoMobile>
-                <img src="/images/logo.svg" alt="Logo Kentricos" />
-              </LogoMobile>
+            <Navigation>
               <NavigationItem>
                 {
                   notAssessment === true ?
@@ -139,44 +112,95 @@ const Header: React.FC = () => {
               <NavigationItem>
                 <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Comunidade</ScrollLink>
               </NavigationItem>
+            </Navigation>
 
-
+            <div className="leave-assessment--button">
               {assessmentStarted  && (
-                <Leave onClick={handleOpenModal} style={{width: '100%'}}>
+                <Leave onClick={handleOpenModal}>
                   Sair
                 </Leave>
               )}
-            </MobileNavContent>
-          </MobileNavigation>
-        </Menu>
+            </div>
 
-        <MainContentContainer>
-          <LeftSide>
-            <Title>
-              <h1>Conheça o</h1>
-              <img src="/images/xcore-logo.svg" alt="Logo Xcore" />
-            </Title>
+            <MobileNavigation>
+              <button onClick={handleOpenMenuMobile}>
+                <IoMenu color='#FFF' />
+              </button>
+              <MobileNavContent ishidden={!menuOpen === true ? "true" : "false"}>
+                <MobileNavHeader>
+                  <button onClick={handleOpenMenuMobile}>
+                    <IoClose color='#FFF' />
+                  </button>
+                </MobileNavHeader>
+                <LogoMobile>
+                  <img src="/images/logo.svg" alt="Logo Kentricos" />
+                </LogoMobile>
+                <NavigationItem>
+                  {
+                    notAssessment === true ?
+                    (<a className="link" href="/">Início</a>):
+                    (<div className="link" onClick={handleOpenModal}>Início</div>)
+                  }
+                </NavigationItem>
+                <NavigationItem>
+                  <ScrollLink to="oAssessmentId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Assessment</ScrollLink>
+                </NavigationItem>
+                <NavigationItem>
+                  <ScrollLink to="AboutKentricosId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Quem somos</ScrollLink>
+                </NavigationItem>
+                <NavigationItem>
+                  <ScrollLink to="comunityId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : notAssessment === true ? () => navigate("/") : () => {return}}>Comunidade</ScrollLink>
+                </NavigationItem>
 
-            <Text>Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!</Text>
 
-            {
-              !assessmentStarted && notAssessment === false && (
-                <Actions>
-                  <StartAssessment>
-                  <Link to="/assessment">
-                    <button onClick={handleStartAssessment}>Iniciar Assessment</button>
-                  </Link>
-                  </StartAssessment>
-                  <SeeVideo>
-                    <ScrollLink to="videoContainerId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}><button>Confira o vídeo</button></ScrollLink>
-                  </SeeVideo>
-                </Actions>
-              )
-            }
-          </LeftSide>
-        </MainContentContainer>
-      </Wrapper>
-    </ContainerHeader>
+                {assessmentStarted  && (
+                  <Leave onClick={handleOpenModal} style={{width: '100%'}}>
+                    Sair
+                  </Leave>
+                )}
+              </MobileNavContent>
+            </MobileNavigation>
+          </Menu>
+
+          <MainContentContainer>
+            <LeftSide>
+              <Title>
+                <h1>Conheça o</h1>
+                <img src="/images/xcore-logo.svg" alt="Logo Xcore" />
+              </Title>
+
+              <Text>Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!</Text>
+
+              {
+                !assessmentStarted && notAssessment === false && (
+                  <Actions>
+                    <StartAssessment>
+                    <Link to="/assessment">
+                      <button onClick={handleStartAssessment}>Iniciar Assessment</button>
+                    </Link>
+                    </StartAssessment>
+                    <SeeVideo>
+                      <ScrollLink to="videoContainerId" smooth={true} duration={100} onClick={assessmentStarted ? handleOpenModal : () => {return}}><button>Confira o vídeo</button></ScrollLink>
+                    </SeeVideo>
+                  </Actions>
+                )
+              }
+            </LeftSide>
+          </MainContentContainer>
+        </Wrapper>
+      </ContainerHeader>
+      {
+        location.pathname.match(/\/pilar-(\d+)/) && (
+          <ProgressBarWrapper>
+            <div className="progressText">
+              <p>{`${assessmentStep} / 6`}</p>
+            </div>
+            <ProgressBarFill progress={assessmentProgress} />
+          </ProgressBarWrapper>
+        )
+      }
+
+    </>
   )
 }
 
