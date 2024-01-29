@@ -25,7 +25,13 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
   const { updateAnswers, pillarsData, updateScore } = useForms();
   const navigate = useNavigate();
   const storedSelectedOptions = localStorage.getItem('selectedOptions');
-  const [isOptionSelected, setIsOptionSelected] = useState(storedSelectedOptions ? true : false);
+  const [isOptionSelected, setIsOptionSelected] = useState(
+    storedSelectedOptions ?
+    Object.keys(JSON.parse(storedSelectedOptions)).some(
+      (key) => key.endsWith(`-${currentPillar.ordem}`)
+    ) : false
+  );
+
 
   useEffect(() => {
     if (storedSelectedOptions) {
