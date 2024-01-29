@@ -204,7 +204,7 @@ const IndividualResult: React.FC = () => {
 
                 <p>Clique no botão abaixo para receber um e-mail com o link para acessar o relatório com o resultado do seu assessment comparando com os resultados de outras empresas do seu mercado.</p>
 
-                <ResultActionsButton onClick={handleSendEmailComparative}>
+                <ResultActionsButton onClick={handleSendEmailComparative} role="button" tabIndex={0}>
                   Compare aqui
                 </ResultActionsButton>
               </ResultActionsCardContent>
@@ -218,11 +218,11 @@ const IndividualResult: React.FC = () => {
               <ResultActionsCardContent>
                 <h2>Compartilhe os seus resultados</h2>
                 <p>Quer compartilhar esse relatório final com outra pessoa? Clique no botão abaixo.</p>
-                <WhatsappShareButton url={'https://google.com'} title={'sdasdsa'}>
-                  <ResultActionsButton onClick={shareContent}>
+                {/* <WhatsappShareButton url={'https://google.com'} title={'sdasdsa'}> */}
+                  <ResultActionsButton onClick={shareContent} role="button" tabIndex={0}>
                     Compartilhar
                   </ResultActionsButton>
-                </WhatsappShareButton>
+                {/* </WhatsappShareButton> */}
               </ResultActionsCardContent>
             </ResultActionsCard>
           </IndividualResultActions>

@@ -55,7 +55,8 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement, P
       transform: rotate(180deg);
     `}
 `;
-
+  console.log("scoresByPillar", scoresByPillar)
+  if (!scoresByPillar) return
   return (
     <Container>
       <Dropdown onClick={() => setIsDropdownOpen(!isDropdownOpen)}>

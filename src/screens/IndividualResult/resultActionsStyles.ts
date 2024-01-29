@@ -58,7 +58,7 @@ export const ResultActionsCardContent = styled.div`
   }
 `;
 
-export const ResultActionsButton = styled.button`
+export const ResultActionsButton = styled.div`
   display: flex;
   padding: 14px 72px;
   justify-content: center;
@@ -73,6 +73,11 @@ export const ResultActionsButton = styled.button`
   font-weight: 700;
   line-height: 160%; /* 25.6px */
   letter-spacing: -0.32px;
+  max-width: 250px;
+  cursor: pointer;
+  &:hover {
+    filter: brightness(1.03);
+  }
 
   a {
     color: #000;

@@ -14,6 +14,11 @@ import Breadcrumb from '../../components/Breadcrumb';
 const Thanks: React.FC = () => {
   const navigate = useNavigate();
 
+
+  const handleSeeResult = () => {
+    navigate('/assessment/resultado')
+  }
+
   return (
     <Container>
       <Wrapper>
@@ -26,7 +31,7 @@ const Thanks: React.FC = () => {
         </Description>
 
         <ButtonContainer>
-          <SeeResult onClick={() => navigate('/assessment/resultado')}>
+          <SeeResult onClick={handleSeeResult}>
             Acessar Resultado
           </SeeResult>
         </ButtonContainer>
