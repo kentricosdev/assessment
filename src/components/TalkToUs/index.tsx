@@ -7,7 +7,7 @@ const TalkToUs: React.FC  = () => {
   const { setIsContactModalOpen } = useForms();
   return (
     <TalkToUsCard>
-      <img src="/icons/rocket.png" alt="Rocket" />
+      <img src="/icons/star.png" alt="Star" />
       <p>Não pare por aqui. Quer ir mais a fundo nessa análise?</p>
       <TalkToUsAction onClick={() => setIsContactModalOpen(true)}>
         Fale com a gente

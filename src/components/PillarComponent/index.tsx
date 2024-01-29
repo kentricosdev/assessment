@@ -14,7 +14,7 @@ const PillarComponent: React.FC<PillarComponentProps> = ({ title, description, o
         <img src={`/icons/form/pilar${ordem}.svg`} alt="Icone do pilar" />
         <h2>{`Pilar ${ordem} - ${title}`}</h2>
       </PillarHeader>
-      <Description>{description}</Description>
+      <Description>{description} Escolha qual dos contextos abaixo mais se parece com a sua realidade.</Description>
     </Container>
   );
 };

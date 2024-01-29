@@ -186,7 +186,7 @@ export const ExplanationText = styled.p`
   color: #000;
   font-size: 1.25rem;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 160%;
   letter-spacing: -0.4px;
   margin-bottom: 100px;

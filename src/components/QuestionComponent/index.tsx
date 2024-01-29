@@ -89,11 +89,11 @@ const QuestionComponent: React.FC<QuestionComponentProps> = ({ questions, curren
       .sort((a, b) => a.ordem - b.ordem)
       .map((currentQuestion) => (
         <div key={currentQuestion.ordem}>
-          <h3>
+          {/* <h3>
             {pillarsData.some(pillar => pillar.questoes.length > 1) ?
                currentQuestion.ordem : currentPillar.ordem
             }. {currentQuestion.texto}
-          </h3>
+          </h3> */}
           <OptionsList>
             {currentQuestion.opcoes
               .sort((a, b) => a.peso - b.peso)

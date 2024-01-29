@@ -18,6 +18,9 @@ export const TalkToUsCard = styled.div`
     }
 
     img {
+      max-width: 40px;
+      height: auto;
+      object-fit: contain;
     }
 
     p {

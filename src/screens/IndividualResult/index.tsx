@@ -30,6 +30,7 @@ import axios from 'axios';
 import TalkToUs from '../../components/TalkToUs';
 import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
+import { WhatsappShareButton } from 'react-share';
 
 const IndividualResult: React.FC = () => {
   const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
@@ -217,9 +218,11 @@ const IndividualResult: React.FC = () => {
               <ResultActionsCardContent>
                 <h2>Compartilhe os seus resultados</h2>
                 <p>Quer compartilhar esse relatório final com outra pessoa? Clique no botão abaixo.</p>
-                <ResultActionsButton onClick={shareContent}>
-                  Compartilhar
-                </ResultActionsButton>
+                <WhatsappShareButton url={'https://google.com'} title={'sdasdsa'}>
+                  <ResultActionsButton onClick={shareContent}>
+                    Compartilhar
+                  </ResultActionsButton>
+                </WhatsappShareButton>
               </ResultActionsCardContent>
             </ResultActionsCard>
           </IndividualResultActions>

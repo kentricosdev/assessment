@@ -228,7 +228,12 @@ const PersonalForm: React.FC = () => {
             <ExplanationTitle>
               Vamos nos conhecer?
             </ExplanationTitle>
-            <ExplanationText>Antes de começar o processo de entendimento da maturidade da sua empresa, precisamos conhecer um pouco mais sobre você e sua empresa, para conseguirmos comparar os seus resultados com o mercado em que sua empresa atua.</ExplanationText>
+            <ExplanationText>
+              Antes de começar o processo de entendimento da maturidade da sua empresa, precisamos conhecer um pouco mais sobre você e sua empresa, para conseguirmos comparar os seus resultados com o mercado em que sua empresa atua.
+              <br/>
+              <br/>
+              A pesquisa possui 6 perguntas, e você vai precisar de no máximo 10 minutos com a sua plena atenção para preenchê-las (o tempo vai depender de quais informações você terá facilidade em coletar internamente na sua empresa).
+            </ExplanationText>
           </Explanation>
 
           <Formik
@@ -417,11 +422,10 @@ const PersonalForm: React.FC = () => {
                           name="maturityLevel"
                           options={[
                             { value: 'inicial', label: 'Inicial - Não há foco algum no cliente' },
-                            { value: 'fundamental', label: 'Fundamental - Se preocupa, mas não possui estratégia definida' },
-                            { value: 'organizacional', label: 'Organizacional - Tem estratégia, mas não está integrada entre as áreas' },
-                            { value: 'analitico', label: 'Analítico - Cultura centrada, com colaboradores e processos alinhados' },
-                            { value: 'inovador', label: 'Inovador - Cultura centrada madura com liderança engajada' },
-                            { value: 'naoSei', label: 'Não sei responder' },
+                            { value: 'conscientizacao', label: 'Conscientização - Se preocupa, mas não possui estratégia definida' },
+                            { value: 'organizacional', label: 'Organizacional - Há engajamento das áreas em CX' },
+                            { value: 'estruturacao', label: 'Estruturação - Estruturas se fortalecem em CX' },
+                            { value: 'proatividade', label: 'Proatividade - Cultura centrada madura com liderança engajada' },
                           ]}
                         />
                         <ErrorMessage name="maturityLevel" component="p" className="error-message" />
