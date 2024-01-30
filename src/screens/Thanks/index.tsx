@@ -17,6 +17,7 @@ const Thanks: React.FC = () => {
 
   const handleSeeResult = () => {
     navigate('/assessment/resultado')
+    
   }
 
   return (

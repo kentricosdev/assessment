@@ -18,7 +18,9 @@ import {
   DownloadPdf,
   TotalResultCardTitle,
   ProgressBarContainer,
-  PillarsComparativeContainer
+  PillarsComparativeContainer,
+  CompanyName,
+  MaturityOptionChosen
 } from './styles'
 import Breadcrumb from '../../components/Breadcrumb';
 import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
@@ -28,9 +30,10 @@ import ModalResendEmail from '../../components/ModalResendEmail';
 import ModalGetInTouch from '../../components/ModalGetInTouch';
 import axios from 'axios';
 import TalkToUs from '../../components/TalkToUs';
-import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
+import { IAssessmentAnswers, IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
-import { WhatsappShareButton } from 'react-share';
+import ExplanationOverallResult from '../../components/ExplanationOverallResult/intex';
+// import { WhatsappShareButton } from 'react-share';
 
 const IndividualResult: React.FC = () => {
   const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
@@ -46,6 +49,7 @@ const IndividualResult: React.FC = () => {
   const [showResultModal, setShowResultModal] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const resultId = localStorage.getItem('currentResultId')
+  const personalFormData = localStorage.getItem('personalForm')
 
   const shareContent = async () => {
     try {
@@ -144,6 +148,19 @@ const IndividualResult: React.FC = () => {
           <ResultThanksDescription ref={resultThanksDescriptionRef}>
             Confira abaixo o resultado consolidado do assessment que você acabou de realizar. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode voltar a realizar esse assessment em um momento futuro e os resultados serão diferentes, pois sua empresa terá evoluído sua maturidade.
           </ResultThanksDescription>
+
+          {personalFormData && (
+            <CompanyName>Empresa: <span>{JSON.parse(personalFormData).company}</span></CompanyName>
+          )}
+
+          {personalFormData && (
+            <MaturityOptionChosen>
+              Antes de começar esta pesquisa, você respondeu a uma pergunta no cadastro dizendo qual era o nível de maturidade que você achava que sua empresa estava e sua escolha foi: <span>{JSON.parse(personalFormData).maturityLevel}</span>. Depois de respondido a esta pesquisa comparamos a resposta final com a resposta inicial. O resultado é esse:
+            </MaturityOptionChosen>
+          )}
+
+          <ExplanationOverallResult
+          totalScore={assessmentScoreIndividual.totalScore && assessmentScoreIndividual.totalScore}/>
 
           <TotalScoreContainer>
             <ScoreResultCard ref={totalScoreRef}>

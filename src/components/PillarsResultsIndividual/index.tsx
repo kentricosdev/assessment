@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useForms } from '../../context/forms';
@@ -43,8 +43,8 @@ const PillarCard: React.FC<{ pillarId: string; score: number }> = ({ pillarId, s
 };
 
 const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement, PillarsResultsIndividualProps> = ({ dropdownOpen }, ref) => {
-  const { assessmentScoreIndividual } = useForms();
-  const { scoresByPillar } = assessmentScoreIndividual;
+  const localScore = localStorage.getItem('assessmentScoreIndividual')
+  const { scoresByPillar }: { scoresByPillar?: { [key: number]: number } } = localScore && JSON.parse(localScore);
   const [isDropdownOpen, setIsDropdownOpen] = useState(dropdownOpen);
   const RotatingArrow = styled(IoIosArrowDropdown)<ArrowProps>`
     transition: transform 0.3s ease-in-out;
@@ -54,8 +54,7 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement, P
     css`
       transform: rotate(180deg);
     `}
-`;
-  console.log("scoresByPillar", scoresByPillar)
+  `;
   if (!scoresByPillar) return
   return (
     <Container>

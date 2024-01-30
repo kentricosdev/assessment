@@ -202,3 +202,26 @@ export const PillarsComparativeContainer = styled.div`
     flex-wrap: wrap;
   }
 `
+
+export const CompanyName = styled.p`
+  font-size: 2rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: 300;
+
+  span {
+    font-weight: 500;
+  }
+`
+
+export const MaturityOptionChosen = styled.p`
+  font-size: 1.125rem;
+  margin-bottom: 20px;
+  line-height: 130%;
+  font-size: 1.125rem;
+  font-weight: 500;
+
+  span {
+    font-style: italic;
+  }
+`

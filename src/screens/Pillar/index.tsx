@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import QuestionComponent from '../../components/QuestionComponent';
 
@@ -7,8 +7,6 @@ import useAssessmentRedirect from '../../hooks/assessmentRedirect';
 import { Wrapper } from './styles';
 import Breadcrumb from '../../components/Breadcrumb';
 import PillarComponent from '../../components/PillarComponent';
-
-
 const Pillar: React.FC = () => {
   useAssessmentRedirect()
   const { assessmentStep, pillarsData } = useForms();
