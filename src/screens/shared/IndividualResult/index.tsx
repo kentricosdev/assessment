@@ -19,11 +19,11 @@ import {
   ScoreResultCard,
   TotalResultCardTitle,
   ProgressBarContainer,
-  ScoreExplanationCard,
-  ScoreExplanation,
-  SendEmail,
-  ScoreResultActions,
-  DownloadPdf,
+  // ScoreExplanationCard,
+  // ScoreExplanation,
+  // SendEmail,
+  // ScoreResultActions,
+  // DownloadPdf,
   // IndividualResultActions,
   // ResultActionsCard,
   // ResultActionsImgContainer,
@@ -35,8 +35,8 @@ import ModalResultSended from '../../../components/ModalResultSended';
 import ModalResendEmail from '../../../components/ModalResendEmail';
 import ModalGetInTouch from '../../../components/ModalGetInTouch';
 // import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
-import { IAssessmentScoreIndividualResponse, IPersonalFormData } from '../../../types/globalTypes';
-import axios from 'axios';
+import { IAssessmentScoreIndividualResponse } from '../../../types/globalTypes';
+// import axios from 'axios';
 import PillarsResultsIndividual from '../../../components/PillarsResultsIndividual';
 import { PillarsComparativeContainer } from '../../IndividualResult/styles';
 
@@ -53,7 +53,7 @@ const IndividualResult: React.FC = () => {
   const [showResultModal, setShowResultModal] = useState(false);
   const { resultId } = useParams();
   const [score, setScore] = useState<IAssessmentScoreIndividualResponse>({} as IAssessmentScoreIndividualResponse)
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpen, _] = useState(false);
 
   useAssessmentRedirect();
 
@@ -88,68 +88,68 @@ const IndividualResult: React.FC = () => {
   // };
 
 
-  const handleSendEmail = async () => {
-    try {
-      const storedItem = localStorage.getItem('personalForm');
-      if (!storedItem) {
-        alert('Cadastre um e-mail')
-        return
-      }
-      setDropdownOpen(true)
-      setShowResultModal(true);
-      const personalFormObject = JSON.parse(storedItem);
-      const userEmail = personalFormObject.email;
+  // const handleSendEmail = async () => {
+  //   try {
+  //     const storedItem = localStorage.getItem('personalForm');
+  //     if (!storedItem) {
+  //       alert('Cadastre um e-mail')
+  //       return
+  //     }
+  //     setDropdownOpen(true)
+  //     setShowResultModal(true);
+  //     const personalFormObject = JSON.parse(storedItem);
+  //     const userEmail = personalFormObject.email;
 
-      const response = await axios.post('http://localhost:3002/api/send-email', {
-        to: userEmail,
-        url: 'https://example.com/results',
-      }, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  //     const response = await axios.post('http://localhost:3002/api/send-email', {
+  //       to: userEmail,
+  //       url: 'https://example.com/results',
+  //     }, {
+  //       withCredentials: true,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
 
-      console.log('Email sent successfully:', response.data);
-    } catch (error) {
-      console.error('Error sending email:', error);
-    }
-  };
+  //     console.log('Email sent successfully:', response.data);
+  //   } catch (error) {
+  //     console.error('Error sending email:', error);
+  //   }
+  // };
 
-  const handleSendEmailComparative = async () => {
-    try {
-      const storedItem = localStorage.getItem('personalForm');
-      if (!storedItem) {
-        alert('Nenhum e-mail informado. Cadastre em "reenviar por e-mail"')
-        throw new Error ('Não há dados de email.');
-      }
+  // const handleSendEmailComparative = async () => {
+  //   try {
+  //     const storedItem = localStorage.getItem('personalForm');
+  //     if (!storedItem) {
+  //       alert('Nenhum e-mail informado. Cadastre em "reenviar por e-mail"')
+  //       throw new Error ('Não há dados de email.');
+  //     }
 
-      setDropdownOpen(true)
-      setShowResultModal(true);
+  //     setDropdownOpen(true)
+  //     setShowResultModal(true);
 
-      const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
-      const userEmail = personalFormObject.email;
-      const userSector = personalFormObject.sector;
+  //     const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
+  //     const userEmail = personalFormObject.email;
+  //     const userSector = personalFormObject.sector;
 
-      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
-        to: userEmail,
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
-        additionalContent: {
-          linkText: 'Veja o resultado comparativo aqui',
-          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
-        }
-      }, {
-        withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  //     const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+  //       to: userEmail,
+  //       url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+  //       additionalContent: {
+  //         linkText: 'Veja o resultado comparativo aqui',
+  //         link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+  //       }
+  //     }, {
+  //       withCredentials: true,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
 
-      console.log('Email sent successfully:', response.data);
-    } catch (error) {
-      console.error('Error sending email:', error);
-    }
-  };
+  //     console.log('Email sent successfully:', response.data);
+  //   } catch (error) {
+  //     console.error('Error sending email:', error);
+  //   }
+  // };
 
   return (
     score  &&  Object.keys(score).length > 0 &&

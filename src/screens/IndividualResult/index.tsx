@@ -53,18 +53,18 @@ const IndividualResult: React.FC = () => {
   const personalFormData = localStorage.getItem('personalForm')
   const currentResultId = localStorage.getItem('currentResultId')
 
-  const shareContent = async () => {
-    try {
-      await navigator.share({
-        title: 'Veja meu resultado no assesment Xcore',
-        text: 'Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!',
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
-      });
-    } catch (error) {
-      throw new Error("Erro ao compartilhar conteúdo:" + error);
-      ;
-    }
-  };
+  // const shareContent = async () => {
+  //   try {
+  //     await navigator.share({
+  //       title: 'Veja meu resultado no assesment Xcore',
+  //       text: 'Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!',
+  //       url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
+  //     });
+  //   } catch (error) {
+  //     throw new Error("Erro ao compartilhar conteúdo:" + error);
+  //     ;
+  //   }
+  // };
 
   useEffect(() => {
     const  generalScore = assessmentScoreIndividual.totalScore
