@@ -9,7 +9,7 @@ export const HeaderModal = styled.div`
 `
 
 export const HeaderTitle = styled.p`
-  font-size: 22px;
+  font-size: 24px;
   font-weight:600;
 `
 
@@ -19,7 +19,7 @@ export const ModalContent = styled.div`
 
 export const Intro = styled.p`
   width: 100%;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: 500;
   letter-spacing: .2px;
   margin-bottom: 24px;
@@ -31,5 +31,6 @@ export const ExplanationText = styled.p`
   line-height: 150%;
   letter-spacing: -0.4px;
   font-weight: 400;
+  font-size: 1.0625rem;
 `
 

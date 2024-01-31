@@ -219,9 +219,10 @@ export const MaturityOptionChosen = styled.p`
   margin-bottom: 20px;
   line-height: 130%;
   font-size: 1.125rem;
-  font-weight: 500;
+  font-weight: 400;
 
   span {
     font-style: italic;
+    font-weight: 500;
   }
 `

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useForms } from '../../context/forms';
 
 import {
@@ -33,12 +33,12 @@ import TalkToUs from '../../components/TalkToUs';
 import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import ExplanationOverallResult from '../../components/ExplanationOverallResult/intex';
-// import { WhatsappShareButton } from 'react-share';
+import { WhatsappShareButton } from 'react-share';
 
 const IndividualResult: React.FC = () => {
   const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
   const assessmentScoreIndividualString = localStorage.getItem('assessmentScoreIndividual');
-  const assessmentScoreIndividual: IAssessmentScoreIndividual | null = assessmentScoreIndividualString
+  const assessmentScoreIndividual: IAssessmentScoreIndividual = assessmentScoreIndividualString
     ? JSON.parse(assessmentScoreIndividualString)
     : null;
 
@@ -48,8 +48,10 @@ const IndividualResult: React.FC = () => {
   // const pillarsResultsIndividualRef = useRef<HTMLDivElement>(null);
   const [showResultModal, setShowResultModal] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [realMaturityLevel, setRealMaturityLevel] = useState('');
   const resultId = localStorage.getItem('currentResultId')
   const personalFormData = localStorage.getItem('personalForm')
+  const currentResultId = localStorage.getItem('currentResultId')
 
   const shareContent = async () => {
     try {
@@ -63,6 +65,29 @@ const IndividualResult: React.FC = () => {
       ;
     }
   };
+
+  useEffect(() => {
+    const  generalScore = assessmentScoreIndividual.totalScore
+    switch (true) {
+      case generalScore >= 0 && generalScore <= 19:
+        setRealMaturityLevel('Inicial - Não há foco algum no cliente')
+        break;
+      case generalScore >= 20 && generalScore <= 39:
+        setRealMaturityLevel('Conscientização - Se preocupa, mas não possui estratégia definida')
+        break;
+      case generalScore >= 40 && generalScore <= 59:
+        setRealMaturityLevel('Organizacional - Há engajamento das áreas em CX')
+        break;
+      case generalScore >= 60 && generalScore <= 79:
+        setRealMaturityLevel('Estruturação - Estruturas se fortalecem em CX')
+        break;
+      case generalScore >= 80 && generalScore <= 100:
+        setRealMaturityLevel('Proatividade - Cultura centrada madura com liderança engajada')
+        break;
+      default:
+        setRealMaturityLevel("Indefinido.");
+    }
+  }, [])
 
   const handleSendEmail = async () => {
     try {
@@ -155,12 +180,13 @@ const IndividualResult: React.FC = () => {
 
           {personalFormData && (
             <MaturityOptionChosen>
-              Antes de começar esta pesquisa, você respondeu a uma pergunta no cadastro dizendo qual era o nível de maturidade que você achava que sua empresa estava e sua escolha foi: <span>{JSON.parse(personalFormData).maturityLevel}</span>. Depois de respondido a esta pesquisa comparamos a resposta final com a resposta inicial. O resultado é esse:
+              Antes de começar esta pesquisa, você respondeu a uma pergunta no cadastro dizendo qual era o nível de maturidade que você achava que sua empresa estava e sua escolha foi: <span>{JSON.parse(personalFormData).maturityLevel}</span>.
+              Depois de respondido a esta pesquisa comparamos a resposta final com a resposta inicial. O resultado é esse: <span>{realMaturityLevel}</span>
             </MaturityOptionChosen>
           )}
 
           <ExplanationOverallResult
-          totalScore={assessmentScoreIndividual.totalScore && assessmentScoreIndividual.totalScore}/>
+          totalScore={assessmentScoreIndividual.totalScore}/>
 
           <TotalScoreContainer>
             <ScoreResultCard ref={totalScoreRef}>
@@ -235,11 +261,11 @@ const IndividualResult: React.FC = () => {
               <ResultActionsCardContent>
                 <h2>Compartilhe os seus resultados</h2>
                 <p>Quer compartilhar esse relatório final com outra pessoa? Clique no botão abaixo.</p>
-                {/* <WhatsappShareButton url={'https://google.com'} title={'sdasdsa'}> */}
-                  <ResultActionsButton onClick={shareContent} role="button" tabIndex={0}>
+                <WhatsappShareButton url={`https://xcore-assessment.web.app/assessment/resultado/${currentResultId}`} title={'Confira o resultado do meu assessment de maturidade Xcore: '}>
+                  <ResultActionsButton role="button" tabIndex={0}>
                     Compartilhar
                   </ResultActionsButton>
-                {/* </WhatsappShareButton> */}
+                </WhatsappShareButton>
               </ResultActionsCardContent>
             </ResultActionsCard>
           </IndividualResultActions>

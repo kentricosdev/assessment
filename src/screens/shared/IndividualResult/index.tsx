@@ -34,9 +34,11 @@ import ResultService from '../../../services/ResultsServices';
 import ModalResultSended from '../../../components/ModalResultSended';
 import ModalResendEmail from '../../../components/ModalResendEmail';
 import ModalGetInTouch from '../../../components/ModalGetInTouch';
-import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
+// import { IndividualResultActions, ResultActionsButton, ResultActionsCard, ResultActionsCardContent, ResultActionsImgContainer } from './resultActionsStyles';
 import { IAssessmentScoreIndividualResponse, IPersonalFormData } from '../../../types/globalTypes';
 import axios from 'axios';
+import PillarsResultsIndividual from '../../../components/PillarsResultsIndividual';
+import { PillarsComparativeContainer } from '../../IndividualResult/styles';
 
 const IndividualResult: React.FC = () => {
   const {
@@ -51,7 +53,7 @@ const IndividualResult: React.FC = () => {
   const [showResultModal, setShowResultModal] = useState(false);
   const { resultId } = useParams();
   const [score, setScore] = useState<IAssessmentScoreIndividualResponse>({} as IAssessmentScoreIndividualResponse)
-  const [_, setDropdownOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useAssessmentRedirect();
 
@@ -73,17 +75,17 @@ const IndividualResult: React.FC = () => {
     fetchScoreData();
   }, [resultId]);
 
-  const shareContent = async () => {
-    try {
-      await navigator.share({
-        title: 'Veja esse resultado do assesment Xcore',
-        text: 'Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!',
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
-      });
-    } catch (error) {
-      console.error('Erro ao compartilhar conteúdo:', error);
-    }
-  };
+  // const shareContent = async () => {
+  //   try {
+  //     await navigator.share({
+  //       title: 'Veja esse resultado do assesment Xcore',
+  //       text: 'Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!',
+  //       url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
+  //     });
+  //   } catch (error) {
+  //     console.error('Erro ao compartilhar conteúdo:', error);
+  //   }
+  // };
 
 
   const handleSendEmail = async () => {
@@ -165,6 +167,20 @@ const IndividualResult: React.FC = () => {
           Confira abaixo o resultado consolidado do assessment realizado. Vale lembrar que esse resultado reflete o momento atual, ou seja, você pode realizar esse assessment em um momento futuro e os resultados serão diferentes.
         </ResultThanksDescription>
 
+        {/* TO-DO URGENT */}
+        {/* {personalFormData && (
+            <CompanyName>Empresa: <span>{JSON.parse(personalFormData).company}</span></CompanyName>
+          )}
+
+          {personalFormData && (
+            <MaturityOptionChosen>
+              Antes de começar esta pesquisa, você respondeu a uma pergunta no cadastro dizendo qual era o nível de maturidade que você achava que sua empresa estava e sua escolha foi: <span>{JSON.parse(personalFormData).maturityLevel}</span>. Depois de respondido a esta pesquisa comparamos a resposta final com a resposta inicial. O resultado é esse:
+            </MaturityOptionChosen>
+          )}
+
+          <ExplanationOverallResult
+          totalScore={assessmentScoreIndividual.totalScore && assessmentScoreIndividual.totalScore}/> */}
+
         <TotalScoreContainer>
           <ScoreResultCard ref={totalScoreRef}>
             <TotalResultCardTitle>Xcore Total</TotalResultCardTitle>
@@ -190,7 +206,7 @@ const IndividualResult: React.FC = () => {
             </div>
           </ScoreResultCard>
 
-          <ScoreExplanationCard>
+          {/* <ScoreExplanationCard>
             <TotalResultCardTitle>Xcore Total - Explicação</TotalResultCardTitle>
             <ScoreExplanation>
               O resultado consolidado compartilha uma informação direta e objetiva do nível de maturidade que a empresa está em cada pilar das disciplinas de Customer Experience. Se você desejar saber um pouco mais de detalhes e conclusões sobre o seu resultado, clique no botão abaixo para enviarmos para você. Você receberá essas informações no email que você cadastrou. Se ainda não recebeu, veja em sua caixa de SPAM ou clique no botão “reenviar por e-mail”.
@@ -204,12 +220,13 @@ const IndividualResult: React.FC = () => {
                 Enviar PDF
               </DownloadPdf>
             </ScoreResultActions>
-          </ScoreExplanationCard>
+          </ScoreExplanationCard> */}
         </TotalScoreContainer>
-
-        <TalkToUs />
-
-        <IndividualResultActions>
+        <PillarsComparativeContainer>
+          <PillarsResultsIndividual dropdownOpen={dropdownOpen} />
+          <TalkToUs />
+        </PillarsComparativeContainer>
+        {/* <IndividualResultActions>
           <ResultActionsCard>
             <ResultActionsImgContainer>
               <img src="/images/see-comparative-result.png" alt="Ver resultado comparativo" />
@@ -238,7 +255,7 @@ const IndividualResult: React.FC = () => {
               </ResultActionsButton>
             </ResultActionsCardContent>
           </ResultActionsCard>
-        </IndividualResultActions>
+        </IndividualResultActions> */}
       </Wrapper>
     </Container>)
   );
