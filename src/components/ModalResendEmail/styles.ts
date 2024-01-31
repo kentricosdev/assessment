@@ -6,6 +6,8 @@ export const ModalCard = styled.div`
   padding: 32px;
   width: 100%;
   max-width: 544px;
+  max-height: 95vh;
+  overflow: auto;
 `
 
 export const TitleContainer = styled.div`

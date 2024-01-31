@@ -30,7 +30,7 @@ import ModalResendEmail from '../../components/ModalResendEmail';
 import ModalGetInTouch from '../../components/ModalGetInTouch';
 import axios from 'axios';
 import TalkToUs from '../../components/TalkToUs';
-import { IAssessmentAnswers, IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
+import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globalTypes';
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import ExplanationOverallResult from '../../components/ExplanationOverallResult/intex';
 // import { WhatsappShareButton } from 'react-share';

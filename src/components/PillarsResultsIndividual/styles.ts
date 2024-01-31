@@ -132,3 +132,24 @@ export const ProgressBarContainer = styled.div`
   max-width: 121px;
   max-height: 121px;
 `
+
+export const Action = styled.button`
+  cursor: pointer;
+  color: #404040;
+  font-size: .9rem;
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid #404040;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  &:hover {
+    border-bottom: 1px solid #404040;
+  }
+
+  @media (min-width: 768px) {
+    border-bottom: 1px solid transparent;
+  }
+`

@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const ModalCard = styled.div`
   border-radius: 8px;
   background: #FFF;
-  padding: 32px;
+  padding: 36px 24px;
   width: 100%;
   max-width: 544px;
+  max-height: 95vh;
+  overflow: auto;
 `
 
 export const TitleContainer = styled.div`
