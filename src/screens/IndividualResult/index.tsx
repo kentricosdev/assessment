@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useForms } from '../../context/forms';
+import { useMediaQuery } from 'react-responsive';
 
 import {
   Title as ResultThanksTitle,
@@ -34,8 +35,10 @@ import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globa
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import ExplanationOverallResult from '../../components/ExplanationOverallResult/intex';
 import { WhatsappShareButton } from 'react-share';
+import jsPDF from 'jspdf';
 
 const IndividualResult: React.FC = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
   const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
   const assessmentScoreIndividualString = localStorage.getItem('assessmentScoreIndividual');
   const assessmentScoreIndividual: IAssessmentScoreIndividual = assessmentScoreIndividualString
@@ -53,18 +56,18 @@ const IndividualResult: React.FC = () => {
   const personalFormData = localStorage.getItem('personalForm')
   const currentResultId = localStorage.getItem('currentResultId')
 
-  // const shareContent = async () => {
-  //   try {
-  //     await navigator.share({
-  //       title: 'Veja meu resultado no assesment Xcore',
-  //       text: 'Descubra o nível de maturidade de centralidade no cliente da sua empresa em poucos cliques!',
-  //       url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
-  //     });
-  //   } catch (error) {
-  //     throw new Error("Erro ao compartilhar conteúdo:" + error);
-  //     ;
-  //   }
-  // };
+  const shareContent = async () => {
+    try {
+      await navigator.share({
+        title: 'Assessment Xcore - Kentricos',
+        text: 'Confira os resultados da avaliação de maturidade da minha empresa no assessment Xcore: ',
+        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
+      });
+    } catch (error) {
+      throw new Error("Erro ao compartilhar conteúdo:" + error);
+      ;
+    }
+  };
 
   useEffect(() => {
     const  generalScore = assessmentScoreIndividual.totalScore
@@ -93,7 +96,7 @@ const IndividualResult: React.FC = () => {
     try {
       const storedItem = localStorage.getItem('personalForm');
       if (!storedItem) {
-        alert('Nenhum e-mail informado. Cadastre em "reenviar por e-mail"')
+        alert('Nenhum e-mail informado. Cadastre em "reenviar por e-mail".')
         throw new Error ('Não há dados de email.');
       }
 
@@ -103,13 +106,21 @@ const IndividualResult: React.FC = () => {
       const personalFormObject = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
 
+      // Start example -----------------
+      // Create a PDF document
+      const pdfDoc = new jsPDF();
+      pdfDoc.text('Olá! 👋', 10, 10);
+      pdfDoc.text('Confira abaixo o resultado consolidado do assessment que você acabou de realizar.', 10, 20);
+      // Add more content as needed
+
+      // Convert the PDF to a data URL
+      const pdfDataUrl = pdfDoc.output('dataurlstring');
+      // End example -----------------
+
       const response = await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`,
-        additionalContent: {
-          linkText: 'Veja o resultado aqui',
-          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`,
-        }
+        attachPdf: true,
+        pdfDataUrl: pdfDataUrl,
       }, {
         withCredentials: true,
         headers: {
@@ -140,6 +151,7 @@ const IndividualResult: React.FC = () => {
 
       const response = await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
+        attachPdf: false,
         url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
         additionalContent: {
           linkText: 'Veja o resultado comparativo aqui',
@@ -181,7 +193,7 @@ const IndividualResult: React.FC = () => {
           {personalFormData && (
             <MaturityOptionChosen>
               Antes de começar esta pesquisa, você respondeu a uma pergunta no cadastro dizendo qual era o nível de maturidade que você achava que sua empresa estava e sua escolha foi: <span>{JSON.parse(personalFormData).maturityLevel}</span>.
-              Depois de respondido a esta pesquisa comparamos a resposta final com a resposta inicial. O resultado é esse: <span>{realMaturityLevel}</span>
+              Depois de respondido a esta pesquisa comparamos a resposta final com a resposta inicial. O resultado é esse: <span>{realMaturityLevel}.</span>
             </MaturityOptionChosen>
           )}
 
@@ -261,11 +273,22 @@ const IndividualResult: React.FC = () => {
               <ResultActionsCardContent>
                 <h2>Compartilhe os seus resultados</h2>
                 <p>Quer compartilhar esse relatório final com outra pessoa? Clique no botão abaixo.</p>
-                <WhatsappShareButton url={`https://xcore-assessment.web.app/assessment/resultado/${currentResultId}`} title={'Confira o resultado do meu assessment de maturidade Xcore: '}>
-                  <ResultActionsButton role="button" tabIndex={0}>
-                    Compartilhar
-                  </ResultActionsButton>
-                </WhatsappShareButton>
+                {
+                  isMobile ? (
+                    <ResultActionsButton onClick={shareContent} role="button" tabIndex={0}>
+                      Compartilhar
+                    </ResultActionsButton>
+                  ) : (
+                    <WhatsappShareButton
+                      url={`https://xcore-assessment.web.app/assessment/resultado/${currentResultId}`}
+                      title={'Confira o resultado do meu assessment de maturidade Xcore: '}
+                    >
+                      <ResultActionsButton role="button" tabIndex={0}>
+                        Compartilhar
+                      </ResultActionsButton>
+                    </WhatsappShareButton>
+                  )
+                }
               </ResultActionsCardContent>
             </ResultActionsCard>
           </IndividualResultActions>
