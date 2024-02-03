@@ -117,13 +117,15 @@ const ComparativeResult: React.FC = () => {
       const personalFormObject = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
 
+      if (!param) return;
+
       const response = await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
         attachPdf: false,
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${param}`,
+        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(param)}`,
         additionalContent: {
           linkText: 'Veja o resultado aqui',
-          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${param}`,
+          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(param)}`,
         }
       }, {
         withCredentials: true,
@@ -134,7 +136,7 @@ const ComparativeResult: React.FC = () => {
 
       console.log('Email sent successfully:', response.data);
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error posting email:', error);
     }
   };
   return (

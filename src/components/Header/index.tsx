@@ -73,8 +73,6 @@ const Header: React.FC = () => {
   }
   , [location.pathname])
 
-  console.log("notAssessment", location.pathname)
-
   const handleOpenMenuMobile = () => {
     setMenuOpen(!menuOpen);
   }

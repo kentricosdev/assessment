@@ -112,7 +112,7 @@ const IndividualResult: React.FC = () => {
 
   //     console.log('Email sent successfully:', response.data);
   //   } catch (error) {
-  //     console.error('Error sending email:', error);
+  //     console.error('Error posting email:', error);
   //   }
   // };
 
@@ -133,10 +133,10 @@ const IndividualResult: React.FC = () => {
 
   //     const response = await axios.post('https://email-service-peach.vercel.app/api/', {
   //       to: userEmail,
-  //       url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+  //       url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(userSector)}`,
   //       additionalContent: {
   //         linkText: 'Veja o resultado comparativo aqui',
-  //         link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+  //         link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(userSector)}`,
   //       }
   //     }, {
   //       withCredentials: true,
@@ -147,7 +147,7 @@ const IndividualResult: React.FC = () => {
 
   //     console.log('Email sent successfully:', response.data);
   //   } catch (error) {
-  //     console.error('Error sending email:', error);
+  //     console.error('Error posting email:', error);
   //   }
   // };
 

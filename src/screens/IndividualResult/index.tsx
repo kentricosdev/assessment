@@ -35,11 +35,12 @@ import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globa
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import ExplanationOverallResult from '../../components/ExplanationOverallResult/intex';
 import { WhatsappShareButton } from 'react-share';
-import jsPDF from 'jspdf';
+import TemplatePdf from '../shared/TemplatePdf';
+import { Document, Page } from '@react-pdf/renderer';
 
 const IndividualResult: React.FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
-  const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen } = useForms();
+  const { setIsEmailModalOpen, isEmailModalOpen, isContactModalOpen, setIsContactModalOpen, pillarsData } = useForms();
   const assessmentScoreIndividualString = localStorage.getItem('assessmentScoreIndividual');
   const assessmentScoreIndividual: IAssessmentScoreIndividual = assessmentScoreIndividualString
     ? JSON.parse(assessmentScoreIndividualString)
@@ -95,32 +96,27 @@ const IndividualResult: React.FC = () => {
   const handleSendEmail = async () => {
     try {
       const storedItem = localStorage.getItem('personalForm');
+
       if (!storedItem) {
         alert('Nenhum e-mail informado. Cadastre em "reenviar por e-mail".')
         throw new Error ('Não há dados de email.');
       }
 
-      setDropdownOpen(true)
-      setShowResultModal(true);
-
-      const personalFormObject = JSON.parse(storedItem);
+      const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
 
-      // Start example -----------------
-      // Create a PDF document
-      const pdfDoc = new jsPDF();
-      pdfDoc.text('Olá! 👋', 10, 10);
-      pdfDoc.text('Confira abaixo o resultado consolidado do assessment que você acabou de realizar.', 10, 20);
-      // Add more content as needed
+      const pdfDataUrl = await TemplatePdf(
+        assessmentScoreIndividual,
+        realMaturityLevel,
+        personalFormData,
+        pillarsData
+      );
 
-      // Convert the PDF to a data URL
-      const pdfDataUrl = pdfDoc.output('dataurlstring');
-      // End example -----------------
-
-      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+      const response = await axios.post('http://localhost:3001/api/', {
         to: userEmail,
         attachPdf: true,
-        pdfDataUrl: pdfDataUrl,
+        url: '',
+        pdfDataUrl
       }, {
         withCredentials: true,
         headers: {
@@ -128,9 +124,15 @@ const IndividualResult: React.FC = () => {
         },
       });
 
+      setDropdownOpen(true)
+      setShowResultModal(true);
       console.log('Email sent successfully:', response.data);
-    } catch (error) {
-      console.error('Error sending email:', error);
+    } catch (error: any) {
+      console.error('Error posting email:', error);
+
+      if (error && error.response) {
+        console.error('Error details:', error.response)
+      }
     }
   };
 
@@ -144,18 +146,20 @@ const IndividualResult: React.FC = () => {
 
       setDropdownOpen(true)
       setShowResultModal(true);
-
+      //URL REAL AQUI
+      // https://email-service-peach.vercel.app/api/
       const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
       const userSector = personalFormObject.sector;
 
-      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+      const response = await axios.post('http://localhost:3001/api/', {
         to: userEmail,
         attachPdf: false,
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+        pdfDataUrl: null,
+        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(userSector)}`,
         additionalContent: {
           linkText: 'Veja o resultado comparativo aqui',
-          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${userSector}`,
+          link: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(userSector)}`,
         }
       }, {
         withCredentials: true,
@@ -166,7 +170,7 @@ const IndividualResult: React.FC = () => {
 
       console.log('Email sent successfully:', response.data);
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error posting email:', error);
     }
   };
 

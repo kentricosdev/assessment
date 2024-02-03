@@ -75,7 +75,6 @@ const PillarsResultsIndividual: React.ForwardRefRenderFunction<HTMLDivElement, P
   }
 
   const handleCloseModal = () => {
-    console.log("abre modal")
     setIsModalPillarOpen(false);
   }
 
