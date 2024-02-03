@@ -102,6 +102,9 @@ const IndividualResult: React.FC = () => {
       }
 
       const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
+      setDropdownOpen(true)
+      setShowResultModal(true);
+
       const userEmail = personalFormObject.email;
       const pdfDataUrl = await generateAndSavePdf(
         assessmentScoreIndividual,
@@ -110,13 +113,13 @@ const IndividualResult: React.FC = () => {
         pillarsData
       );
 
-      console.log("pdfDataUrl", pdfDataUrl)
-
       const response = await axios.post('http://localhost:3001/api/', {
         to: userEmail,
-        attachPdf: true,
-        url: '',
-        pdfDataUrl
+        url: pdfDataUrl,
+        additionalContent: {
+          linkText: 'Veja o resultado aqui',
+          link: pdfDataUrl,
+        },
       }, {
         withCredentials: true,
         headers: {
@@ -124,8 +127,6 @@ const IndividualResult: React.FC = () => {
         },
       });
 
-      setDropdownOpen(true)
-      setShowResultModal(true);
       console.log('Email sent successfully:', response.data);
     } catch (error: any) {
       console.error('Error posting email:', error);
@@ -154,8 +155,6 @@ const IndividualResult: React.FC = () => {
 
       const response = await axios.post('http://localhost:3001/api/', {
         to: userEmail,
-        attachPdf: false,
-        pdfDataUrl: null,
         url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(userSector)}`,
         additionalContent: {
           linkText: 'Veja o resultado comparativo aqui',

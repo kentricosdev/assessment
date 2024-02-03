@@ -121,7 +121,6 @@ const ComparativeResult: React.FC = () => {
 
       const response = await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
-        attachPdf: false,
         url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(param)}`,
         additionalContent: {
           linkText: 'Veja o resultado aqui',
