@@ -55,13 +55,26 @@ const IndividualResult: React.FC = () => {
   const resultId = localStorage.getItem('currentResultId')
   const personalFormData = localStorage.getItem('personalForm')
   const currentResultId = localStorage.getItem('currentResultId')
+  const [pdfStorageUrl, setPdfStorageUrl] = useState<string | null>(null);
+
 
   const shareContent = async () => {
     try {
+      const pdfDataUrl = pdfStorageUrl ? pdfStorageUrl : await generateAndSavePdf(
+        assessmentScoreIndividual,
+        realMaturityLevel,
+        personalFormData,
+        pillarsData
+      );
+
+      if(!pdfDataUrl) {
+        setPdfStorageUrl(pdfDataUrl);
+      }
+
       await navigator.share({
         title: 'Assessment Xcore - Kentricos',
         text: 'Confira os resultados da avaliação de maturidade da minha empresa no assessment Xcore: ',
-        url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}`
+        url: `${pdfDataUrl}`
       });
     } catch (error) {
       throw new Error("Erro ao compartilhar conteúdo:" + error);
@@ -106,12 +119,16 @@ const IndividualResult: React.FC = () => {
       setShowResultModal(true);
 
       const userEmail = personalFormObject.email;
-      const pdfDataUrl = await generateAndSavePdf(
+      const pdfDataUrl = pdfStorageUrl ? pdfStorageUrl : await generateAndSavePdf(
         assessmentScoreIndividual,
         realMaturityLevel,
         personalFormData,
         pillarsData
       );
+
+      if(!pdfDataUrl) {
+        setPdfStorageUrl(pdfDataUrl);
+      }
 
       const response = await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,

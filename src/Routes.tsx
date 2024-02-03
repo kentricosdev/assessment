@@ -9,7 +9,6 @@ import {
   IndividualResultScreen
 } from './screens';
 import { useForms } from './context/forms';
-import IndividualResult from './screens/shared/IndividualResult';
 import ComparativeResult from './screens/shared/ComparativeResult';
 
 const AppRoutes = () => {
@@ -55,10 +54,6 @@ const AppRoutes = () => {
             <Route
               path="/assessment/resultado"
               element={<IndividualResultScreen />}
-            />
-            <Route
-              path="/assessment/resultado/:resultId"
-              element={<IndividualResult />}
             />
 
             <Route
