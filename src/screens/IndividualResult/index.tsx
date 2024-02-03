@@ -113,7 +113,7 @@ const IndividualResult: React.FC = () => {
         pillarsData
       );
 
-      const response = await axios.post('http://localhost:3001/api/', {
+      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
         url: pdfDataUrl,
         additionalContent: {
@@ -147,13 +147,12 @@ const IndividualResult: React.FC = () => {
 
       setDropdownOpen(true)
       setShowResultModal(true);
-      //URL REAL AQUI
-      // https://email-service-peach.vercel.app/api/
+
       const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
       const userSector = personalFormObject.sector;
 
-      const response = await axios.post('http://localhost:3001/api/', {
+      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
         url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(userSector)}`,
         additionalContent: {

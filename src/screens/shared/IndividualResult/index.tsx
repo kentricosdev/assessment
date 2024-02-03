@@ -100,7 +100,7 @@ const IndividualResult: React.FC = () => {
   //     const personalFormObject = JSON.parse(storedItem);
   //     const userEmail = personalFormObject.email;
 
-  //     const response = await axios.post('http://localhost:3002/api/send-email', {
+  //     const response = await axios.post('https://email-service-peach.vercel.app/api/', {
   //       to: userEmail,
   //       url: 'https://example.com/results',
   //     }, {
