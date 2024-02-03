@@ -35,8 +35,7 @@ import { IAssessmentScoreIndividual, IPersonalFormData } from '../../types/globa
 import PillarsResultsIndividual from '../../components/PillarsResultsIndividual';
 import ExplanationOverallResult from '../../components/ExplanationOverallResult/intex';
 import { WhatsappShareButton } from 'react-share';
-import TemplatePdf from '../shared/TemplatePdf';
-import { Document, Page } from '@react-pdf/renderer';
+import { generateAndSavePdf } from '../../services/GenerateSavePdfService';
 
 const IndividualResult: React.FC = () => {
   const isMobile = useMediaQuery({ maxWidth: 767 });
@@ -104,13 +103,14 @@ const IndividualResult: React.FC = () => {
 
       const personalFormObject: IPersonalFormData = JSON.parse(storedItem);
       const userEmail = personalFormObject.email;
-
-      const pdfDataUrl = await TemplatePdf(
+      const pdfDataUrl = await generateAndSavePdf(
         assessmentScoreIndividual,
         realMaturityLevel,
         personalFormData,
         pillarsData
       );
+
+      console.log("pdfDataUrl", pdfDataUrl)
 
       const response = await axios.post('http://localhost:3001/api/', {
         to: userEmail,
