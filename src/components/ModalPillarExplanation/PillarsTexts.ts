@@ -107,7 +107,7 @@ export const pillarsExplanations = {
 
         Existe uma ligação objetiva, clara e amplamente conhecida pela empresa entre a percepção do cliente em cada etapa de suas jornadas com a marca, e as características, skills e comportamentos requeridos por cada uma das áreas, específicos para cada etapa de cada jornada. Isso influencia as arquiteturas de reconhecimento e fomento internos, a atração e contratação de talentos e toda a evolução profissional dos colaboradores.
 
-        O funcionamento da empresa é mais livre, ou seja a cultura altamente forte e desenvolvida permite uma grande redução nos controles e regras internas, aumentnado enormemente o empoderamento de cada colaborador, de fato maximizando a agilidade e impacto de todos no tratamento dos clientes.`,
+        O funcionamento da empresa é mais livre, ou seja a cultura altamente forte e desenvolvida permite uma grande redução nos controles e regras internas, aumentando enormemente o empoderamento de cada colaborador, de fato maximizando a agilidade e impacto de todos no tratamento dos clientes.`,
       ]
     },
     {

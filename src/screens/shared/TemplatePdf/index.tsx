@@ -1,6 +1,5 @@
 import { Page, Text, View, Document,  StyleSheet } from '@react-pdf/renderer';
-import { IAssessmentScoreIndividual, PillarData } from '../../../types/globalTypes';
-import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import { IAssessmentScoreIndividual } from '../../../types/globalTypes';
 import { explanationData } from '../../../components/ExplanationOverallResult/explanationData';
 import { pillarsExplanations } from '../../../components/ModalPillarExplanation/PillarsTexts';
 
