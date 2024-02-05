@@ -54,7 +54,7 @@ const IndividualResult: React.FC = () => {
   const [realMaturityLevel, setRealMaturityLevel] = useState('');
   const resultId = localStorage.getItem('currentResultId')
   const personalFormData = localStorage.getItem('personalForm')
-  const currentResultId = localStorage.getItem('currentResultId')
+  // const currentResultId = localStorage.getItem('currentResultId')
   const [pdfStorageUrl, setPdfStorageUrl] = useState<string | null>(null);
 
 
@@ -67,7 +67,7 @@ const IndividualResult: React.FC = () => {
         pillarsData
       );
 
-      if(!pdfDataUrl) {
+      if(!pdfStorageUrl) {
         setPdfStorageUrl(pdfDataUrl);
       }
 
@@ -103,6 +103,20 @@ const IndividualResult: React.FC = () => {
       default:
         setRealMaturityLevel("Indefinido.");
     }
+
+    const savePdf = async () => {
+      const pdfDataUrl = await generateAndSavePdf(
+        assessmentScoreIndividual,
+        realMaturityLevel,
+        personalFormData,
+        pillarsData
+      );
+      setPdfStorageUrl(pdfDataUrl);
+    }
+
+    setTimeout(() => {
+      savePdf()
+    }, 1000);
   }, [])
 
   const handleSendEmail = async () => {
@@ -126,7 +140,7 @@ const IndividualResult: React.FC = () => {
         pillarsData
       );
 
-      if(!pdfDataUrl) {
+      if(!pdfStorageUrl) {
         setPdfStorageUrl(pdfDataUrl);
       }
 
@@ -268,7 +282,7 @@ const IndividualResult: React.FC = () => {
 
 
           <IndividualResultActions>
-            <ResultActionsCard>
+            <ResultActionsCard  className='hidden'>
               <ResultActionsImgContainer>
                 <img src="/images/see-comparative-result.png" alt="Ver resultado comparativo" />
               </ResultActionsImgContainer>
@@ -299,8 +313,8 @@ const IndividualResult: React.FC = () => {
                     </ResultActionsButton>
                   ) : (
                     <WhatsappShareButton
-                      url={`https://xcore-assessment.web.app/assessment/resultado/${currentResultId}`}
-                      title={'Confira o resultado do meu assessment de maturidade Xcore: '}
+                      url={`${pdfStorageUrl}`}
+                      title={'**Confira os resultados da avaliação de maturidade da minha empresa no assessment Xcore:** '}
                     >
                       <ResultActionsButton role="button" tabIndex={0}>
                         Compartilhar
