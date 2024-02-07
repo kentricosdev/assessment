@@ -139,12 +139,10 @@ const IndividualResult: React.FC = () => {
         personalFormData,
         pillarsData
       );
-
       if(!pdfStorageUrl) {
         setPdfStorageUrl(pdfDataUrl);
       }
-
-      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+      await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
         url: pdfDataUrl,
         additionalContent: {
@@ -158,7 +156,7 @@ const IndividualResult: React.FC = () => {
         },
       });
 
-      console.log('Email sent successfully:', response.data);
+      // console.log('Email sent successfully:', response.data);
     } catch (error: any) {
       console.error('Error posting email:', error);
 
@@ -183,7 +181,7 @@ const IndividualResult: React.FC = () => {
       const userEmail = personalFormObject.email;
       const userSector = personalFormObject.sector;
 
-      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+      await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
         url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(userSector)}`,
         additionalContent: {
@@ -197,7 +195,7 @@ const IndividualResult: React.FC = () => {
         },
       });
 
-      console.log('Email sent successfully:', response.data);
+      // console.log('Email sent successfully:', response.data);
     } catch (error) {
       console.error('Error posting email:', error);
     }

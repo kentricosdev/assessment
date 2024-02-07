@@ -119,7 +119,7 @@ const ComparativeResult: React.FC = () => {
 
       if (!param) return;
 
-      const response = await axios.post('https://email-service-peach.vercel.app/api/', {
+      await axios.post('https://email-service-peach.vercel.app/api/', {
         to: userEmail,
         url: `https://xcore-assessment.web.app/assessment/resultado/${resultId}/${encodeURIComponent(param)}`,
         additionalContent: {
@@ -133,7 +133,7 @@ const ComparativeResult: React.FC = () => {
         },
       });
 
-      console.log('Email sent successfully:', response.data);
+      // console.log('Email sent successfully:', response.data);
     } catch (error) {
       console.error('Error posting email:', error);
     }
