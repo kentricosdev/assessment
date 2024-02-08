@@ -114,7 +114,7 @@ export const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
 
-  p, a {
+  p, a, .bottom-link {
     color: ${({ theme }) => theme.colors.neutral60};
     font-size: 1rem;
     font-weight: 500;
@@ -150,6 +150,10 @@ export const BottomMenu = styled.nav`
     flex-direction: column;
     align-items: center;
     gap: 12px;
+  }
+
+  .bottom-link {
+    cursor: pointer;
   }
 `;
 

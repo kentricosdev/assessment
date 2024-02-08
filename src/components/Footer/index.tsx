@@ -83,8 +83,8 @@ const Footer: React.FC = () => {
           <p>Todos os direitos reservados.</p>
 
           <BottomMenu>
-            <a href="#">Termos e Condições</a>
-            <a href="#">Política de Privacidade</a>
+            <a className="bottom-link" href="#">Termos e Condições</a>
+            <a className="bottom-link" target="_blank" href="/politicas-de-privacidade">Política de Privacidade</a>
           </BottomMenu>
         </Bottom>
       </Wrapper>

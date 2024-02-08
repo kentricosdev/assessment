@@ -10,6 +10,7 @@ import {
 } from './screens';
 import { useForms } from './context/forms';
 import ComparativeResult from './screens/shared/ComparativeResult';
+import Privacy from './screens/Privacy';
 
 const AppRoutes = () => {
   const { pillarsData } = useForms();
@@ -59,6 +60,11 @@ const AppRoutes = () => {
             <Route
               path="/assessment/resultado/:resultId/:param"
               element={<ComparativeResult />}
+            />
+
+            <Route
+              path="/politicas-de-privacidade"
+              element={<Privacy />}
             />
           </Routes>
         </a.div>
