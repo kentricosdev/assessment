@@ -298,7 +298,7 @@ const PersonalForm: React.FC = () => {
                                 )}
                               </Field>
                               <div className="check-description">
-                                <label htmlFor="privacyPolicy">Politicas de privacidade: *</label>
+                                <label htmlFor="privacyPolicy">Politica de privacidade: *</label>
                                 <p>Eu li e aceito os termos de privacidade.</p>
                               </div>
                             </div>
@@ -455,7 +455,7 @@ const PersonalForm: React.FC = () => {
                                 )}
                               </Field>
                               <div className="check-description">
-                                <label htmlFor="privacyPolicy">Politicas de privacidade: *</label>
+                                <label htmlFor="privacyPolicy">Politica de privacidade: *</label>
                                 <p>Eu li e aceito os termos de privacidade.</p>
                               </div>
                             </div>

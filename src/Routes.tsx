@@ -63,7 +63,7 @@ const AppRoutes = () => {
             />
 
             <Route
-              path="/politicas-de-privacidade"
+              path="/politica-de-privacidade"
               element={<Privacy />}
             />
           </Routes>
